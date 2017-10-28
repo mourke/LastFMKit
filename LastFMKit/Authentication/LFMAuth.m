@@ -72,6 +72,10 @@
     return _session;
 }
 
+- (BOOL)userHasAuthenticated {
+    return _session != nil;
+}
+
 - (NSURLSessionDataTask *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password
                                         callback:(LFMAuthCallback)block {

@@ -105,6 +105,9 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  */
 @property(strong, nonatomic) NSString *apiSecret;
 
+/** A boolean value indicating whether the user has authenticated or not. */
+@property(nonatomic, readonly) BOOL userHasAuthenticated;
+
 /** The `LFMSession` object obtained by a successful call to `getSessionWithUsername:password:callback`. This object will automatically be set every app launch once one successful call has been made to the aformentioned method. */
 @property(strong, nonatomic, readonly, nullable) LFMSession *session;
 
