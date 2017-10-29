@@ -367,7 +367,8 @@
 				4D6A23C11F9411E000F377E2 /* LFMError.h */,
 				4D6A23C21F9411E000F377E2 /* LFMError.m */,
 			);
-			path = Private;
+			name = Private;
+			path = LastFMKit/Private;
 			sourceTree = "<group>";
 		};
 		4D9DCF471F923D66005D8EED /* Methods */ = {
@@ -390,7 +391,8 @@
 				4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */,
 				4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */,
 			);
-			path = Methods;
+			name = Methods;
+			path = LastFMKit/Methods;
 			sourceTree = "<group>";
 		};
 		4D9DCF501F923EB4005D8EED /* Authentication */ = {
@@ -401,7 +403,8 @@
 				4D9DCF561F923ED9005D8EED /* LFMAuth.h */,
 				4D9DCF571F923ED9005D8EED /* LFMAuth.m */,
 			);
-			path = Authentication;
+			name = Authentication;
+			path = LastFMKit/Authentication;
 			sourceTree = "<group>";
 		};
 		4D9FFB201F8E7E780062279A = {
@@ -430,12 +433,11 @@
 		4D9FFB2C1F8E7E780062279A /* LastFMKit */ = {
 			isa = PBXGroup;
 			children = (
-				4D9FFB2D1F8E7E780062279A /* LastFMKit.h */,
+				4DB3BD1F1FA608550008FF1B /* Supporting Files */,
 				4D6A23C51F94135000F377E2 /* Private */,
 				4D9DCF501F923EB4005D8EED /* Authentication */,
 				4D9DCF471F923D66005D8EED /* Methods */,
 				4D9FFB581F8E93830062279A /* Models */,
-				4D9FFB2E1F8E7E780062279A /* Info.plist */,
 			);
 			name = LastFMKit;
 			sourceTree = "<group>";
@@ -477,7 +479,18 @@
 				4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */,
 				4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */,
 			);
-			path = Models;
+			name = Models;
+			path = LastFMKit/Models;
+			sourceTree = "<group>";
+		};
+		4DB3BD1F1FA608550008FF1B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D9FFB2D1F8E7E780062279A /* LastFMKit.h */,
+				4D9FFB2E1F8E7E780062279A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = "LastFMKit/Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1039,7 +1052,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1063,7 +1076,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1086,7 +1099,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1109,7 +1122,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1162,7 +1175,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1186,7 +1199,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -1354,7 +1367,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1378,7 +1391,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKit/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
