@@ -76,8 +76,8 @@ NS_SWIFT_NAME(TagProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
-                                          itemsPerPage:(unsigned int)limit
-                                                onPage:(unsigned int)page
+                                          itemsPerPage:(NSUInteger)limit
+                                                onPage:(NSUInteger)page
                                               callback:(void(^)(NSError * _Nullable, NSArray<LFMAlbum *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopAlbumsTagged(by:limit:on:callback:));
 
 /**
@@ -91,8 +91,8 @@ NS_SWIFT_NAME(TagProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
-                                           itemsPerPage:(unsigned int)limit
-                                                 onPage:(unsigned int)page
+                                           itemsPerPage:(NSUInteger)limit
+                                                 onPage:(NSUInteger)page
                                                callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtistsTagged(by:limit:on:callback:));
 
 /**
@@ -106,8 +106,8 @@ NS_SWIFT_NAME(TagProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTracksTaggedByTagNamed:(NSString *)tagName
-                                          itemsPerPage:(unsigned int)limit
-                                                onPage:(unsigned int)page
+                                          itemsPerPage:(NSUInteger)limit
+                                                onPage:(NSUInteger)page
                                               callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracksTagged(by:limit:on:callback:));
 
 

@@ -25,7 +25,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class LFMTrack, LFMSearchQuery, LFMScrobbleTrack;
+@class LFMTrack, LFMSearchQuery, LFMScrobbleTrack, LFMTag, LFMTopTag;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -136,8 +136,8 @@ NS_SWIFT_NAME(TrackProvider)
  */
 + (NSURLSessionDataTask *)searchForTrackNamed:(NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
-                                 itemsPerPage:(unsigned int)limit
-                                       onPage:(unsigned int)page
+                                 itemsPerPage:(NSUInteger)limit
+                                       onPage:(NSUInteger)page
                                      callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:by:limit:on:callback:));
 
 /**
@@ -156,7 +156,7 @@ NS_SWIFT_NAME(TrackProvider)
                                          byArtistNamed:(nullable NSString *)artistName
                                      withMusicBrainzId:(nullable NSString *)mbid
                                            autoCorrect:(BOOL)autoCorrect
-                                                 limit:(unsigned int)limit
+                                                 limit:(NSUInteger)limit
                                               callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> *))block NS_SWIFT_NAME(getTracksSimilar(to:by:mbid:autoCorrect:limit:callback:));
 
 /**
@@ -171,6 +171,78 @@ NS_SWIFT_NAME(TrackProvider)
 + (NSURLSessionDataTask *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
                                      withMisspelledArtistNamed:(NSString *)artistName
                                                       callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block NS_SWIFT_NAME(getCorrection(for:by:callback:));
+
+/**
+ Tags a track using a list of user supplied tags.
+ 
+ @note  🔒: Authentication Required.
+ 
+ @param tags        An array of user supplied tags to apply to this track. Accepts a maximum of 10 tags. An exception will be raised if more than 10 tags are passed in.
+ @param trackName   The name of the track.
+ @param artistName  The name of the track's artist.
+ @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
+ 
+ @returns   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
+                     toTrackNamed:(NSString *)trackName
+                    byArtistNamed:(NSString *)artistName
+                         callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(add(tags:to:by:callback:));
+
+/**
+ Removes a user's tag from a track.
+ 
+ @note  🔒: Authentication Required.
+ 
+ @param tag         A single user tag to remove from this track.
+ @param trackName   The name of the track.
+ @param artistName  The name of the track's artist.
+ @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
+ 
+ @returns   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
+                     fromTrackNamed:(NSString *)trackName
+                      byArtistNamed:(NSString *)artistName
+                           callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:by:callback:));
+
+/**
+ Retrieves the tags applied by an individual user to a track on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
+ 
+ @note  🔒: Authentication Optional.
+ 
+ @param trackName   The name of the track. Required, unless mbid is specified.
+ @param artistName  The name of the track's artist. Required, unless mbid is specified.
+ @param mbid        The MusicBrainzID for the track. Required, unless both trackName and artistName are specified.
+ @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+ @param userName    The name of any Last.fm user from which to obtain track tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
+ 
+ @returns   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)getTagsForTrackNamed:(nullable NSString *)trackName
+                                 byArtistNamed:(nullable NSString *)artistName
+                             withMusicBrainzId:(nullable NSString *)mbid
+                                   autoCorrect:(BOOL)autoCorrect
+                                       forUser:(nullable NSString *)userName
+                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forTrack:by:mbid:autoCorrect:forUser:callback:));
+
+/**
+ Retrieves the top tags for a track on Last.fm, ordered by popularity.
+ 
+ @param trackName   The name of the track. Required, unless mbid is specified.
+ @param artistName  The name of the track's artist. Required, unless mbid is specified.
+ @param mbid        The MusicBrainzID for the track. Required, unless both trackName and artistName are specified.
+ @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
+ 
+ @returns   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)getTopTagsForTrackNamed:(nullable NSString *)trackName
+                                    byArtistNamed:(nullable NSString *)artistName
+                                withMusicBrainzId:(nullable NSString *)mbid
+                                      autoCorrect:(BOOL)autoCorrect
+                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:by:mbid:autoCorrect:callback:));
 
 @end
 

@@ -34,13 +34,13 @@ NS_SWIFT_NAME(Query)
 @interface LFMQuery : NSObject
 
 /** The current page of results. This variable is not 0 based - i.e. the first page is 1, second is 2 etc. This value can range from 1-10,000. */
-@property(nonatomic, readonly) unsigned int currentPage;
+@property(nonatomic, readonly) NSUInteger currentPage;
 
 /** The total number of results. */
-@property(nonatomic, readonly) unsigned long long totalResults;
+@property(nonatomic, readonly) NSUInteger totalResults;
 
 /** The number of results per page. This value can range from 1-10,000. */
-@property(nonatomic, readonly) unsigned int itemsPerPage;
+@property(nonatomic, readonly) NSUInteger itemsPerPage;
 
 - (instancetype) __unavailable init;
 + (instancetype) __unavailable new;

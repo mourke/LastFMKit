@@ -33,8 +33,8 @@
 @implementation LFMLibraryProvider
 
 + (NSURLSessionDataTask *)getArtistsForUserNamed:(NSString *)userName
-                                    itemsPerPage:(unsigned int)limit
-                                          onPage:(unsigned int)page
+                                    itemsPerPage:(NSUInteger)limit
+                                          onPage:(NSUInteger)page
                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -42,8 +42,8 @@
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"library.getArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"user" value:userName],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;

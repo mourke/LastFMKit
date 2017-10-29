@@ -36,8 +36,8 @@
     NSDictionary<LFMImageSize, NSURL *> *_images;
     BOOL _streamable;
     NSString *_mbid;
-    unsigned int _listeners;
-    unsigned int _playCount;
+    NSUInteger _listeners;
+    NSUInteger _playCount;
     NSArray <LFMTrack *> *_tracks;
     NSArray <LFMTag *> *_tags;
     LFMWiki *_wiki;
@@ -63,8 +63,8 @@
             NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
             
             // Advanced variables that are only aquired on a `getInfo` call to Album.
-            unsigned int listeners = [[dictionary objectForKey:@"listeners"] unsignedIntValue];
-            unsigned int playCount = [[dictionary objectForKey:@"playcount"] unsignedIntValue];
+            NSUInteger listeners = [[dictionary objectForKey:@"listeners"] unsignedIntegerValue];
+            NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
             NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
             
             for (NSDictionary *trackDictionary in [[dictionary objectForKey:@"tracks"] objectForKey:@"track"]) {
@@ -124,11 +124,11 @@
     return _mbid;
 }
 
-- (unsigned int)listeners {
+- (NSUInteger)listeners {
     return _listeners;
 }
 
-- (unsigned int)playCount {
+- (NSUInteger)playCount {
     return _playCount;
 }
 

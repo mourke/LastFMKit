@@ -52,6 +52,7 @@ FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
 #import <LastFMKit/LFMLibraryProvider.h>
 #import <LastFMKit/LFMTagProvider.h>
 #import <LastFMKit/LFMTrackProvider.h>
+#import <LastFMKit/LFMUserProvider.h>
 
 #pragma mark - Authentication
 

@@ -29,7 +29,7 @@ BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:error];
     
     NSString *errorMessage = [responseDictionary objectForKey:@"message"];
-    unsigned int errorCode = [[responseDictionary objectForKey:@"error"] unsignedIntValue];
+    NSUInteger errorCode = [[responseDictionary objectForKey:@"error"] unsignedIntegerValue];
     
     if (errorMessage != nil && !isnan(errorCode)) {
         *error = [NSError errorWithDomain:@"fm.last.kit.error" code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorMessage}];

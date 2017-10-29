@@ -109,7 +109,7 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getArtistsSimilarToArtistNamed:(nullable NSString *)artistName
                                        withMusicBrainzId:(nullable NSString *)mbid
                                              autoCorrect:(BOOL)autoCorrect
-                                                   limit:(unsigned int)limit
+                                                   limit:(NSUInteger)limit
                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> *))block NS_SWIFT_NAME(getArtistsSimilar(to:mbid:autoCorrect:limit:callback:));
 
 /**
@@ -146,8 +146,8 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTopAlbumsForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(unsigned int)limit
-                                              onPage:(unsigned int)page
+                                        itemsPerPage:(NSUInteger)limit
+                                              onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopAlbums(for:mbid:autoCorrect:limit:on:callback:));
 
 /**
@@ -165,8 +165,8 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTopTracksForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(unsigned int)limit
-                                              onPage:(unsigned int)page
+                                        itemsPerPage:(NSUInteger)limit
+                                              onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray <LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(for:mbid:autoCorrect:limit:on:callback:));
 
 /**
@@ -195,8 +195,8 @@ NS_SWIFT_NAME(ArtistProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                  itemsPerPage:(unsigned int)limit
-                                        onPage:(unsigned int)page
+                                  itemsPerPage:(NSUInteger)limit
+                                        onPage:(NSUInteger)page
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:on:callback:));
 
 @end

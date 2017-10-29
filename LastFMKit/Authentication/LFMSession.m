@@ -43,7 +43,7 @@
     if (self) {
         NSString *name = [dictionary objectForKey:@"name"];
         NSString *key = [dictionary objectForKey:@"key"];
-        unsigned int subscriber = [[dictionary objectForKey:@"subscriber"] unsignedIntValue];
+        NSUInteger subscriber = [[dictionary objectForKey:@"subscriber"] unsignedIntegerValue];
         
         if (name != nil && key != nil && !isnan(subscriber)) {
             _userName = name;

@@ -32,9 +32,9 @@
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     NSString *searchQuery = [[dictionary objectForKey:@"opensearch:Query"] objectForKey:@"searchTerms"];
-    unsigned int currentPage = [[[dictionary objectForKey:@"opensearch:Query"] objectForKey:@"startPage"] unsignedIntValue];
-    unsigned long long totalResults = [[dictionary objectForKey:@"opensearch:totalResults"] unsignedIntValue];
-    unsigned int itemsPerPage = [[dictionary objectForKey:@"opensearch:itemsPerPage"] unsignedIntValue];
+    NSUInteger currentPage = [[[dictionary objectForKey:@"opensearch:Query"] objectForKey:@"startPage"] unsignedIntegerValue];
+    NSUInteger totalResults = [[dictionary objectForKey:@"opensearch:totalResults"] unsignedIntegerValue];
+    NSUInteger itemsPerPage = [[dictionary objectForKey:@"opensearch:itemsPerPage"] unsignedIntegerValue];
     
     self = [[LFMSearchQuery alloc] initWithPage:currentPage totalResults:totalResults itemsPerPage:itemsPerPage];
     

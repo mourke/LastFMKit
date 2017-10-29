@@ -46,8 +46,8 @@ NS_SWIFT_NAME(GeoProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopArtistsInCountry:(NSString *)country
-                                    itemsPerPage:(unsigned int)limit
-                                          onPage:(unsigned int)page
+                                    itemsPerPage:(NSUInteger)limit
+                                          onPage:(NSUInteger)page
                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(in:limit:on:callback:));
 
 /**
@@ -63,8 +63,8 @@ NS_SWIFT_NAME(GeoProvider)
  */
 + (NSURLSessionDataTask *)getTopTracksInCountry:(NSString *)country
                                  withinProvince:(nullable NSString *)province
-                                   itemsPerPage:(unsigned int)limit
-                                         onPage:(unsigned int)page
+                                   itemsPerPage:(NSUInteger)limit
+                                         onPage:(NSUInteger)page
                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(in:within:limit:on:callback:));
 
 @end

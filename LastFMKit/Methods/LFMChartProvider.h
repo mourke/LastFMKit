@@ -46,8 +46,8 @@ NS_SWIFT_NAME(ChartProvider)
  
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(unsigned int)page
-                                 itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
+                                 itemsPerPage:(NSUInteger)limit
                                      callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(on:limit:callback:));
 
 /**
@@ -59,8 +59,8 @@ NS_SWIFT_NAME(ChartProvider)
  
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(unsigned int)page
-                              itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
+                              itemsPerPage:(NSUInteger)limit
                                   callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTags(on:limit:callback:));
 
 /**
@@ -72,8 +72,8 @@ NS_SWIFT_NAME(ChartProvider)
  
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(unsigned int)page
-                                itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
+                                itemsPerPage:(NSUInteger)limit
                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(on:limit:callback:));
 
 @end

@@ -46,8 +46,8 @@ NS_SWIFT_NAME(LibraryProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getArtistsForUserNamed:(NSString *)userName
-                                    itemsPerPage:(unsigned int)limit
-                                          onPage:(unsigned int)page
+                                    itemsPerPage:(NSUInteger)limit
+                                          onPage:(NSUInteger)page
                                         callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block;
 
 @end

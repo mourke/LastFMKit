@@ -7,6 +7,164 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D04DF641FA5F2AA004675CA /* LFMUserProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DF651FA5F2AA004675CA /* LFMUserProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */; };
+		4D04DF811FA5F7AA004675CA /* LastFMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D04DF781FA5F7AA004675CA /* LastFMKit.framework */; };
+		4D04DF9D1FA5F89D004675CA /* LastFMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D04DF941FA5F89D004675CA /* LastFMKit.framework */; };
+		4D04DFAB1FA5F967004675CA /* LastFMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB2D1F8E7E780062279A /* LastFMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFAC1FA5F968004675CA /* LastFMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB2D1F8E7E780062279A /* LastFMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFAE1FA5F969004675CA /* LastFMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB2D1F8E7E780062279A /* LastFMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFAF1FA5F987004675CA /* LFMKit+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB01FA5F987004675CA /* LFMKit+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB11FA5F988004675CA /* LFMKit+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB21FA5F990004675CA /* LFMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C11F9411E000F377E2 /* LFMError.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB31FA5F990004675CA /* LFMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C11F9411E000F377E2 /* LFMError.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB41FA5F991004675CA /* LFMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C11F9411E000F377E2 /* LFMError.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04DFB51FA5F999004675CA /* LFMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C21F9411E000F377E2 /* LFMError.m */; };
+		4D04DFB61FA5F99A004675CA /* LFMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C21F9411E000F377E2 /* LFMError.m */; };
+		4D04DFB71FA5F99A004675CA /* LFMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C21F9411E000F377E2 /* LFMError.m */; };
+		4D04DFB81FA5F9A0004675CA /* LFMSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF521F923ECA005D8EED /* LFMSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF531F923ECA005D8EED /* LFMSession.m */; };
+		4D04DFBA1FA5F9A0004675CA /* LFMAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF561F923ED9005D8EED /* LFMAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFBB1FA5F9A0004675CA /* LFMAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF571F923ED9005D8EED /* LFMAuth.m */; };
+		4D04DFBC1FA5F9A1004675CA /* LFMSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF521F923ECA005D8EED /* LFMSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF531F923ECA005D8EED /* LFMSession.m */; };
+		4D04DFBE1FA5F9A1004675CA /* LFMAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF561F923ED9005D8EED /* LFMAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFBF1FA5F9A1004675CA /* LFMAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF571F923ED9005D8EED /* LFMAuth.m */; };
+		4D04DFC01FA5F9A2004675CA /* LFMSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF521F923ECA005D8EED /* LFMSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF531F923ECA005D8EED /* LFMSession.m */; };
+		4D04DFC21FA5F9A2004675CA /* LFMAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF561F923ED9005D8EED /* LFMAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFC31FA5F9A2004675CA /* LFMAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF571F923ED9005D8EED /* LFMAuth.m */; };
+		4D04DFC41FA5F9B9004675CA /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF4D1F923E97005D8EED /* LFMAlbumProvider.m */; };
+		4D04DFC61FA5F9B9004675CA /* LFMArtistProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFC71FA5F9B9004675CA /* LFMArtistProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */; };
+		4D04DFC81FA5F9B9004675CA /* LFMChartProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F1C1F9638890030EAD5 /* LFMChartProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFC91FA5F9B9004675CA /* LFMChartProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F1D1F9638890030EAD5 /* LFMChartProvider.m */; };
+		4D04DFCA1FA5F9B9004675CA /* LFMGeoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A11F9680B80013355C /* LFMGeoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFCB1FA5F9B9004675CA /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
+		4D04DFCC1FA5F9B9004675CA /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFCD1FA5F9B9004675CA /* LFMLibraryProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */; };
+		4D04DFCE1FA5F9B9004675CA /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFCF1FA5F9B9004675CA /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
+		4D04DFD01FA5F9B9004675CA /* LFMTrackProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */; };
+		4D04DFD21FA5F9B9004675CA /* LFMUserProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFD31FA5F9B9004675CA /* LFMUserProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */; };
+		4D04DFD41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF4D1F923E97005D8EED /* LFMAlbumProvider.m */; };
+		4D04DFD61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFD71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */; };
+		4D04DFD81FA5F9BA004675CA /* LFMChartProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F1C1F9638890030EAD5 /* LFMChartProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFD91FA5F9BA004675CA /* LFMChartProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F1D1F9638890030EAD5 /* LFMChartProvider.m */; };
+		4D04DFDA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A11F9680B80013355C /* LFMGeoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFDB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
+		4D04DFDC1FA5F9BA004675CA /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFDD1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */; };
+		4D04DFDE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFDF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
+		4D04DFE01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */; };
+		4D04DFE21FA5F9BA004675CA /* LFMUserProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFE31FA5F9BA004675CA /* LFMUserProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */; };
+		4D04DFE41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF4D1F923E97005D8EED /* LFMAlbumProvider.m */; };
+		4D04DFE61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFE71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */; };
+		4D04DFE81FA5F9BA004675CA /* LFMChartProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F1C1F9638890030EAD5 /* LFMChartProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFE91FA5F9BA004675CA /* LFMChartProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F1D1F9638890030EAD5 /* LFMChartProvider.m */; };
+		4D04DFEA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A11F9680B80013355C /* LFMGeoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFEB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
+		4D04DFEC1FA5F9BA004675CA /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFED1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */; };
+		4D04DFEE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFEF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
+		4D04DFF01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */; };
+		4D04DFF21FA5F9BA004675CA /* LFMUserProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFF31FA5F9BA004675CA /* LFMUserProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */; };
+		4D04DFF41FA5F9D6004675CA /* LFMUserGender.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB631F91323B0062279A /* LFMUserGender.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB651F9143100062279A /* LFMUserGender.m */; };
+		4D04DFF61FA5F9D6004675CA /* LFMImageSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5D1F911DF10062279A /* LFMImageSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB611F912A430062279A /* LFMImageSize.m */; };
+		4D04DFF81FA5F9D6004675CA /* LFMArtist.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB441F8E7FC00062279A /* LFMArtist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFF91FA5F9D6004675CA /* LFMArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB451F8E7FC00062279A /* LFMArtist.m */; };
+		4D04DFFA1FA5F9D6004675CA /* LFMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB591F8E95300062279A /* LFMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFFB1FA5F9D6004675CA /* LFMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB5A1F8E95300062279A /* LFMUser.m */; };
+		4D04DFFC1FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFFD1FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */; };
+		4D04DFFE1FA5F9D6004675CA /* LFMTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB4C1F8E82670062279A /* LFMTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB4D1F8E82670062279A /* LFMTrack.m */; };
+		4D04E0001FA5F9D6004675CA /* LFMTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB501F8E82710062279A /* LFMTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0011FA5F9D6004675CA /* LFMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB511F8E82710062279A /* LFMTag.m */; };
+		4D04E0021FA5F9D6004675CA /* LFMTopTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F181F9630180030EAD5 /* LFMTopTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0031FA5F9D6004675CA /* LFMTopTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F191F9630180030EAD5 /* LFMTopTag.m */; };
+		4D04E0041FA5F9D6004675CA /* LFMWiki.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB541F8E827B0062279A /* LFMWiki.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0051FA5F9D6004675CA /* LFMWiki.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB551F8E827B0062279A /* LFMWiki.m */; };
+		4D04E0061FA5F9D6004675CA /* LFMAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB481F8E80200062279A /* LFMAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0071FA5F9D6004675CA /* LFMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB491F8E80200062279A /* LFMAlbum.m */; };
+		4D04E0081FA5F9D6004675CA /* LFMQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F201F964A160030EAD5 /* LFMQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0091FA5F9D6004675CA /* LFMQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F211F964A160030EAD5 /* LFMQuery.m */; };
+		4D04E00A1FA5F9D6004675CA /* LFMSearchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E00B1FA5F9D6004675CA /* LFMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */; };
+		4D04E00C1FA5F9D6004675CA /* LFMUserGender.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB631F91323B0062279A /* LFMUserGender.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB651F9143100062279A /* LFMUserGender.m */; };
+		4D04E00E1FA5F9D6004675CA /* LFMImageSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5D1F911DF10062279A /* LFMImageSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB611F912A430062279A /* LFMImageSize.m */; };
+		4D04E0101FA5F9D6004675CA /* LFMArtist.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB441F8E7FC00062279A /* LFMArtist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0111FA5F9D6004675CA /* LFMArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB451F8E7FC00062279A /* LFMArtist.m */; };
+		4D04E0121FA5F9D6004675CA /* LFMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB591F8E95300062279A /* LFMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0131FA5F9D6004675CA /* LFMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB5A1F8E95300062279A /* LFMUser.m */; };
+		4D04E0141FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0151FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */; };
+		4D04E0161FA5F9D6004675CA /* LFMTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB4C1F8E82670062279A /* LFMTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB4D1F8E82670062279A /* LFMTrack.m */; };
+		4D04E0181FA5F9D6004675CA /* LFMTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB501F8E82710062279A /* LFMTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0191FA5F9D6004675CA /* LFMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB511F8E82710062279A /* LFMTag.m */; };
+		4D04E01A1FA5F9D6004675CA /* LFMTopTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F181F9630180030EAD5 /* LFMTopTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E01B1FA5F9D6004675CA /* LFMTopTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F191F9630180030EAD5 /* LFMTopTag.m */; };
+		4D04E01C1FA5F9D6004675CA /* LFMWiki.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB541F8E827B0062279A /* LFMWiki.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E01D1FA5F9D6004675CA /* LFMWiki.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB551F8E827B0062279A /* LFMWiki.m */; };
+		4D04E01E1FA5F9D6004675CA /* LFMAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB481F8E80200062279A /* LFMAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E01F1FA5F9D6004675CA /* LFMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB491F8E80200062279A /* LFMAlbum.m */; };
+		4D04E0201FA5F9D6004675CA /* LFMQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F201F964A160030EAD5 /* LFMQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0211FA5F9D6004675CA /* LFMQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F211F964A160030EAD5 /* LFMQuery.m */; };
+		4D04E0221FA5F9D6004675CA /* LFMSearchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0231FA5F9D6004675CA /* LFMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */; };
+		4D04E0241FA5F9D7004675CA /* LFMUserGender.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB631F91323B0062279A /* LFMUserGender.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB651F9143100062279A /* LFMUserGender.m */; };
+		4D04E0261FA5F9D7004675CA /* LFMImageSize.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB5D1F911DF10062279A /* LFMImageSize.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB611F912A430062279A /* LFMImageSize.m */; };
+		4D04E0281FA5F9D7004675CA /* LFMArtist.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB441F8E7FC00062279A /* LFMArtist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0291FA5F9D7004675CA /* LFMArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB451F8E7FC00062279A /* LFMArtist.m */; };
+		4D04E02A1FA5F9D7004675CA /* LFMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB591F8E95300062279A /* LFMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E02B1FA5F9D7004675CA /* LFMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB5A1F8E95300062279A /* LFMUser.m */; };
+		4D04E02C1FA5F9D7004675CA /* LFMScrobbleTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E02D1FA5F9D7004675CA /* LFMScrobbleTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */; };
+		4D04E02E1FA5F9D7004675CA /* LFMTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB4C1F8E82670062279A /* LFMTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB4D1F8E82670062279A /* LFMTrack.m */; };
+		4D04E0301FA5F9D7004675CA /* LFMTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB501F8E82710062279A /* LFMTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0311FA5F9D7004675CA /* LFMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB511F8E82710062279A /* LFMTag.m */; };
+		4D04E0321FA5F9D7004675CA /* LFMTopTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F181F9630180030EAD5 /* LFMTopTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0331FA5F9D7004675CA /* LFMTopTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F191F9630180030EAD5 /* LFMTopTag.m */; };
+		4D04E0341FA5F9D7004675CA /* LFMWiki.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB541F8E827B0062279A /* LFMWiki.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0351FA5F9D7004675CA /* LFMWiki.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB551F8E827B0062279A /* LFMWiki.m */; };
+		4D04E0361FA5F9D7004675CA /* LFMAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB481F8E80200062279A /* LFMAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0371FA5F9D7004675CA /* LFMAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB491F8E80200062279A /* LFMAlbum.m */; };
+		4D04E0381FA5F9D7004675CA /* LFMQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F201F964A160030EAD5 /* LFMQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E0391FA5F9D7004675CA /* LFMQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F211F964A160030EAD5 /* LFMQuery.m */; };
+		4D04E03A1FA5F9D7004675CA /* LFMSearchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D04E03B1FA5F9D7004675CA /* LFMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */; };
+		4D04E03C1FA5F9ED004675CA /* LastFMKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB381F8E7E780062279A /* LastFMKitTests.m */; };
+		4D04E03D1FA5F9EE004675CA /* LastFMKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB381F8E7E780062279A /* LastFMKitTests.m */; };
+		4D04E0401FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04E0411FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04E0421FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04E0431FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D04E0441FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
+		4D04E0451FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
+		4D04E0461FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
+		4D04E0471FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
 		4D1685A31F9680B80013355C /* LFMGeoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A11F9680B80013355C /* LFMGeoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
 		4D1685A71F9687EB0013355C /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,6 +216,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4D04DF821FA5F7AA004675CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D9FFB211F8E7E780062279A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D04DF771FA5F7AA004675CA;
+			remoteInfo = "LastFMKit tvOS";
+		};
+		4D04DF9E1FA5F89D004675CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D9FFB211F8E7E780062279A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D04DF931FA5F89D004675CA;
+			remoteInfo = "LastFMKit macOS";
+		};
 		4D9FFB351F8E7E780062279A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4D9FFB211F8E7E780062279A /* Project object */;
@@ -68,6 +240,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMUserProvider.h; sourceTree = "<group>"; };
+		4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMUserProvider.m; sourceTree = "<group>"; };
+		4D04DF6B1FA5F6E1004675CA /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D04DF781FA5F7AA004675CA /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D04DF801FA5F7AA004675CA /* LastFMKit tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LastFMKit tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D04DF941FA5F89D004675CA /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D04DF9C1FA5F89D004675CA /* LastFMKit macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LastFMKit macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+UnsignedIntegerValue.h"; sourceTree = "<group>"; };
+		4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+UnsignedIntegerValue.m"; sourceTree = "<group>"; };
 		4D1685A11F9680B80013355C /* LFMGeoProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMGeoProvider.h; sourceTree = "<group>"; };
 		4D1685A21F9680B80013355C /* LFMGeoProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMGeoProvider.m; sourceTree = "<group>"; };
 		4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMLibraryProvider.h; sourceTree = "<group>"; };
@@ -95,7 +276,7 @@
 		4D9FFB2A1F8E7E780062279A /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9FFB2D1F8E7E780062279A /* LastFMKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastFMKit.h; sourceTree = "<group>"; };
 		4D9FFB2E1F8E7E780062279A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D9FFB331F8E7E780062279A /* LastFMKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LastFMKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D9FFB331F8E7E780062279A /* LastFMKit iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LastFMKit iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9FFB381F8E7E780062279A /* LastFMKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LastFMKitTests.m; sourceTree = "<group>"; };
 		4D9FFB3A1F8E7E780062279A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D9FFB441F8E7FC00062279A /* LFMArtist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMArtist.h; sourceTree = "<group>"; };
@@ -122,6 +303,43 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D04DF671FA5F6E1004675CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF741FA5F7AA004675CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF7D1FA5F7AA004675CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DF811FA5F7AA004675CA /* LastFMKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF901FA5F89D004675CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF991FA5F89D004675CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DF9D1FA5F89D004675CA /* LastFMKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9FFB261F8E7E780062279A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +362,8 @@
 			isa = PBXGroup;
 			children = (
 				4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */,
+				4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */,
+				4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */,
 				4D6A23C11F9411E000F377E2 /* LFMError.h */,
 				4D6A23C21F9411E000F377E2 /* LFMError.m */,
 			);
@@ -167,6 +387,8 @@
 				4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */,
 				4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */,
 				4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */,
+				4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */,
+				4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */,
 			);
 			path = Methods;
 			sourceTree = "<group>";
@@ -195,7 +417,12 @@
 			isa = PBXGroup;
 			children = (
 				4D9FFB2A1F8E7E780062279A /* LastFMKit.framework */,
-				4D9FFB331F8E7E780062279A /* LastFMKitTests.xctest */,
+				4D9FFB331F8E7E780062279A /* LastFMKit iOS Tests.xctest */,
+				4D04DF6B1FA5F6E1004675CA /* LastFMKit.framework */,
+				4D04DF781FA5F7AA004675CA /* LastFMKit.framework */,
+				4D04DF801FA5F7AA004675CA /* LastFMKit tvOS Tests.xctest */,
+				4D04DF941FA5F89D004675CA /* LastFMKit.framework */,
+				4D04DF9C1FA5F89D004675CA /* LastFMKit macOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,6 +483,105 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4D04DF681FA5F6E1004675CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04E02C1FA5F9D7004675CA /* LFMScrobbleTrack.h in Headers */,
+				4D04DFB11FA5F988004675CA /* LFMKit+Protected.h in Headers */,
+				4D04DFC01FA5F9A2004675CA /* LFMSession.h in Headers */,
+				4D04E0241FA5F9D7004675CA /* LFMUserGender.h in Headers */,
+				4D04DFE61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */,
+				4D04E0261FA5F9D7004675CA /* LFMImageSize.h in Headers */,
+				4D04DFEC1FA5F9BA004675CA /* LFMLibraryProvider.h in Headers */,
+				4D04DFF21FA5F9BA004675CA /* LFMUserProvider.h in Headers */,
+				4D04E0281FA5F9D7004675CA /* LFMArtist.h in Headers */,
+				4D04DFB21FA5F990004675CA /* LFMError.h in Headers */,
+				4D04E0321FA5F9D7004675CA /* LFMTopTag.h in Headers */,
+				4D04E02E1FA5F9D7004675CA /* LFMTrack.h in Headers */,
+				4D04DFE81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
+				4D04E02A1FA5F9D7004675CA /* LFMUser.h in Headers */,
+				4D04E0341FA5F9D7004675CA /* LFMWiki.h in Headers */,
+				4D04DFAE1FA5F969004675CA /* LastFMKit.h in Headers */,
+				4D04DFF01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
+				4D04DFC21FA5F9A2004675CA /* LFMAuth.h in Headers */,
+				4D04DFEA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */,
+				4D04E0301FA5F9D7004675CA /* LFMTag.h in Headers */,
+				4D04E0361FA5F9D7004675CA /* LFMAlbum.h in Headers */,
+				4D04E03A1FA5F9D7004675CA /* LFMSearchQuery.h in Headers */,
+				4D04E0411FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
+				4D04E0381FA5F9D7004675CA /* LFMQuery.h in Headers */,
+				4D04DFE41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */,
+				4D04DFEE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF751FA5F7AA004675CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DFFC1FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */,
+				4D04DFAF1FA5F987004675CA /* LFMKit+Protected.h in Headers */,
+				4D04DFB81FA5F9A0004675CA /* LFMSession.h in Headers */,
+				4D04DFF41FA5F9D6004675CA /* LFMUserGender.h in Headers */,
+				4D04DFC61FA5F9B9004675CA /* LFMArtistProvider.h in Headers */,
+				4D04DFF61FA5F9D6004675CA /* LFMImageSize.h in Headers */,
+				4D04DFCC1FA5F9B9004675CA /* LFMLibraryProvider.h in Headers */,
+				4D04DFD21FA5F9B9004675CA /* LFMUserProvider.h in Headers */,
+				4D04DFF81FA5F9D6004675CA /* LFMArtist.h in Headers */,
+				4D04DFB41FA5F991004675CA /* LFMError.h in Headers */,
+				4D04E0021FA5F9D6004675CA /* LFMTopTag.h in Headers */,
+				4D04DFFE1FA5F9D6004675CA /* LFMTrack.h in Headers */,
+				4D04DFC81FA5F9B9004675CA /* LFMChartProvider.h in Headers */,
+				4D04DFFA1FA5F9D6004675CA /* LFMUser.h in Headers */,
+				4D04E0041FA5F9D6004675CA /* LFMWiki.h in Headers */,
+				4D04DFAB1FA5F967004675CA /* LastFMKit.h in Headers */,
+				4D04DFD01FA5F9B9004675CA /* LFMTrackProvider.h in Headers */,
+				4D04DFBA1FA5F9A0004675CA /* LFMAuth.h in Headers */,
+				4D04DFCA1FA5F9B9004675CA /* LFMGeoProvider.h in Headers */,
+				4D04E0001FA5F9D6004675CA /* LFMTag.h in Headers */,
+				4D04E0061FA5F9D6004675CA /* LFMAlbum.h in Headers */,
+				4D04E00A1FA5F9D6004675CA /* LFMSearchQuery.h in Headers */,
+				4D04E0431FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
+				4D04E0081FA5F9D6004675CA /* LFMQuery.h in Headers */,
+				4D04DFC41FA5F9B9004675CA /* LFMAlbumProvider.h in Headers */,
+				4D04DFCE1FA5F9B9004675CA /* LFMTagProvider.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF911FA5F89D004675CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04E0141FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */,
+				4D04DFB01FA5F987004675CA /* LFMKit+Protected.h in Headers */,
+				4D04DFBC1FA5F9A1004675CA /* LFMSession.h in Headers */,
+				4D04E00C1FA5F9D6004675CA /* LFMUserGender.h in Headers */,
+				4D04DFD61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */,
+				4D04E00E1FA5F9D6004675CA /* LFMImageSize.h in Headers */,
+				4D04DFDC1FA5F9BA004675CA /* LFMLibraryProvider.h in Headers */,
+				4D04DFE21FA5F9BA004675CA /* LFMUserProvider.h in Headers */,
+				4D04E0101FA5F9D6004675CA /* LFMArtist.h in Headers */,
+				4D04DFB31FA5F990004675CA /* LFMError.h in Headers */,
+				4D04E01A1FA5F9D6004675CA /* LFMTopTag.h in Headers */,
+				4D04E0161FA5F9D6004675CA /* LFMTrack.h in Headers */,
+				4D04DFD81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
+				4D04E0121FA5F9D6004675CA /* LFMUser.h in Headers */,
+				4D04E01C1FA5F9D6004675CA /* LFMWiki.h in Headers */,
+				4D04DFAC1FA5F968004675CA /* LastFMKit.h in Headers */,
+				4D04DFE01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
+				4D04DFBE1FA5F9A1004675CA /* LFMAuth.h in Headers */,
+				4D04DFDA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */,
+				4D04E0181FA5F9D6004675CA /* LFMTag.h in Headers */,
+				4D04E01E1FA5F9D6004675CA /* LFMAlbum.h in Headers */,
+				4D04E0221FA5F9D6004675CA /* LFMSearchQuery.h in Headers */,
+				4D04E0421FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
+				4D04E0201FA5F9D6004675CA /* LFMQuery.h in Headers */,
+				4D04DFD41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */,
+				4D04DFDE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9FFB271F8E7E780062279A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -282,6 +608,8 @@
 				4D9FFB561F8E827B0062279A /* LFMWiki.h in Headers */,
 				4D389F1E1F9638890030EAD5 /* LFMChartProvider.h in Headers */,
 				4D9FFB601F9122BD0062279A /* LFMImageSize.h in Headers */,
+				4D04E0401FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
+				4D04DF641FA5F2AA004675CA /* LFMUserProvider.h in Headers */,
 				4D9FFB461F8E7FC00062279A /* LFMArtist.h in Headers */,
 				4D9DCF581F923ED9005D8EED /* LFMAuth.h in Headers */,
 			);
@@ -290,9 +618,99 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4D9FFB291F8E7E780062279A /* LastFMKit */ = {
+		4D04DF6A1FA5F6E1004675CA /* LastFMKit watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D9FFB3E1F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit" */;
+			buildConfigurationList = 4D04DF701FA5F6E1004675CA /* Build configuration list for PBXNativeTarget "LastFMKit watchOS" */;
+			buildPhases = (
+				4D04DF661FA5F6E1004675CA /* Sources */,
+				4D04DF671FA5F6E1004675CA /* Frameworks */,
+				4D04DF681FA5F6E1004675CA /* Headers */,
+				4D04DF691FA5F6E1004675CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LastFMKit watchOS";
+			productName = "LastFMKit watchOS";
+			productReference = 4D04DF6B1FA5F6E1004675CA /* LastFMKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D04DF771FA5F7AA004675CA /* LastFMKit tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D04DF891FA5F7AA004675CA /* Build configuration list for PBXNativeTarget "LastFMKit tvOS" */;
+			buildPhases = (
+				4D04DF731FA5F7AA004675CA /* Sources */,
+				4D04DF741FA5F7AA004675CA /* Frameworks */,
+				4D04DF751FA5F7AA004675CA /* Headers */,
+				4D04DF761FA5F7AA004675CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LastFMKit tvOS";
+			productName = "LastFMKit tvOS";
+			productReference = 4D04DF781FA5F7AA004675CA /* LastFMKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D04DF7F1FA5F7AA004675CA /* LastFMKit tvOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D04DF8C1FA5F7AA004675CA /* Build configuration list for PBXNativeTarget "LastFMKit tvOS Tests" */;
+			buildPhases = (
+				4D04DF7C1FA5F7AA004675CA /* Sources */,
+				4D04DF7D1FA5F7AA004675CA /* Frameworks */,
+				4D04DF7E1FA5F7AA004675CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D04DF831FA5F7AA004675CA /* PBXTargetDependency */,
+			);
+			name = "LastFMKit tvOS Tests";
+			productName = "LastFMKit tvOSTests";
+			productReference = 4D04DF801FA5F7AA004675CA /* LastFMKit tvOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4D04DF931FA5F89D004675CA /* LastFMKit macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D04DFA51FA5F89D004675CA /* Build configuration list for PBXNativeTarget "LastFMKit macOS" */;
+			buildPhases = (
+				4D04DF8F1FA5F89D004675CA /* Sources */,
+				4D04DF901FA5F89D004675CA /* Frameworks */,
+				4D04DF911FA5F89D004675CA /* Headers */,
+				4D04DF921FA5F89D004675CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LastFMKit macOS";
+			productName = "LastFMKit macOS";
+			productReference = 4D04DF941FA5F89D004675CA /* LastFMKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D04DF9B1FA5F89D004675CA /* LastFMKit macOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D04DFA81FA5F89D004675CA /* Build configuration list for PBXNativeTarget "LastFMKit macOS Tests" */;
+			buildPhases = (
+				4D04DF981FA5F89D004675CA /* Sources */,
+				4D04DF991FA5F89D004675CA /* Frameworks */,
+				4D04DF9A1FA5F89D004675CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D04DF9F1FA5F89D004675CA /* PBXTargetDependency */,
+			);
+			name = "LastFMKit macOS Tests";
+			productName = "LastFMKit macOSTests";
+			productReference = 4D04DF9C1FA5F89D004675CA /* LastFMKit macOS Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4D9FFB291F8E7E780062279A /* LastFMKit iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D9FFB3E1F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit iOS" */;
 			buildPhases = (
 				4D9FFB251F8E7E780062279A /* Sources */,
 				4D9FFB261F8E7E780062279A /* Frameworks */,
@@ -303,14 +721,14 @@
 			);
 			dependencies = (
 			);
-			name = LastFMKit;
+			name = "LastFMKit iOS";
 			productName = "Last FM SDK";
 			productReference = 4D9FFB2A1F8E7E780062279A /* LastFMKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4D9FFB321F8E7E780062279A /* LastFMKitTests */ = {
+		4D9FFB321F8E7E780062279A /* LastFMKit iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D9FFB411F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKitTests" */;
+			buildConfigurationList = 4D9FFB411F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit iOS Tests" */;
 			buildPhases = (
 				4D9FFB2F1F8E7E780062279A /* Sources */,
 				4D9FFB301F8E7E780062279A /* Frameworks */,
@@ -321,9 +739,9 @@
 			dependencies = (
 				4D9FFB361F8E7E780062279A /* PBXTargetDependency */,
 			);
-			name = LastFMKitTests;
+			name = "LastFMKit iOS Tests";
 			productName = "Last FM SDKTests";
-			productReference = 4D9FFB331F8E7E780062279A /* LastFMKitTests.xctest */;
+			productReference = 4D9FFB331F8E7E780062279A /* LastFMKit iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -336,6 +754,26 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Mark Bourke";
 				TargetAttributes = {
+					4D04DF6A1FA5F6E1004675CA = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					4D04DF771FA5F7AA004675CA = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					4D04DF7F1FA5F7AA004675CA = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					4D04DF931FA5F89D004675CA = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					4D04DF9B1FA5F89D004675CA = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
 					4D9FFB291F8E7E780062279A = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -358,13 +796,53 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D9FFB291F8E7E780062279A /* LastFMKit */,
-				4D9FFB321F8E7E780062279A /* LastFMKitTests */,
+				4D9FFB291F8E7E780062279A /* LastFMKit iOS */,
+				4D04DF6A1FA5F6E1004675CA /* LastFMKit watchOS */,
+				4D04DF931FA5F89D004675CA /* LastFMKit macOS */,
+				4D04DF771FA5F7AA004675CA /* LastFMKit tvOS */,
+				4D9FFB321F8E7E780062279A /* LastFMKit iOS Tests */,
+				4D04DF9B1FA5F89D004675CA /* LastFMKit macOS Tests */,
+				4D04DF7F1FA5F7AA004675CA /* LastFMKit tvOS Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D04DF691FA5F6E1004675CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF761FA5F7AA004675CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF7E1FA5F7AA004675CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF921FA5F89D004675CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF9A1FA5F89D004675CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9FFB281F8E7E780062279A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,6 +860,115 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D04DF661FA5F6E1004675CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DFEB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */,
+				4D04DFEF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */,
+				4D04E0311FA5F9D7004675CA /* LFMTag.m in Sources */,
+				4D04DFF31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
+				4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */,
+				4D04E0451FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
+				4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
+				4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */,
+				4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */,
+				4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */,
+				4D04DFC31FA5F9A2004675CA /* LFMAuth.m in Sources */,
+				4D04DFE91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
+				4D04E0331FA5F9D7004675CA /* LFMTopTag.m in Sources */,
+				4D04E0291FA5F9D7004675CA /* LFMArtist.m in Sources */,
+				4D04E0371FA5F9D7004675CA /* LFMAlbum.m in Sources */,
+				4D04DFB71FA5F99A004675CA /* LFMError.m in Sources */,
+				4D04DFED1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
+				4D04E02D1FA5F9D7004675CA /* LFMScrobbleTrack.m in Sources */,
+				4D04E0391FA5F9D7004675CA /* LFMQuery.m in Sources */,
+				4D04E03B1FA5F9D7004675CA /* LFMSearchQuery.m in Sources */,
+				4D04E02B1FA5F9D7004675CA /* LFMUser.m in Sources */,
+				4D04DFE71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
+				4D04E0351FA5F9D7004675CA /* LFMWiki.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF731FA5F7AA004675CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DFCB1FA5F9B9004675CA /* LFMGeoProvider.m in Sources */,
+				4D04DFCF1FA5F9B9004675CA /* LFMTagProvider.m in Sources */,
+				4D04E0011FA5F9D6004675CA /* LFMTag.m in Sources */,
+				4D04DFD31FA5F9B9004675CA /* LFMUserProvider.m in Sources */,
+				4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */,
+				4D04E0471FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */,
+				4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */,
+				4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */,
+				4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */,
+				4D04DFBB1FA5F9A0004675CA /* LFMAuth.m in Sources */,
+				4D04DFC91FA5F9B9004675CA /* LFMChartProvider.m in Sources */,
+				4D04E0031FA5F9D6004675CA /* LFMTopTag.m in Sources */,
+				4D04DFF91FA5F9D6004675CA /* LFMArtist.m in Sources */,
+				4D04E0071FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4D04DFB51FA5F999004675CA /* LFMError.m in Sources */,
+				4D04DFCD1FA5F9B9004675CA /* LFMLibraryProvider.m in Sources */,
+				4D04DFFD1FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
+				4D04E0091FA5F9D6004675CA /* LFMQuery.m in Sources */,
+				4D04E00B1FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
+				4D04DFFB1FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D04DFC71FA5F9B9004675CA /* LFMArtistProvider.m in Sources */,
+				4D04E0051FA5F9D6004675CA /* LFMWiki.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF7C1FA5F7AA004675CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04E03D1FA5F9EE004675CA /* LastFMKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF8F1FA5F89D004675CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04DFDB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */,
+				4D04DFDF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */,
+				4D04E0191FA5F9D6004675CA /* LFMTag.m in Sources */,
+				4D04DFE31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
+				4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */,
+				4D04E0461FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
+				4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
+				4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */,
+				4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */,
+				4D04DFBF1FA5F9A1004675CA /* LFMAuth.m in Sources */,
+				4D04DFD91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
+				4D04E01B1FA5F9D6004675CA /* LFMTopTag.m in Sources */,
+				4D04E0111FA5F9D6004675CA /* LFMArtist.m in Sources */,
+				4D04E01F1FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4D04DFB61FA5F99A004675CA /* LFMError.m in Sources */,
+				4D04DFDD1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
+				4D04E0151FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
+				4D04E0211FA5F9D6004675CA /* LFMQuery.m in Sources */,
+				4D04E0231FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
+				4D04E0131FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D04DFD71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
+				4D04E01D1FA5F9D6004675CA /* LFMWiki.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D04DF981FA5F89D004675CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D04E03C1FA5F9ED004675CA /* LastFMKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9FFB251F8E7E780062279A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,6 +978,7 @@
 				4D389F231F964A160030EAD5 /* LFMQuery.m in Sources */,
 				4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */,
 				4D389F1B1F9630180030EAD5 /* LFMTopTag.m in Sources */,
+				4D04E0441FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */,
 				4D9DCF4F1F923E97005D8EED /* LFMAlbumProvider.m in Sources */,
 				4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */,
@@ -404,6 +992,7 @@
 				4D9FFB4B1F8E80200062279A /* LFMAlbum.m in Sources */,
 				4D9FFB661F9143100062279A /* LFMUserGender.m in Sources */,
 				4D1685A81F9687EB0013355C /* LFMLibraryProvider.m in Sources */,
+				4D04DF651FA5F2AA004675CA /* LFMUserProvider.m in Sources */,
 				4DDDA8AB1FA0D00F00E16078 /* LFMTrackProvider.m in Sources */,
 				4D9DCF591F923ED9005D8EED /* LFMAuth.m in Sources */,
 				4D9FFB5C1F8E95300062279A /* LFMUser.m in Sources */,
@@ -422,14 +1011,224 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4D04DF831FA5F7AA004675CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D04DF771FA5F7AA004675CA /* LastFMKit tvOS */;
+			targetProxy = 4D04DF821FA5F7AA004675CA /* PBXContainerItemProxy */;
+		};
+		4D04DF9F1FA5F89D004675CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D04DF931FA5F89D004675CA /* LastFMKit macOS */;
+			targetProxy = 4D04DF9E1FA5F89D004675CA /* PBXContainerItemProxy */;
+		};
 		4D9FFB361F8E7E780062279A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4D9FFB291F8E7E780062279A /* LastFMKit */;
+			target = 4D9FFB291F8E7E780062279A /* LastFMKit iOS */;
 			targetProxy = 4D9FFB351F8E7E780062279A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4D04DF711FA5F6E1004675CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		4D04DF721FA5F6E1004675CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		4D04DF8A1FA5F7AA004675CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		4D04DF8B1FA5F7AA004675CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		4D04DF8D1FA5F7AA004675CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.tvos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		4D04DF8E1FA5F7AA004675CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.tvos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		4D04DFA61FA5F89D004675CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		4D04DFA71FA5F89D004675CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
+				PRODUCT_NAME = LastFMKit;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		4D04DFA91FA5F89D004675CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4D04DFAA1FA5F89D004675CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.macos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		4D9FFB3C1F8E7E780062279A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -479,12 +1278,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -531,12 +1333,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -551,12 +1356,16 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LastFMKit;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -571,12 +1380,16 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LastFMKit;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -584,9 +1397,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LastFMKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -596,9 +1409,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LastFMKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = fm.last.kit.tests.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -607,6 +1420,51 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D04DF701FA5F6E1004675CA /* Build configuration list for PBXNativeTarget "LastFMKit watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D04DF711FA5F6E1004675CA /* Debug */,
+				4D04DF721FA5F6E1004675CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D04DF891FA5F7AA004675CA /* Build configuration list for PBXNativeTarget "LastFMKit tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D04DF8A1FA5F7AA004675CA /* Debug */,
+				4D04DF8B1FA5F7AA004675CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D04DF8C1FA5F7AA004675CA /* Build configuration list for PBXNativeTarget "LastFMKit tvOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D04DF8D1FA5F7AA004675CA /* Debug */,
+				4D04DF8E1FA5F7AA004675CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D04DFA51FA5F89D004675CA /* Build configuration list for PBXNativeTarget "LastFMKit macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D04DFA61FA5F89D004675CA /* Debug */,
+				4D04DFA71FA5F89D004675CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D04DFA81FA5F89D004675CA /* Build configuration list for PBXNativeTarget "LastFMKit macOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D04DFA91FA5F89D004675CA /* Debug */,
+				4D04DFAA1FA5F89D004675CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4D9FFB241F8E7E780062279A /* Build configuration list for PBXProject "LastFMKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -616,7 +1474,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D9FFB3E1F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit" */ = {
+		4D9FFB3E1F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D9FFB3F1F8E7E780062279A /* Debug */,
@@ -625,7 +1483,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D9FFB411F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKitTests" */ = {
+		4D9FFB411F8E7E780062279A /* Build configuration list for PBXNativeTarget "LastFMKit iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D9FFB421F8E7E780062279A /* Debug */,

@@ -1,5 +1,5 @@
 //
-//  LFMTopTag.h
+//  LFMUserProvider.m
 //  LastFMKit
 //
 //  Copyright © 2017 Mark Bourke.
@@ -23,24 +23,8 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
-#import "LFMTag.h"
+#import "LFMUserProvider.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-/**
- This class represents the object obtained when top tags for an artist/album/track are requested from Last.fm tag object.
- */
-NS_SWIFT_NAME(TopTag)
-@interface LFMTopTag : LFMTag
-
-/** The number of times an artist/album/track is featured in a tag's playlist. */
-@property(nonatomic) NSUInteger count;
-
-- (instancetype)initWithName:(NSString *)tagName __attribute__((unavailable("Top tags should not be created. Please use the `LFMTag` object instead.")));
-
-+ (instancetype)tagWithName:(NSString *)tagName __attribute__((unavailable("Top tags should not be created. Please use the `LFMTag` object instead.")));
+@implementation LFMUserProvider
 
 @end
-
-NS_ASSUME_NONNULL_END

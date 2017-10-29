@@ -37,7 +37,7 @@
 
 + (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
-                         byArtist:(NSString *)albumArtist
+                    byArtistNamed:(NSString *)albumArtist
                          callback:(void (^)(NSError * _Nullable))block {
     NSAssert(tags.count <= 10, @"This method call accepts a maximum of 10 tags.");
     
@@ -81,7 +81,7 @@
 
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
-                           byArtist:(NSString *)albumArtist
+                      byArtistNamed:(NSString *)albumArtist
                            callback:(void (^)(NSError * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -117,7 +117,7 @@
 }
 
 + (NSURLSessionDataTask *)getInfoOnAlbumNamed:(NSString *)albumName
-                                     byArtist:(NSString *)albumArtist
+                                byArtistNamed:(NSString *)albumArtist
                             withMusicBrainzId:(NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
                                       forUser:(NSString *)userName
@@ -157,7 +157,7 @@
 }
 
 + (NSURLSessionDataTask *)getTagsForAlbumNamed:(NSString *)albumName
-                                      byArtist:(NSString *)albumArtist
+                                 byArtistNamed:(NSString *)albumArtist
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                        forUser:(NSString *)userName
@@ -204,7 +204,7 @@
 }
 
 + (NSURLSessionDataTask *)getTopTagsForAlbumNamed:(NSString *)albumName
-                                         byArtist:(NSString *)albumArtist
+                                    byArtistNamed:(NSString *)albumArtist
                                 withMusicBrainzId:(NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
                                          callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
@@ -246,8 +246,8 @@
 }
 
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(unsigned int)limit
-                                       onPage:(unsigned int)page
+                                 itemsPerPage:(NSUInteger)limit
+                                       onPage:(NSUInteger)page
                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMSearchQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -255,8 +255,8 @@
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.search"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"album" value:albumName],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;

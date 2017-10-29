@@ -51,7 +51,7 @@ NS_SWIFT_NAME(User)
 @property(strong, nonatomic, readonly) NSString *country;
 
 /** The age of the user. */
-@property(nonatomic, readonly) unsigned int age;
+@property(nonatomic, readonly) NSUInteger age;
 
 /** The user's gender. */
 @property(nonatomic, readonly) LFMUserGender gender;
@@ -60,10 +60,10 @@ NS_SWIFT_NAME(User)
 @property(nonatomic, readonly, getter=isSubscriber) BOOL subscriber;
 
 /** The amount of "scrobbles" (songs played) the user has. */
-@property(nonatomic, readonly) unsigned int playCount;
+@property(nonatomic, readonly) NSUInteger playCount;
 
 /** The amount of playlists the user has currently in their library. */
-@property(nonatomic, readonly) unsigned int playlistCount;
+@property(nonatomic, readonly) NSUInteger playlistCount;
 
 /** The date on which the user signed up for Last.fm */
 @property(strong, nonatomic, readonly) NSDate *dateRegistered;

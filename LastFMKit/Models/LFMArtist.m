@@ -35,8 +35,8 @@
     NSDictionary<LFMImageSize, NSURL *> *_images;
     BOOL _streamable;
     BOOL _onTour;
-    unsigned int _listeners;
-    unsigned int _playCount;
+    NSUInteger _listeners;
+    NSUInteger _playCount;
     NSArray<LFMArtist *> *_similarArtists;
     NSArray <LFMTag *> *_tags;
     LFMWiki *_wiki;
@@ -74,8 +74,8 @@
                 tag == nil ?: [tags addObject:tag];
             }
             
-            unsigned int listeners = [[[dictionary objectForKey:@"stats"] objectForKey:@"listeners"] unsignedIntValue];
-            unsigned int playCount = [[[dictionary objectForKey:@"stats"] objectForKey:@"playcount"] unsignedIntValue];
+            NSUInteger listeners = [[[dictionary objectForKey:@"stats"] objectForKey:@"listeners"] unsignedIntegerValue];
+            NSUInteger playCount = [[[dictionary objectForKey:@"stats"] objectForKey:@"playcount"] unsignedIntegerValue];
             BOOL onTour = [[dictionary objectForKey:@"ontour"] boolValue];
             
             LFMWiki *wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"bio"]];
@@ -123,11 +123,11 @@
     return _onTour;
 }
 
-- (unsigned int)listeners {
+- (NSUInteger)listeners {
     return _listeners;
 }
 
-- (unsigned int)playCount {
+- (NSUInteger)playCount {
     return _playCount;
 }
 

@@ -27,22 +27,22 @@
 #import "LFMKit+Protected.h"
 
 @implementation LFMQuery {
-    unsigned int _currentPage;
-    unsigned long long _totalResults;
-    unsigned int _itemsPerPage;
+    NSUInteger _currentPage;
+    NSUInteger _totalResults;
+    NSUInteger _itemsPerPage;
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    unsigned int currentPage = [[dictionary objectForKey:@"page"] unsignedIntValue];
-    unsigned long long totalResults = [[dictionary objectForKey:@"total"] unsignedIntValue];
-    unsigned int itemsPerPage = [[dictionary objectForKey:@"perPage"] unsignedIntValue];
+    NSUInteger currentPage = [[dictionary objectForKey:@"page"] unsignedIntegerValue];
+    NSUInteger totalResults = [[dictionary objectForKey:@"total"] unsignedIntegerValue];
+    NSUInteger itemsPerPage = [[dictionary objectForKey:@"perPage"] unsignedIntegerValue];
     
     return [[LFMQuery alloc] initWithPage:currentPage totalResults:totalResults itemsPerPage:itemsPerPage];
 }
 
-- (instancetype)initWithPage:(unsigned int)currentPage
-                totalResults:(unsigned long long)totalResults
-                itemsPerPage:(unsigned int)itemsPerPage {
+- (instancetype)initWithPage:(NSUInteger)currentPage
+                totalResults:(NSUInteger)totalResults
+                itemsPerPage:(NSUInteger)itemsPerPage {
     self = [super init];
     if (self &&
         !isnan(currentPage) &&
@@ -59,15 +59,15 @@
     return nil;
 }
 
-- (unsigned int)currentPage {
+- (NSUInteger)currentPage {
     return _currentPage;
 }
 
-- (unsigned long long)totalResults {
+- (NSUInteger)totalResults {
     return _totalResults;
 }
 
-- (unsigned int)itemsPerPage {
+- (NSUInteger)itemsPerPage {
     return _itemsPerPage;
 }
 

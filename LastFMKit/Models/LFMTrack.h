@@ -45,13 +45,13 @@ NS_SWIFT_NAME(Track)
 @property(strong, nonatomic, readonly) NSURL *URL NS_SWIFT_NAME(url);
 
 /** The approximate length (in seconds) of the song. */
-@property(nonatomic, readonly) unsigned int duration;
+@property(nonatomic, readonly) NSUInteger duration;
 
 /** A boolean value indicating whether or not the track is streamable. */
 @property(nonatomic, readonly, getter=isStreamable) BOOL streamable;
 
 /** The track's position in its album (if any). Will be NaN if the track doesn't belong to any album. */
-@property(nonatomic) unsigned int positionInAlbum;
+@property(nonatomic) NSUInteger positionInAlbum;
 
 /** An array of tags that most accurately describe the track. */
 @property(strong, nonatomic) NSArray <LFMTag *> *tags;
@@ -66,10 +66,10 @@ NS_SWIFT_NAME(Track)
 @property(weak, nonatomic, nullable) LFMAlbum *album;
 
 /** The amount of listeners the track has. */
-@property(nonatomic, readonly) unsigned int listeners;
+@property(nonatomic, readonly) NSUInteger listeners;
 
 /** The amount of "scrobbles" the track has. */
-@property(nonatomic, readonly) unsigned int playCount;
+@property(nonatomic, readonly) NSUInteger playCount;
 
 /**
  Initialises a new `LFMTrack` object.
@@ -93,14 +93,14 @@ NS_SWIFT_NAME(Track)
                       artist:(nullable LFMArtist *)artist
                musicBrainzID:(NSString *)mbid
                        album:(nullable LFMAlbum *)album
-             positionInAlbum:(unsigned int)position
+             positionInAlbum:(NSUInteger)position
                          URL:(NSURL *)URL
-                    duration:(unsigned int)duration
+                    duration:(NSUInteger)duration
                   streamable:(BOOL)streamable
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
-                   listeners:(unsigned int)listeners
-                   playCount:(unsigned int)playCount NS_SWIFT_NAME(init(name:artist:mbid:album:position:url:duration:streamable:tags:wiki:listeners:playCount:));
+                   listeners:(NSUInteger)listeners
+                   playCount:(NSUInteger)playCount NS_SWIFT_NAME(init(name:artist:mbid:album:position:url:duration:streamable:tags:wiki:listeners:playCount:));
 
 - (instancetype) __unavailable init;
 + (instancetype) __unavailable new;

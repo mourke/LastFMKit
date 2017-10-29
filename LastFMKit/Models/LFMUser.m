@@ -32,11 +32,11 @@
     NSDictionary<LFMImageSize, NSURL *> *_images;
     NSURL *_URL;
     NSString *_country;
-    unsigned int _age;
+    NSUInteger _age;
     LFMUserGender _gender;
     BOOL _subscriber;
-    unsigned int _playCount;
-    unsigned int _playlistCount;
+    NSUInteger _playCount;
+    NSUInteger _playlistCount;
     NSDate *_dateRegistered;
 }
 
@@ -48,11 +48,11 @@
         NSString *realName = [dictionary objectForKey:@"realname"];
         NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
         NSString *country = [dictionary objectForKey:@"country"];
-        unsigned int age = [[dictionary objectForKey:@"age"] unsignedIntValue];
+        NSUInteger age = [[dictionary objectForKey:@"age"] unsignedIntegerValue];
         LFMUserGender gender = [dictionary objectForKey:@"gender"];
         NSString *subscriberString = [dictionary objectForKey:@"subscriber"];
-        unsigned int playCount = [[dictionary objectForKey:@"playcount"] unsignedIntValue];
-        unsigned int playlistCount = [[dictionary objectForKey:@"playlists"] unsignedIntValue];
+        NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
+        NSUInteger playlistCount = [[dictionary objectForKey:@"playlists"] unsignedIntegerValue];
         double registeredTime = [[[dictionary objectForKey:@"registered"] objectForKey:@"unixtime"] doubleValue];
         NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
         
@@ -106,7 +106,7 @@
     return _country;
 }
 
-- (unsigned int)age {
+- (NSUInteger)age {
     return _age;
 }
 
@@ -118,11 +118,11 @@
     return _subscriber;
 }
 
-- (unsigned int)playCount {
+- (NSUInteger)playCount {
     return _playCount;
 }
 
--(unsigned int)playlistCount {
+-(NSUInteger)playlistCount {
     return _playlistCount;
 }
 

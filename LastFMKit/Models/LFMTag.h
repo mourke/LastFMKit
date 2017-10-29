@@ -42,10 +42,10 @@ NS_SWIFT_NAME(Tag)
 @property(strong, nonatomic, readonly, nullable) NSURL *URL NS_SWIFT_NAME(url);
 
 /** The reach of the tag this month. */
-@property(nonatomic, readonly) unsigned int reach;
+@property(nonatomic, readonly) NSUInteger reach;
 
 /** The total reach of the tag. */
-@property(nonatomic, readonly) unsigned int total;
+@property(nonatomic, readonly) NSUInteger total;
 
 /** A boolean value indicating whether this tag is streamable. */
 @property(nonatomic, readonly, getter=isStreamable) BOOL streamable;

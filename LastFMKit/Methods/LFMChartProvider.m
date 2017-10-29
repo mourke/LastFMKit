@@ -32,16 +32,16 @@
 
 @implementation LFMChartProvider
 
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(unsigned int)page
-                                 itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
+                                 itemsPerPage:(NSUInteger)limit
                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -70,16 +70,16 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(unsigned int)page
-                              itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
+                              itemsPerPage:(NSUInteger)limit
                                   callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -108,16 +108,16 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(unsigned int)page
-                                itemsPerPage:(unsigned int)limit
++ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
+                                itemsPerPage:(NSUInteger)limit
                                     callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTracks"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;

@@ -27,14 +27,14 @@
 #import "LFMKit+Protected.h"
 
 @implementation LFMTopTag {
-    unsigned int _count;
+    NSUInteger _count;
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super initFromDictionary:dictionary];
     
     if (self) {
-        unsigned int count = [[dictionary objectForKey:@"count"] unsignedIntValue];
+        NSUInteger count = [[dictionary objectForKey:@"count"] unsignedIntegerValue];
         
         if (!isnan(count)) return self;
     }
@@ -42,7 +42,7 @@
     return nil;
 }
 
-- (unsigned int)count {
+- (NSUInteger)count {
     return _count;
 }
 

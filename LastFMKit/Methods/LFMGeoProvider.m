@@ -34,8 +34,8 @@
 @implementation LFMGeoProvider
 
 + (NSURLSessionDataTask *)getTopArtistsInCountry:(NSString *)country
-                                    itemsPerPage:(unsigned int)limit
-                                          onPage:(unsigned int)page
+                                    itemsPerPage:(NSUInteger)limit
+                                          onPage:(NSUInteger)page
                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -43,8 +43,8 @@
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"geo.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"country" value:country],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -75,8 +75,8 @@
 
 + (NSURLSessionDataTask *)getTopTracksInCountry:(NSString *)country
                                  withinProvince:(NSString *)province
-                                   itemsPerPage:(unsigned int)limit
-                                         onPage:(unsigned int)page
+                                   itemsPerPage:(NSUInteger)limit
+                                         onPage:(NSUInteger)page
                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -85,8 +85,8 @@
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"location" value:province],
                             [NSURLQueryItem queryItemWithName:@"country" value:country],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;

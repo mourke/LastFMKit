@@ -182,7 +182,7 @@
 + (NSURLSessionDataTask *)getArtistsSimilarToArtistNamed:(NSString *)artistName
                                        withMusicBrainzId:(NSString *)mbid
                                              autoCorrect:(BOOL)autoCorrect
-                                                   limit:(unsigned int)limit
+                                                   limit:(NSUInteger)limit
                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
     
@@ -194,7 +194,7 @@
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
     
@@ -268,8 +268,8 @@
 + (NSURLSessionDataTask *)getTopAlbumsForArtistNamed:(NSString *)artistName
                                    withMusicBrainzId:(NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(unsigned int)limit
-                                              onPage:(unsigned int)page
+                                        itemsPerPage:(NSUInteger)limit
+                                              onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMQuery * _Nullable))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
     
@@ -280,8 +280,8 @@
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
@@ -315,8 +315,8 @@
 + (NSURLSessionDataTask *)getTopTracksForArtistNamed:(NSString *)artistName
                                    withMusicBrainzId:(NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(unsigned int)limit
-                                              onPage:(unsigned int)page
+                                        itemsPerPage:(NSUInteger)limit
+                                              onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
     
@@ -327,8 +327,8 @@
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
@@ -400,8 +400,8 @@
 }
 
 + (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                  itemsPerPage:(unsigned int)limit
-                                        onPage:(unsigned int)page
+                                  itemsPerPage:(NSUInteger)limit
+                                        onPage:(NSUInteger)page
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> * _Nonnull, LFMSearchQuery * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -409,8 +409,8 @@
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"artist.search"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%d", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%d", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;

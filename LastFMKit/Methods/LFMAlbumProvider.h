@@ -49,7 +49,7 @@ NS_SWIFT_NAME(AlbumProvider)
  */
 + (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
-                         byArtist:(NSString *)albumArtist
+                    byArtistNamed:(NSString *)albumArtist
                          callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(add(tags:to:by:callback:));
 
 /**
@@ -66,7 +66,7 @@ NS_SWIFT_NAME(AlbumProvider)
  */
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
-                           byArtist:(NSString *)albumArtist
+                      byArtistNamed:(NSString *)albumArtist
                            callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:by:callback:));
 
 /**
@@ -83,7 +83,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getInfoOnAlbumNamed:(nullable NSString *)albumName
-                                     byArtist:(nullable NSString *)albumArtist
+                                byArtistNamed:(nullable NSString *)albumArtist
                             withMusicBrainzId:(nullable NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
                                       forUser:(nullable NSString *)userName
@@ -99,13 +99,13 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the album. Required, unless both albumName and albumArtist are specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param userName    The name of any Last.fm user on which to obtain album tags from. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
+ @param userName    The name of any Last.fm user from which to obtain album tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTagsForAlbumNamed:(nullable NSString *)albumName
-                                      byArtist:(nullable NSString *)albumArtist
+                                 byArtistNamed:(nullable NSString *)albumArtist
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                        forUser:(nullable NSString *)userName
@@ -123,7 +123,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTagsForAlbumNamed:(nullable NSString *)albumName
-                                         byArtist:(nullable NSString *)albumArtist
+                                    byArtistNamed:(nullable NSString *)albumArtist
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
                                          callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:by:mbid:autoCorrect:callback:));
@@ -139,8 +139,8 @@ NS_SWIFT_NAME(AlbumProvider)
  @returns   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(unsigned int)limit
-                                       onPage:(unsigned int)page
+                                 itemsPerPage:(NSUInteger)limit
+                                       onPage:(NSUInteger)page
                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:on:callback:));
 
 @end

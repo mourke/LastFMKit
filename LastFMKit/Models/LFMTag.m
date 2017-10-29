@@ -30,8 +30,8 @@
 @implementation LFMTag {
     NSString *_name;
     NSURL *_URL;
-    unsigned int _reach;
-    unsigned int _total;
+    NSUInteger _reach;
+    NSUInteger _total;
     BOOL _streamable;
     LFMWiki *_wiki;
 }
@@ -45,8 +45,8 @@
         
         // Extra variables that are only obtained from certain api calls.
         NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        unsigned int reach = [[dictionary objectForKey:@"reach"] unsignedIntValue];
-        unsigned int total = [[dictionary objectForKey:@"total"] unsignedIntValue];
+        NSUInteger reach = [[dictionary objectForKey:@"reach"] unsignedIntegerValue];
+        NSUInteger total = [[dictionary objectForKey:@"total"] unsignedIntegerValue];
         BOOL streamable = [[dictionary objectForKey:@"streamable"] boolValue];
         LFMWiki *wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
         
@@ -93,11 +93,11 @@
     return _URL;
 }
 
-- (unsigned int)reach {
+- (NSUInteger)reach {
     return _reach;
 }
 
-- (unsigned int)total {
+- (NSUInteger)total {
     return _total;
 }
 

@@ -1,0 +1,20 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_project: LastFMKit.xcodeproj
+xcode_scheme: LastFMKit iOS
+xcode_sdk: iphonesimulator8.0
+skip_cleanup: true
+env:
+  global:
+    - FRAMEWORK_NAME=LastFMKit
+before_install:
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+before_deploy:
+  - carthage build --no-skip-current
+  - carthage archive $FRAMEWORK_NAME
+on:
+  repo: mourke/LastFMKit
+  tags: true
+notifications:
+  email: false

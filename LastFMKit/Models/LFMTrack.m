@@ -33,15 +33,15 @@
 @implementation LFMTrack {
     NSString *_name;
     NSURL *_URL;
-    unsigned int _duration;
+    NSUInteger _duration;
     BOOL _streamable;
     LFMArtist *_artist;
-    unsigned int _positionInAlbum;
+    NSUInteger _positionInAlbum;
     NSArray <LFMTag *> *_tags;
     LFMWiki *_wiki;
     LFMAlbum * __weak _album;
-    unsigned int _listeners;
-    unsigned int _playCount;
+    NSUInteger _listeners;
+    NSUInteger _playCount;
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
@@ -51,7 +51,7 @@
         NSString *name = [dictionary objectForKey:@"name"];
         NSString *mbid = [dictionary objectForKey:@"mbid"];
         NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        unsigned int listeners = [[dictionary objectForKey:@"listeners"] unsignedIntValue];
+        NSUInteger listeners = [[dictionary objectForKey:@"listeners"] unsignedIntegerValue];
         
         if (name != nil &&
             mbid != nil &&
@@ -59,10 +59,10 @@
             !isnan(listeners))
         {
             // Advanced variables that are only aquired on a `getInfo` call to Track.
-            unsigned int duration = [[dictionary objectForKey:@"duration"] unsignedIntValue];
-            unsigned int playCount = [[dictionary objectForKey:@"playcount"] unsignedIntValue];
+            NSUInteger duration = [[dictionary objectForKey:@"duration"] unsignedIntegerValue];
+            NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
             BOOL streamable = [[[dictionary objectForKey:@"streamable"] objectForKey:@"fulltrack"] boolValue];
-            unsigned int positionInAlbum = [[[[dictionary objectForKey:@"album"] objectForKey:@"@attr"] objectForKey:@"position"] unsignedIntValue];
+            NSUInteger positionInAlbum = [[[[dictionary objectForKey:@"album"] objectForKey:@"@attr"] objectForKey:@"position"] unsignedIntegerValue];
             
             LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[dictionary objectForKey:@"artist"]];
             LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:[dictionary objectForKey:@"album"]];
@@ -98,14 +98,14 @@
                       artist:(nullable LFMArtist *)artist
                musicBrainzID:(NSString *)mbid
                        album:(nullable LFMAlbum *)album
-             positionInAlbum:(unsigned int)position
+             positionInAlbum:(NSUInteger)position
                          URL:(NSURL *)URL
-                    duration:(unsigned int)duration
+                    duration:(NSUInteger)duration
                   streamable:(BOOL)streamable
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
-                   listeners:(unsigned int)listeners
-                   playCount:(unsigned int)playCount {
+                   listeners:(NSUInteger)listeners
+                   playCount:(NSUInteger)playCount {
     self = [super init];
     
     if (self) {
@@ -134,7 +134,7 @@
     return _URL;
 }
 
-- (unsigned int)duration {
+- (NSUInteger)duration {
     return _duration;
 }
 
@@ -146,7 +146,7 @@
     return _artist;
 }
 
-- (unsigned int)positionInAlbum {
+- (NSUInteger)positionInAlbum {
     return _positionInAlbum;
 }
 
@@ -162,11 +162,11 @@
     return _album;
 }
 
-- (unsigned int)listeners {
+- (NSUInteger)listeners {
     return _listeners;
 }
 
-- (unsigned int)playCount {
+- (NSUInteger)playCount {
     return _playCount;
 }
 
