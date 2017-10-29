@@ -44,7 +44,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
                     toArtistNamed:(NSString *)artistName
@@ -59,7 +59,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                     fromArtistNamed:(NSString *)artistName
@@ -71,7 +71,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The misspelt/misconcatinated name of an artist.
  @param block       The callback block containing an optional `NSError` if the request fails and a matching artist if one is found.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getCorrectionForMisspeltArtistName:(NSString *)artistName
                                                     callback:(void (^_Nullable)(NSError * _Nullable, LFMArtist * _Nullable))block NS_SWIFT_NAME(getCorrection(for:callback:));
@@ -86,7 +86,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMArtist` object if the request succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getInfoOnArtistNamed:(nullable NSString *)artistName
                              withMusicBrainzId:(nullable NSString *)mbid
@@ -104,7 +104,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param limit       The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects if the request succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getArtistsSimilarToArtistNamed:(nullable NSString *)artistName
                                        withMusicBrainzId:(nullable NSString *)mbid
@@ -123,7 +123,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param userName    The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTagsForArtistNamed:(nullable NSString *)artistName
                               withMusicBrainzId:(nullable NSString *)mbid
@@ -141,7 +141,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopAlbumsForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
@@ -160,7 +160,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTracksForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
@@ -177,7 +177,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTagsForArtistNamed:(nullable NSString *)artistName
                                 withMusicBrainzId:(nullable NSString *)mbid
@@ -192,7 +192,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
                                   itemsPerPage:(NSUInteger)limit

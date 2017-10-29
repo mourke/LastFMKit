@@ -87,7 +87,7 @@ NS_SWIFT_NAME(Track)
  @param listeners   The amount of listeners the track has.
  @param playCount   The amount of "scrobbles" the track has.
  
- @returns   An `LFMScrobbleTrack` object.
+ @return   An `LFMScrobbleTrack` object.
  */
 - (instancetype)initWithName:(NSString *)trackName
                       artist:(nullable LFMArtist *)artist

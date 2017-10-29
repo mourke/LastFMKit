@@ -58,7 +58,7 @@ NS_SWIFT_NAME(Tag)
  
  @param tagName The name of the tag.
  
- @returns   An `LFMTag` object.
+ @return   An `LFMTag` object.
  */
 - (instancetype)initWithName:(NSString *)tagName;
 
@@ -67,7 +67,7 @@ NS_SWIFT_NAME(Tag)
  
  @param tagName The name of the tag.
  
- @returns   An `LFMTag` object.
+ @return   An `LFMTag` object.
  */
 + (instancetype)tagWithName:(NSString *)tagName NS_SWIFT_UNAVAILABLE("Please use `init(name:)` instead.");
 

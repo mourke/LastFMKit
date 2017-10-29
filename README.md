@@ -1,6 +1,9 @@
 # LastFMKit
 Objective-C wrapper for Last.fm API
 
+![Travis](https://travis-ci.org/mourke/LastFMKit.svg?branch=master)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#carthage) [![CocoaPods compatible](https://img.shields.io/badge/pod-v1.0.0-5B9FDB.svg)](#cocoapods) ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg) [![License](https://img.shields.io/badge/license-MIT-414141.svg)](https://github.com/mourke/LastFMKit/blob/master/LICENSE)
+
 ## Installation with CocoaPods
 
 Install cocoapods with the following command:
@@ -15,10 +18,10 @@ To integrate LastFMKit into your Xcode project using CocoaPods, specify it in yo
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 target 'TargetName' do
-pod 'LastFMKit'
+pod 'LastFMKit', '~> 1.0'
 end
 ```
 
@@ -28,7 +31,7 @@ Then, run the following command:
 $ pod install
 ```
 
-### Installation with Carthage
+## Installation with Carthage
 
 Install Carthage with [Homebrew](http://brew.sh/) using the following command:
 
@@ -37,10 +40,12 @@ $ brew update
 $ brew install carthage
 ```
 
+#### Cartfile
+
 To integrate LastFMKit into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "LastFMKit/LastFMKit"
+github "mourke/LastFMKit"  ~> 1.0
 ```
 
 Run `carthage` to build the framework and drag the built `LastFMKit.framework` into your Xcode project.
@@ -88,7 +93,7 @@ if (!sharedInstance.userHasAuthenticated) {
 let shared = Auth.shared()
 
 if !shared.userHasAuthenticated {
-  shared.session(username: "USERNAME", password: "PASSWORD") { (error, session) in
+  shared.getSession(username: "USERNAME", password: "PASSWORD") { (error, session) in
     if let session = session {
       // Success
     } else if let error = error {
@@ -100,4 +105,4 @@ if !shared.userHasAuthenticated {
 
 ## License
 
-LastFMKit is released under the MIT license. See LICENSE for details.
+LastFMKit is released under the MIT license. See [LICENSE](https://github.com/mourke/LastFMKit/blob/master/LICENSE) for details.

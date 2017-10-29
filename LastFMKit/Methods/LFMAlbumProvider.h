@@ -45,7 +45,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
@@ -62,7 +62,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
@@ -80,7 +80,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMAlbum` object if the request succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getInfoOnAlbumNamed:(nullable NSString *)albumName
                                 byArtistNamed:(nullable NSString *)albumArtist
@@ -102,7 +102,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param userName    The name of any Last.fm user from which to obtain album tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTagsForAlbumNamed:(nullable NSString *)albumName
                                  byArtistNamed:(nullable NSString *)albumArtist
@@ -120,7 +120,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTagsForAlbumNamed:(nullable NSString *)albumName
                                     byArtistNamed:(nullable NSString *)albumArtist
@@ -136,7 +136,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(NSUInteger)limit

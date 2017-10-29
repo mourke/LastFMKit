@@ -47,7 +47,7 @@ NS_SWIFT_NAME(ScrobbleTrack)
  @param timestamp       The date at which the track started playing.
  @param chosenByUser    This parameter is used to indicate when a scrobble comes from a source that the user doesn't have "direct" control over. If the user is listening to music that is effectively chosen by someone other than themselves (e.g. from a Last.fm radio stream; from some other recommendation service; or radio show put together by a DJ or host) then this value should be set to `NO`, otherwise set it to `YES`.
  
- @returns   An `LFMScrobbleTrack` object.
+ @return   An `LFMScrobbleTrack` object.
  */
 - (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser;
 

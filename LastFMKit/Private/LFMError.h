@@ -31,6 +31,6 @@
  @param responseData    Unparsed JSON response data recieved from a call to any Last.fm API method.
  @param error           An error pointer. If there is a server side error, an `NSError` object will be created with the same code and message description as the server side error.
  
- @returns   Boolean indicating whether or not there is an error - i.e. returns `YES` when there is no error and `NO` when there is an error.
+ @return   Boolean indicating whether or not there is an error - i.e. returns `YES` when there is no error and `NO` when there is an error.
  */
 BOOL lfm_error_validate(NSData *responseData, NSError * *error);

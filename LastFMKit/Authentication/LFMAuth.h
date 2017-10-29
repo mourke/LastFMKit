@@ -58,18 +58,18 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  @param password    The password in plaintext.
  @param block       The block called upon completion indicating success or failure.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 - (NSURLSessionDataTask *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password
-                                        callback:(LFMAuthCallback)block NS_SWIFT_NAME(session(username:password:callback:));
+                                        callback:(LFMAuthCallback)block NS_SWIFT_NAME(getSession(username:password:callback:));
 
 /**
  Locally removes a user's mobile session.
  
  @note: This method makes no calls to the Last.FM API. This is an on-device only sign out. In order to completely revoke the privleges for this app, the user must visit their settings page on the Last.fm website.
  
- @returns   A boolean value indicating the success of the operation.
+ @return   A boolean value indicating the success of the operation.
  */
 - (BOOL)removeSession;
 
@@ -78,7 +78,7 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  
  @param queryItems  An array of every single parameter - including the method name - that is being passed to the API, excluding, obviously, the api signature parameter.
  
- @returns   An `NSURLQueryItem` for the api signature (key=@"api_sig", value=the api signature).
+ @return   An `NSURLQueryItem` for the api signature (key=@"api_sig", value=the api signature).
  */
 - (NSURLQueryItem *)signatureItemForQueryItems:(NSArray <NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(signatureItem(for:));
 
@@ -87,7 +87,7 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  
  @param queryItems  An array of every single parameter - including the method name - that is being passed to the API, excluding, obviously, the api signature parameter.
  
- @returns   A copy of the original array passed in with a new `NSURLQueryItem` for the api signature appended
+ @return   A copy of the original array passed in with a new `NSURLQueryItem` for the api signature appended
  */
 - (NSArray <NSURLQueryItem *> *)appendingSignatureItemToQueryItems:(NSArray <NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(appendingSignature(to:));
 

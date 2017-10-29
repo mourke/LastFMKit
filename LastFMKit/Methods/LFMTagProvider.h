@@ -29,6 +29,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ This class provides helper methods for looking up tags on Last.fm.
+ */
 NS_SWIFT_NAME(TagProvider)
 @interface LFMTagProvider : NSObject
 
@@ -39,7 +42,7 @@ NS_SWIFT_NAME(TagProvider)
  @param language    The language in which to return the wiki, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTag` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getInfoOnTagNamed:(NSString *)tagName
                                    language:(nullable NSString *)language
@@ -50,7 +53,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTagsWithCallback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *))block NS_SWIFT_NAME(getTopTags(callback:));
 
@@ -60,7 +63,7 @@ NS_SWIFT_NAME(TagProvider)
  @param tagName The name of the tag.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag` objects if the request succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTagsSimilarToTagNamed:(NSString *)tagName
                                           callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> *))block NS_SWIFT_NAME(getTagsSimilar(to:callback:));
@@ -73,7 +76,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(NSUInteger)limit
@@ -88,7 +91,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
                                            itemsPerPage:(NSUInteger)limit
@@ -103,7 +106,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTracksTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(NSUInteger)limit

@@ -43,7 +43,7 @@ NS_SWIFT_NAME(LibraryProvider)
  @param limit       The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
- @returns   The `NSURLSessionDataTask` object from the web request.
+ @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getArtistsForUserNamed:(NSString *)userName
                                     itemsPerPage:(NSUInteger)limit
