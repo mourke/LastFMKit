@@ -1,14 +1,10 @@
 language: objective-c
-osx_image: xcode9.0
-xcode_project: LastFMKit.xcodeproj
-xcode_scheme: LastFMKit iOS
+osx_image: xcode9.1
+
 skip_cleanup: true
 env:
   global:
   - FRAMEWORK_NAME=LastFMKit
-# before_install:
-# - brew update
-# - brew outdated carthage || brew upgrade carthage
 before_deploy:
 - carthage build --no-skip-current
 - carthage archive $FRAMEWORK_NAME
