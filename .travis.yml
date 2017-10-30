@@ -6,9 +6,9 @@ skip_cleanup: true
 env:
   global:
   - FRAMEWORK_NAME=LastFMKit
-before_install:
-- brew update
-- brew outdated carthage || brew upgrade carthage
+# before_install:
+# - brew update
+# - brew outdated carthage || brew upgrade carthage
 before_deploy:
 - carthage build --no-skip-current
 - carthage archive $FRAMEWORK_NAME
@@ -16,7 +16,7 @@ deploy:
   provider: releases
   api_key:
     secure: B9NYfic850z458wvQLdD22WGNbIE/vRJdhTYZsCSD87e/PTKNQ6qaX3PGYejy+9VMt99gorUj2LHIFMHvgrdthhj8l7tFWcHHbuE6NkfW/dJ2/L9YOxAx7q4PP2tHtzOYoNLH6ITvnLdYmGfOJeNfK0aOp6xv6bPNebu5uofTT5JZWh4r2hNRYokPE5N+ab85MHFSRSuOL09XVkgjyUIXIW9ACw3mPYPmGOUFZwZ6b1vsX1tnfe/zlCd9YPO4vkyHKgYH529ki1tZ9oDq1hzlX7CpB3JgbpTPkbwNH3+9xG7H7GIFKubS67VgBmyeHqkPduERxytcQ/1HxbABtqUlm+nYxWEflgARjZk3T615snCLdAOKNG/gG9y7yWrALGhs7+/TtuRpwhrbpjGU31xaKnjF9JD/cZVGtcMNsAJApU0FJ/MO0FUh+9vJjHsJidZTp1iW902P3eqKtbclj8kY9jUrPo6sLjZhdTTS7E5zA3MONNeQGi9UxhgLx3T4P1KmcmAO8pwLT3CtHXVaisHYgSVOxdEn4GTSt1DwFKQoDNBXkkXHvg34qGHMNM19IWZ4g15Vlme4vIaNepR9rix28ZF1Yyxqgk9i+0DDKYwPLV4mcT5IPQQ5mD5K+b+JRBTNlljLB7dAMp1/JA0RrtrBy8zsR/0tOoj9nMj9BJpoVk=
-  file: LastFMKit.framework.zip
+  file: $FRAMEWORK_NAME.framework.zip
   on:
     repo: mourke/LastFMKit
     tags: true
