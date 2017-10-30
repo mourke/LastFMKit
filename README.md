@@ -2,7 +2,7 @@
 Objective-C wrapper for Last.fm API
 
 ![Travis](https://travis-ci.org/mourke/LastFMKit.svg?branch=master)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#installation-with-carthage) [![CocoaPods compatible](https://img.shields.io/badge/pod-v1.0.0-5B9FDB.svg)](#installation-with-cocoapods) ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg) [![License](https://img.shields.io/badge/license-MIT-414141.svg)](https://github.com/mourke/LastFMKit/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](#installation-with-carthage) [![CocoaPods compatible](https://img.shields.io/cocoapods/v/LastFMKit.svg)](#installation-with-cocoapods) ![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg) ![Platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS-lightgrey.svg) [![License](https://img.shields.io/badge/license-MIT-414141.svg)](https://github.com/mourke/LastFMKit/blob/master/LICENSE)
 
 ## Installation with CocoaPods
 
