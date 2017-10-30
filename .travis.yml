@@ -5,7 +5,7 @@ skip_cleanup: true
 env:
   global:
   - FRAMEWORK_NAME=LastFMKit
-before_deploy:
+script:
 - carthage build --no-skip-current
 - carthage archive $FRAMEWORK_NAME
 deploy:
