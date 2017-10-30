@@ -32,6 +32,7 @@
 #import "LFMTag.h"
 #import "LFMSession.h"
 #import "LFMQuery.h"
+#import "LFMChart.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -90,6 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithPage:(NSUInteger)currentPage
                          totalResults:(NSUInteger)totalResults
                          itemsPerPage:(NSUInteger)itemsPerPage;
+
+@end
+
+@interface LFMChart()
+
+- (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
 
 @end
 

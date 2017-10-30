@@ -1,5 +1,5 @@
 //
-//  LFMKit.h
+//  LFMChart.h
 //  LastFMKit
 //
 //  Copyright © 2017 Mark Bourke.
@@ -25,39 +25,20 @@
 
 #import <Foundation/Foundation.h>
 
-FOUNDATION_EXPORT double LastFMKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
+NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark - Models
+/**
+ This class represents the Last.fm chart object.
+ */
+NS_SWIFT_NAME(Chart)
+@interface LFMChart : NSObject
 
-#import <LastFMKit/LFMTimePeriod.h>
-#import <LastFMKit/LFMTaggingType.h>
-#import <LastFMKit/LFMUserGender.h>
-#import <LastFMKit/LFMImageSize.h>
-#import <LastFMKit/LFMArtist.h>
-#import <LastFMKit/LFMUser.h>
-#import <LastFMKit/LFMTrack.h>
-#import <LastFMKit/LFMScrobbleTrack.h>
-#import <LastFMKit/LFMTag.h>
-#import <LastFMKit/LFMTopTag.h>
-#import <LastFMKit/LFMWiki.h>
-#import <LastFMKit/LFMAlbum.h>
-#import <LastFMKit/LFMQuery.h>
-#import <LastFMKit/LFMSearchQuery.h>
-#import <LastFMKit/LFMChart.h>
+/** The date on which the chart started. */
+@property(strong, nonatomic, readonly) NSDate *startDate;
 
-#pragma mark - Methods
+/** The date on which the chart ended. Usually a week from the `startDate`. */
+@property(strong, nonatomic, readonly) NSDate *endDate;
 
-#import <LastFMKit/LFMAlbumProvider.h>
-#import <LastFMKit/LFMArtistProvider.h>
-#import <LastFMKit/LFMChartProvider.h>
-#import <LastFMKit/LFMGeoProvider.h>
-#import <LastFMKit/LFMLibraryProvider.h>
-#import <LastFMKit/LFMTagProvider.h>
-#import <LastFMKit/LFMTrackProvider.h>
-#import <LastFMKit/LFMUserProvider.h>
+@end
 
-#pragma mark - Authentication
-
-#import <LastFMKit/LFMSession.h>
-#import <LastFMKit/LFMAuth.h>
+NS_ASSUME_NONNULL_END

@@ -211,6 +211,34 @@
 		4D9FFB661F9143100062279A /* LFMUserGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB651F9143100062279A /* LFMUserGender.m */; };
 		4DC84A081FA4B671002F6D6A /* LFMScrobbleTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DC84A091FA4B671002F6D6A /* LFMScrobbleTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */; };
+		4DDC523B1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC523C1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC523D1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC523E1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC523F1FA65A4C00B728EB /* LFMTaggingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */; };
+		4DDC52401FA65A4C00B728EB /* LFMTaggingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */; };
+		4DDC52411FA65A4C00B728EB /* LFMTaggingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */; };
+		4DDC52421FA65A4C00B728EB /* LFMTaggingType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */; };
+		4DDC52441FA65D2200B728EB /* UserProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */; };
+		4DDC52451FA65D2200B728EB /* UserProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */; };
+		4DDC52461FA65D2200B728EB /* UserProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */; };
+		4DDC52471FA65D2200B728EB /* UserProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */; };
+		4DDC524A1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC524B1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC524C1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC524D1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC524E1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */; };
+		4DDC524F1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */; };
+		4DDC52501FA74D7C00B728EB /* LFMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */; };
+		4DDC52511FA74D7C00B728EB /* LFMTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */; };
+		4DDC52541FA75D7C00B728EB /* LFMChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52521FA75D7C00B728EB /* LFMChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC52551FA75D7C00B728EB /* LFMChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52521FA75D7C00B728EB /* LFMChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC52561FA75D7C00B728EB /* LFMChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52521FA75D7C00B728EB /* LFMChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC52571FA75D7C00B728EB /* LFMChart.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52521FA75D7C00B728EB /* LFMChart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52531FA75D7C00B728EB /* LFMChart.m */; };
+		4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52531FA75D7C00B728EB /* LFMChart.m */; };
+		4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52531FA75D7C00B728EB /* LFMChart.m */; };
+		4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDC52531FA75D7C00B728EB /* LFMChart.m */; };
 		4DDDA8AA1FA0D00F00E16078 /* LFMTrackProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DDDA8AB1FA0D00F00E16078 /* LFMTrackProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */; };
 /* End PBXBuildFile section */
@@ -298,6 +326,13 @@
 		4D9FFB651F9143100062279A /* LFMUserGender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMUserGender.m; sourceTree = "<group>"; };
 		4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMScrobbleTrack.h; sourceTree = "<group>"; };
 		4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMScrobbleTrack.m; sourceTree = "<group>"; };
+		4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTaggingType.h; sourceTree = "<group>"; };
+		4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTaggingType.m; sourceTree = "<group>"; };
+		4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProvider+Swift.swift"; sourceTree = "<group>"; };
+		4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTimePeriod.h; sourceTree = "<group>"; };
+		4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTimePeriod.m; sourceTree = "<group>"; };
+		4DDC52521FA75D7C00B728EB /* LFMChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMChart.h; sourceTree = "<group>"; };
+		4DDC52531FA75D7C00B728EB /* LFMChart.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMChart.m; sourceTree = "<group>"; };
 		4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTrackProvider.h; sourceTree = "<group>"; };
 		4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTrackProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -390,6 +425,7 @@
 				4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */,
 				4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */,
 				4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */,
+				4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */,
 			);
 			name = Methods;
 			path = LastFMKit/Methods;
@@ -454,6 +490,10 @@
 		4D9FFB581F8E93830062279A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */,
+				4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */,
+				4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */,
+				4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */,
 				4D9FFB631F91323B0062279A /* LFMUserGender.h */,
 				4D9FFB651F9143100062279A /* LFMUserGender.m */,
 				4D9FFB5D1F911DF10062279A /* LFMImageSize.h */,
@@ -478,6 +518,8 @@
 				4D389F211F964A160030EAD5 /* LFMQuery.m */,
 				4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */,
 				4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */,
+				4DDC52521FA75D7C00B728EB /* LFMChart.h */,
+				4DDC52531FA75D7C00B728EB /* LFMChart.m */,
 			);
 			name = Models;
 			path = LastFMKit/Models;
@@ -503,6 +545,7 @@
 				4D04E02C1FA5F9D7004675CA /* LFMScrobbleTrack.h in Headers */,
 				4D04DFB11FA5F988004675CA /* LFMKit+Protected.h in Headers */,
 				4D04DFC01FA5F9A2004675CA /* LFMSession.h in Headers */,
+				4DDC523C1FA65A4C00B728EB /* LFMTaggingType.h in Headers */,
 				4D04E0241FA5F9D7004675CA /* LFMUserGender.h in Headers */,
 				4D04DFE61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */,
 				4D04E0261FA5F9D7004675CA /* LFMImageSize.h in Headers */,
@@ -513,8 +556,10 @@
 				4D04E0321FA5F9D7004675CA /* LFMTopTag.h in Headers */,
 				4D04E02E1FA5F9D7004675CA /* LFMTrack.h in Headers */,
 				4D04DFE81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
+				4DDC524B1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04E02A1FA5F9D7004675CA /* LFMUser.h in Headers */,
 				4D04E0341FA5F9D7004675CA /* LFMWiki.h in Headers */,
+				4DDC52551FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAE1FA5F969004675CA /* LastFMKit.h in Headers */,
 				4D04DFF01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFC21FA5F9A2004675CA /* LFMAuth.h in Headers */,
@@ -536,6 +581,7 @@
 				4D04DFFC1FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */,
 				4D04DFAF1FA5F987004675CA /* LFMKit+Protected.h in Headers */,
 				4D04DFB81FA5F9A0004675CA /* LFMSession.h in Headers */,
+				4DDC523E1FA65A4C00B728EB /* LFMTaggingType.h in Headers */,
 				4D04DFF41FA5F9D6004675CA /* LFMUserGender.h in Headers */,
 				4D04DFC61FA5F9B9004675CA /* LFMArtistProvider.h in Headers */,
 				4D04DFF61FA5F9D6004675CA /* LFMImageSize.h in Headers */,
@@ -546,8 +592,10 @@
 				4D04E0021FA5F9D6004675CA /* LFMTopTag.h in Headers */,
 				4D04DFFE1FA5F9D6004675CA /* LFMTrack.h in Headers */,
 				4D04DFC81FA5F9B9004675CA /* LFMChartProvider.h in Headers */,
+				4DDC524D1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04DFFA1FA5F9D6004675CA /* LFMUser.h in Headers */,
 				4D04E0041FA5F9D6004675CA /* LFMWiki.h in Headers */,
+				4DDC52571FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAB1FA5F967004675CA /* LastFMKit.h in Headers */,
 				4D04DFD01FA5F9B9004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFBA1FA5F9A0004675CA /* LFMAuth.h in Headers */,
@@ -569,6 +617,7 @@
 				4D04E0141FA5F9D6004675CA /* LFMScrobbleTrack.h in Headers */,
 				4D04DFB01FA5F987004675CA /* LFMKit+Protected.h in Headers */,
 				4D04DFBC1FA5F9A1004675CA /* LFMSession.h in Headers */,
+				4DDC523D1FA65A4C00B728EB /* LFMTaggingType.h in Headers */,
 				4D04E00C1FA5F9D6004675CA /* LFMUserGender.h in Headers */,
 				4D04DFD61FA5F9BA004675CA /* LFMArtistProvider.h in Headers */,
 				4D04E00E1FA5F9D6004675CA /* LFMImageSize.h in Headers */,
@@ -579,8 +628,10 @@
 				4D04E01A1FA5F9D6004675CA /* LFMTopTag.h in Headers */,
 				4D04E0161FA5F9D6004675CA /* LFMTrack.h in Headers */,
 				4D04DFD81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
+				4DDC524C1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04E0121FA5F9D6004675CA /* LFMUser.h in Headers */,
 				4D04E01C1FA5F9D6004675CA /* LFMWiki.h in Headers */,
+				4DDC52561FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAC1FA5F968004675CA /* LastFMKit.h in Headers */,
 				4D04DFE01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFBE1FA5F9A1004675CA /* LFMAuth.h in Headers */,
@@ -602,6 +653,7 @@
 				4DC84A081FA4B671002F6D6A /* LFMScrobbleTrack.h in Headers */,
 				4D9FFB641F91323B0062279A /* LFMUserGender.h in Headers */,
 				4D6A23C81F94BF7100F377E2 /* LFMSearchQuery.h in Headers */,
+				4DDC523B1FA65A4C00B728EB /* LFMTaggingType.h in Headers */,
 				4D9FFB4E1F8E82670062279A /* LFMTrack.h in Headers */,
 				4D1685A31F9680B80013355C /* LFMGeoProvider.h in Headers */,
 				4D9DCF4E1F923E97005D8EED /* LFMAlbumProvider.h in Headers */,
@@ -612,8 +664,10 @@
 				4D1685A71F9687EB0013355C /* LFMLibraryProvider.h in Headers */,
 				4D95DB8C1F9BBAF100C1C553 /* LFMTagProvider.h in Headers */,
 				4D389F1A1F9630180030EAD5 /* LFMTopTag.h in Headers */,
+				4DDC524A1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D9FFB5B1F8E95300062279A /* LFMUser.h in Headers */,
 				4D9FFB521F8E82710062279A /* LFMTag.h in Headers */,
+				4DDC52541FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D389F161F950F8D0030EAD5 /* LFMArtistProvider.h in Headers */,
 				4D389F221F964A160030EAD5 /* LFMQuery.h in Headers */,
 				4D9FFB4A1F8E80200062279A /* LFMAlbum.h in Headers */,
@@ -769,10 +823,12 @@
 				TargetAttributes = {
 					4D04DF6A1FA5F6E1004675CA = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					4D04DF771FA5F7AA004675CA = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					4D04DF7F1FA5F7AA004675CA = {
@@ -781,6 +837,7 @@
 					};
 					4D04DF931FA5F89D004675CA = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					4D04DF9B1FA5F89D004675CA = {
@@ -789,6 +846,7 @@
 					};
 					4D9FFB291F8E7E780062279A = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					4D9FFB321F8E7E780062279A = {
@@ -879,6 +937,7 @@
 			files = (
 				4D04DFEB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */,
 				4D04DFEF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */,
+				4DDC52401FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0311FA5F9D7004675CA /* LFMTag.m in Sources */,
 				4D04DFF31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
 				4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */,
@@ -886,13 +945,16 @@
 				4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */,
+				4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */,
 				4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */,
 				4D04DFC31FA5F9A2004675CA /* LFMAuth.m in Sources */,
 				4D04DFE91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
+				4DDC524F1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E0331FA5F9D7004675CA /* LFMTopTag.m in Sources */,
 				4D04E0291FA5F9D7004675CA /* LFMArtist.m in Sources */,
 				4D04E0371FA5F9D7004675CA /* LFMAlbum.m in Sources */,
+				4DDC52451FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB71FA5F99A004675CA /* LFMError.m in Sources */,
 				4D04DFED1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04E02D1FA5F9D7004675CA /* LFMScrobbleTrack.m in Sources */,
@@ -910,6 +972,7 @@
 			files = (
 				4D04DFCB1FA5F9B9004675CA /* LFMGeoProvider.m in Sources */,
 				4D04DFCF1FA5F9B9004675CA /* LFMTagProvider.m in Sources */,
+				4DDC52421FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0011FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFD31FA5F9B9004675CA /* LFMUserProvider.m in Sources */,
 				4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */,
@@ -917,13 +980,16 @@
 				4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */,
 				4D04DFBB1FA5F9A0004675CA /* LFMAuth.m in Sources */,
 				4D04DFC91FA5F9B9004675CA /* LFMChartProvider.m in Sources */,
+				4DDC52511FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E0031FA5F9D6004675CA /* LFMTopTag.m in Sources */,
 				4D04DFF91FA5F9D6004675CA /* LFMArtist.m in Sources */,
 				4D04E0071FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4DDC52471FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB51FA5F999004675CA /* LFMError.m in Sources */,
 				4D04DFCD1FA5F9B9004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04DFFD1FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
@@ -949,6 +1015,7 @@
 			files = (
 				4D04DFDB1FA5F9BA004675CA /* LFMGeoProvider.m in Sources */,
 				4D04DFDF1FA5F9BA004675CA /* LFMTagProvider.m in Sources */,
+				4DDC52411FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0191FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFE31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
 				4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */,
@@ -956,13 +1023,16 @@
 				4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */,
 				4D04DFBF1FA5F9A1004675CA /* LFMAuth.m in Sources */,
 				4D04DFD91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
+				4DDC52501FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E01B1FA5F9D6004675CA /* LFMTopTag.m in Sources */,
 				4D04E0111FA5F9D6004675CA /* LFMArtist.m in Sources */,
 				4D04E01F1FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4DDC52461FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB61FA5F99A004675CA /* LFMError.m in Sources */,
 				4D04DFDD1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04E0151FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
@@ -988,6 +1058,7 @@
 			files = (
 				4D9DCF551F923ECA005D8EED /* LFMSession.m in Sources */,
 				4D95DB8D1F9BBAF100C1C553 /* LFMTagProvider.m in Sources */,
+				4DDC523F1FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D389F231F964A160030EAD5 /* LFMQuery.m in Sources */,
 				4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */,
 				4D389F1B1F9630180030EAD5 /* LFMTopTag.m in Sources */,
@@ -995,13 +1066,16 @@
 				4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */,
 				4D9DCF4F1F923E97005D8EED /* LFMAlbumProvider.m in Sources */,
 				4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */,
+				4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D6A23C41F9411E000F377E2 /* LFMError.m in Sources */,
 				4D9FFB621F912A430062279A /* LFMImageSize.m in Sources */,
 				4D9FFB471F8E7FC00062279A /* LFMArtist.m in Sources */,
 				4DC84A091FA4B671002F6D6A /* LFMScrobbleTrack.m in Sources */,
+				4DDC524E1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D9FFB4F1F8E82670062279A /* LFMTrack.m in Sources */,
 				4D389F1F1F9638890030EAD5 /* LFMChartProvider.m in Sources */,
 				4D9FFB531F8E82710062279A /* LFMTag.m in Sources */,
+				4DDC52441FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D9FFB4B1F8E80200062279A /* LFMAlbum.m in Sources */,
 				4D9FFB661F9143100062279A /* LFMUserGender.m in Sources */,
 				4D1685A81F9687EB0013355C /* LFMLibraryProvider.m in Sources */,
@@ -1046,6 +1120,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1060,6 +1135,8 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1070,6 +1147,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1084,6 +1162,7 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1093,6 +1172,7 @@
 		4D04DF8A1FA5F7AA004675CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1107,6 +1187,8 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1116,6 +1198,7 @@
 		4D04DF8B1FA5F7AA004675CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1130,6 +1213,7 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1139,6 +1223,7 @@
 		4D04DF8D1FA5F7AA004675CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1153,6 +1238,7 @@
 		4D04DF8E1FA5F7AA004675CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1167,6 +1253,7 @@
 		4D04DFA61FA5F89D004675CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1183,6 +1270,8 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1191,6 +1280,7 @@
 		4D04DFA71FA5F89D004675CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1207,6 +1297,7 @@
 				PRODUCT_NAME = LastFMKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -1215,6 +1306,7 @@
 		4D04DFA91FA5F89D004675CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1230,6 +1322,7 @@
 		4D04DFAA1FA5F89D004675CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1361,6 +1454,7 @@
 		4D9FFB3F1F8E7E780062279A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1376,6 +1470,8 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = LastFMKit;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1385,6 +1481,7 @@
 		4D9FFB401F8E7E780062279A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1400,6 +1497,7 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = LastFMKit;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1409,6 +1507,7 @@
 		4D9FFB421F8E7E780062279A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1421,6 +1520,7 @@
 		4D9FFB431F8E7E780062279A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/LastFMKitTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

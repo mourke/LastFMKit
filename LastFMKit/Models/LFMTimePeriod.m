@@ -1,5 +1,5 @@
 //
-//  LFMKit.h
+//  LFMTimePeriod.m
 //  LastFMKit
 //
 //  Copyright © 2017 Mark Bourke.
@@ -23,41 +23,10 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMTimePeriod.h"
 
-FOUNDATION_EXPORT double LastFMKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
-
-#pragma mark - Models
-
-#import <LastFMKit/LFMTimePeriod.h>
-#import <LastFMKit/LFMTaggingType.h>
-#import <LastFMKit/LFMUserGender.h>
-#import <LastFMKit/LFMImageSize.h>
-#import <LastFMKit/LFMArtist.h>
-#import <LastFMKit/LFMUser.h>
-#import <LastFMKit/LFMTrack.h>
-#import <LastFMKit/LFMScrobbleTrack.h>
-#import <LastFMKit/LFMTag.h>
-#import <LastFMKit/LFMTopTag.h>
-#import <LastFMKit/LFMWiki.h>
-#import <LastFMKit/LFMAlbum.h>
-#import <LastFMKit/LFMQuery.h>
-#import <LastFMKit/LFMSearchQuery.h>
-#import <LastFMKit/LFMChart.h>
-
-#pragma mark - Methods
-
-#import <LastFMKit/LFMAlbumProvider.h>
-#import <LastFMKit/LFMArtistProvider.h>
-#import <LastFMKit/LFMChartProvider.h>
-#import <LastFMKit/LFMGeoProvider.h>
-#import <LastFMKit/LFMLibraryProvider.h>
-#import <LastFMKit/LFMTagProvider.h>
-#import <LastFMKit/LFMTrackProvider.h>
-#import <LastFMKit/LFMUserProvider.h>
-
-#pragma mark - Authentication
-
-#import <LastFMKit/LFMSession.h>
-#import <LastFMKit/LFMAuth.h>
+LFMTimePeriod const LFMTimePeriodOneWeek = @"7day";
+LFMTimePeriod const LFMTimePeriodOneMonth = @"1month";
+LFMTimePeriod const LFMTimePeriodThreeMonths = @"3month";
+LFMTimePeriod const LFMTimePeriodSixMonths = @"6month";
+LFMTimePeriod const LFMTimePeriodOneYear = @"12month";

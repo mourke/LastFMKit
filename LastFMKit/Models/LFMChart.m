@@ -1,5 +1,5 @@
 //
-//  LFMKit.h
+//  LFMChart.m
 //  LastFMKit
 //
 //  Copyright © 2017 Mark Bourke.
@@ -23,41 +23,38 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMChart.h"
+#import "LFMKit+Protected.h"
 
-FOUNDATION_EXPORT double LastFMKitVersionNumber;
-FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
+@implementation LFMChart {
+    NSDate *_startDate;
+    NSDate *_endDate;
+}
 
-#pragma mark - Models
+- (instancetype)initFromDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    
+    if (self) {
+        NSTimeInterval startDateInterval = [[dictionary objectForKey:@"from"] doubleValue];
+        NSTimeInterval endDateInterval = [[dictionary objectForKey:@"to"] integerValue];
+        
+        if (!isnan(startDateInterval) && !isnan(endDateInterval)) {
+            _startDate = [NSDate dateWithTimeIntervalSince1970:startDateInterval];
+            _endDate = [NSDate dateWithTimeIntervalSince1970:endDateInterval];
+            
+            return self;
+        }
+    }
+    
+    return nil;
+}
 
-#import <LastFMKit/LFMTimePeriod.h>
-#import <LastFMKit/LFMTaggingType.h>
-#import <LastFMKit/LFMUserGender.h>
-#import <LastFMKit/LFMImageSize.h>
-#import <LastFMKit/LFMArtist.h>
-#import <LastFMKit/LFMUser.h>
-#import <LastFMKit/LFMTrack.h>
-#import <LastFMKit/LFMScrobbleTrack.h>
-#import <LastFMKit/LFMTag.h>
-#import <LastFMKit/LFMTopTag.h>
-#import <LastFMKit/LFMWiki.h>
-#import <LastFMKit/LFMAlbum.h>
-#import <LastFMKit/LFMQuery.h>
-#import <LastFMKit/LFMSearchQuery.h>
-#import <LastFMKit/LFMChart.h>
+- (NSDate *)startDate {
+    return _startDate;
+}
 
-#pragma mark - Methods
+- (NSDate *)endDate {
+    return _endDate;
+}
 
-#import <LastFMKit/LFMAlbumProvider.h>
-#import <LastFMKit/LFMArtistProvider.h>
-#import <LastFMKit/LFMChartProvider.h>
-#import <LastFMKit/LFMGeoProvider.h>
-#import <LastFMKit/LFMLibraryProvider.h>
-#import <LastFMKit/LFMTagProvider.h>
-#import <LastFMKit/LFMTrackProvider.h>
-#import <LastFMKit/LFMUserProvider.h>
-
-#pragma mark - Authentication
-
-#import <LastFMKit/LFMSession.h>
-#import <LastFMKit/LFMAuth.h>
+@end
