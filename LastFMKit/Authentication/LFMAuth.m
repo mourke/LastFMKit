@@ -63,7 +63,7 @@
     return NO;
 }
 
-- (void)setSession:(LFMSession *)session {
+- (void) setSession:(LFMSession *)session __attribute__((objc_direct)) {
     _session = session;
     [session saveInKeychain];
 }
@@ -91,7 +91,7 @@
                             [NSURLQueryItem queryItemWithName:@"api_key" value:self.apiKey]];
     components.queryItems = [self appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];

@@ -74,19 +74,21 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @param albumName   The name of the album. Required, unless mbid is specified.
  @param albumArtist The name of the album's artist. Required, unless mbid is specified.
- @param mbid        The MusicBrainzID for the album. Required, unless both albumName and albumArtist are specified.
+ @param mbid        The MusicBrainzID for the album @b release. Required, unless both albumName and albumArtist are specified. Having all three will result in the mbid being preferred as it is more accurate.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param userName    The username for the context of the request. If supplied, the user's playcount for this album is included in the response.
+ @param username    The username for the context of the request. If supplied, the user's playcount for this album is included in the response.
  @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMAlbum` object if the request succeeds.
+ 
+ @note  It is @b very important that you use the album release id and not the album release group id. The album release group contains information about the album release - i.e. the releases for each country, whether a delux cd was released, the digital version etc. The album release is a specific one of these group items. If you provide an album release group id you will get an error code @b 6 saying the album was not found.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getInfoOnAlbumNamed:(nullable NSString *)albumName
                                 byArtistNamed:(nullable NSString *)albumArtist
-                            withMusicBrainzId:(nullable NSString *)mbid
+                                    albumMBID:(nullable NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
-                                      forUser:(nullable NSString *)userName
+                                  forUsername:(nullable NSString *)username
                                  languageCode:(nullable NSString *)code
                                      callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block NS_SWIFT_NAME(getInfo(on:by:mbid:autoCorrect:username:languageCode:callback:));
 
@@ -99,7 +101,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the album. Required, unless both albumName and albumArtist are specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param userName    The name of any Last.fm user from which to obtain album tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
+ @param username    The name of any Last.fm user from which to obtain album tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -108,7 +110,7 @@ NS_SWIFT_NAME(AlbumProvider)
                                  byArtistNamed:(nullable NSString *)albumArtist
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(nullable NSString *)userName
+                                       forUser:(nullable NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forAlbum:by:mbid:autoCorrect:forUser:callback:));
 
 /**

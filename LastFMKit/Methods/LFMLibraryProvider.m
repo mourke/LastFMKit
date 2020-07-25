@@ -32,7 +32,7 @@
 
 @implementation LFMLibraryProvider
 
-+ (NSURLSessionDataTask *)getArtistsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getArtistsForUsername:(NSString *)username
                                     itemsPerPage:(NSUInteger)limit
                                           onPage:(NSUInteger)page
                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
@@ -41,7 +41,7 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"library.getArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];

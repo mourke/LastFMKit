@@ -39,7 +39,11 @@
                      toAlbumNamed:(NSString *)albumName
                     byArtistNamed:(NSString *)albumArtist
                          callback:(void (^)(NSError * _Nullable))block {
+    NSParameterAssert(tags);
+    NSParameterAssert(albumName);
+    NSParameterAssert(albumArtist);
     NSAssert(tags.count <= 10, @"This method call accepts a maximum of 10 tags.");
+    NSAssert([LFMSession sharedSession].sessionKey != nil, @"This method requires user authentication");
     
     NSMutableString *tagString = [NSMutableString string];
     [tags enumerateObjectsUsingBlock:^(LFMTag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -60,7 +64,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -83,6 +87,11 @@
                      fromAlbumNamed:(NSString *)albumName
                       byArtistNamed:(NSString *)albumArtist
                            callback:(void (^)(NSError * _Nullable))block {
+    NSParameterAssert(tag);
+    NSParameterAssert(albumName);
+    NSParameterAssert(albumArtist);
+    NSAssert([LFMSession sharedSession].sessionKey != nil, @"This method requires user authentication");
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -97,7 +106,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
 
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -118,9 +127,9 @@
 
 + (NSURLSessionDataTask *)getInfoOnAlbumNamed:(NSString *)albumName
                                 byArtistNamed:(NSString *)albumArtist
-                            withMusicBrainzId:(NSString *)mbid
+                                    albumMBID:(NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
-                                      forUser:(NSString *)userName
+                                  forUsername:(NSString *)username
                                  languageCode:(NSString *)code
                                      callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block {
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
@@ -134,7 +143,7 @@
                             [NSURLQueryItem queryItemWithName:@"artist" value:albumArtist],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"username" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"username" value:username],
                             [NSURLQueryItem queryItemWithName:@"lang" value:code],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
@@ -160,9 +169,9 @@
                                  byArtistNamed:(NSString *)albumArtist
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(NSString *)userName
+                                       forUser:(NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
-    NSAssert([LFMSession sharedSession].sessionKey != nil || userName != nil, @"The user either: must be authenticated, or the `userName` parameter must be set.");
+    NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
     
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     
@@ -175,7 +184,7 @@
                             [NSURLQueryItem queryItemWithName:@"artist" value:albumArtist],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     

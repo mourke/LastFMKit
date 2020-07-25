@@ -1,8 +1,8 @@
 //
-//  LFMError.m
-//  LastFMKit
+//  LFMTestCase.m
+//  LastFMKitTests
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright (c) 2017 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +20,31 @@
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE
+//  THE SOFTWARE.
 //
 
-#import "LFMError.h"
+#import "LFMTestCase.h"
+#import <LastFMKit/LastFMKit.h>
+#import <LastFMKit/LFMKit+Protected.h>
 
-BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
-    NSError *_error;
-    NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&_error];
-    
-    NSString *errorMessage = [responseDictionary objectForKey:@"message"];
-    NSUInteger errorCode = [[responseDictionary objectForKey:@"error"] unsignedIntegerValue];
-    
-    if (errorMessage != nil && !isnan(errorCode)) {
-        _error = [NSError errorWithDomain:@"fm.last.kit.error" code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-    }
-    
-    if (error) {
-        *error = _error;
-    }
-    
-    return _error == nil ? YES : NO;
+@implementation LFMTestCase
+
+- (NSString *)testUsername {
+    return @"test_lfmkit_ios";
 }
+
+- (void)setUp {
+    [[LFMAuth sharedInstance] setApiKey:@"bc15dd6972bc0f7c952273b34d253a6a"];
+    [[LFMAuth sharedInstance] setApiSecret:@"d46ca773c61a3907c0b19c777c5bcf20"];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    LFMSession *testSession = [[LFMSession alloc] performSelector:NSSelectorFromString(@"init")]; // Initialiser is private.
+#pragma clang diagnostic pop
+    [testSession setValue:[NSNumber numberWithBool:NO] forKey:@"_userIsSubscriber"];
+    [testSession setValue:self.testUsername forKey:@"_userName"];
+    [testSession setValue:@"1irfXzHD5BaqXja0y-k5WeeFxWiRvLrO" forKey:@"_sessionKey"];
+    
+    [[LFMAuth sharedInstance] setValue:testSession forKey:@"_session"];
+}
+
+@end

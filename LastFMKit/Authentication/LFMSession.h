@@ -37,7 +37,7 @@ NS_SWIFT_NAME(Session)
 @interface LFMSession : NSObject <NSCoding>
 
 /** The authenticated user's username. */
-@property(strong, nonatomic, readonly) NSString *userName;
+@property(strong, nonatomic, readonly) NSString *username;
 
 /** Boolean value indicating whether or not the user is a subscriber. */
 @property(nonatomic, readonly) BOOL userIsSubscriber;

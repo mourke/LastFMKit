@@ -57,7 +57,7 @@
     return nil;
 }
 
-- (NSString *)userName {
+- (NSString *)username {
     return _userName;
 }
 
@@ -76,7 +76,7 @@
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_userName forKey:NSStringFromSelector(@selector(userName))];
+    [aCoder encodeObject:_userName forKey:NSStringFromSelector(@selector(username))];
     [aCoder encodeBool:_userIsSubscriber forKey:NSStringFromSelector(@selector(userIsSubscriber))];
     [aCoder encodeObject:_sessionKey forKey:NSStringFromSelector(@selector(sessionKey))];
 }
@@ -85,7 +85,7 @@
     self = [super init];
     
     if (self) {
-        _userName = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(userName))];
+        _userName = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(username))];
         _userIsSubscriber = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(userIsSubscriber))];
         _sessionKey = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sessionKey))];
     }

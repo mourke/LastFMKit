@@ -1,5 +1,5 @@
 //
-//  LastFMKitTests.m
+//  LFMTestCase.h
 //  LastFMKitTests
 //
 //  Copyright (c) 2017 Mark Bourke
@@ -25,36 +25,8 @@
 
 #import <XCTest/XCTest.h>
 
-#import <LastFMKit/LastFMKit.h>
+@interface LFMTestCase : XCTestCase
 
-@interface LastFMKitTests: XCTestCase
-
-@end
-
-@implementation LastFMKitTests
-
-- (void)setUp {
-    [super setUp];
-
-    [[LFMAuth sharedInstance] setApiKey:@"bc15dd6972bc0f7c952273b34d253a6a"];
-    [[LFMAuth sharedInstance] setApiSecret:@"d46ca773c61a3907c0b19c777c5bcf20"];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
-- (void)testAlbumSearch {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Search albums"];
-
-    [LFMAlbumProvider searchForAlbumNamed:@"My Everything" itemsPerPage:50 onPage:1 callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable searchQuery) {
-        XCTAssertNil(error, @"Failed to create session %@", error);
-        XCTAssertFalse(albums.count == 0, @"Search results were empty");
-        XCTAssertNotNil(searchQuery, @"Search failed.");
-        [expectation fulfill];
-    }];
-
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
-}
+@property (strong, readonly, nonatomic) NSString *testUsername;
 
 @end

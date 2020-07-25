@@ -44,7 +44,7 @@
     self = [super init];
     
     if (self) {
-        NSString *userName = [dictionary objectForKey:@"name"];
+        NSString *username = [dictionary objectForKey:@"name"];
         NSString *realName = [dictionary objectForKey:@"realname"];
         NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
         NSString *country = [dictionary objectForKey:@"country"];
@@ -56,7 +56,7 @@
         double registeredTime = [[[dictionary objectForKey:@"registered"] objectForKey:@"unixtime"] doubleValue];
         NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
         
-        if (userName != nil &&
+        if (username != nil &&
             realName != nil &&
             URL != nil &&
             country != nil &&
@@ -67,7 +67,7 @@
             !isnan(playlistCount) &&
             !isnan(registeredTime))
         {
-            _userName = userName;
+            _userName = username;
             _realName = realName;
             _images = images;
             _URL = URL;
@@ -86,7 +86,7 @@
     return nil;
 }
 
-- (NSString *)userName {
+- (NSString *)username {
     return _userName;
 }
 

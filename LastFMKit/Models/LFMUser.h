@@ -36,7 +36,7 @@ NS_SWIFT_NAME(User)
 @interface LFMUser : NSObject
 
 /** The alias the user chose upon signing up. */
-@property(strong, nonatomic, readonly) NSString *userName;
+@property(strong, nonatomic, readonly) NSString *username;
 
 /** The user's real-life name. */
 @property(strong, nonatomic, readonly) NSString *realName;

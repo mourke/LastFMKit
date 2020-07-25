@@ -60,7 +60,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -95,7 +95,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -130,7 +130,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -219,7 +219,7 @@
     
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -285,7 +285,7 @@
                                 byArtistNamed:(NSString *)artistName
                             withMusicBrainzId:(NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
-                                      forUser:(NSString *)userName
+                                      forUser:(NSString *)username
                                      callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block {
     NSAssert((trackName != nil && artistName != nil) || mbid != nil, @"Either the trackName and artistName or the mbid parameter must be set.");
     
@@ -298,7 +298,7 @@
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"username" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"username" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
     
@@ -374,7 +374,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -411,7 +411,7 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
-    NSData *data = [components.query dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
@@ -434,9 +434,9 @@
                                  byArtistNamed:(NSString *)artistName
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(NSString *)userName
+                                       forUser:(NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
-    NSAssert([LFMSession sharedSession].sessionKey != nil || userName != nil, @"The user either: must be authenticated, or the `userName` parameter must be set.");
+    NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
     
     NSAssert((trackName != nil && artistName != nil) || (mbid != nil), @"Either the trackName and the artistName or the mbid parameter must be set.");
     
@@ -449,7 +449,7 @@
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
     

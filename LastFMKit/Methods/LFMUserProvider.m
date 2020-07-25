@@ -37,14 +37,14 @@
 
 @implementation LFMUserProvider
 
-+ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)username
                                     callback:(void (^)(NSError * _Nullable, LFMUser * _Nullable))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getInfo"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -66,7 +66,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
                                    itemsPerPage:(NSUInteger)limit
                                          onPage:(NSUInteger)page
@@ -79,7 +79,7 @@
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -108,7 +108,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
                                                  onPage:(NSUInteger)page
                                           fromStartDate:(NSDate *)startDate
@@ -118,7 +118,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getArtistTracks"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"startTimestamp" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
@@ -152,7 +152,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)username
                                        itemsPerPage:(NSUInteger)limit
                                              onPage:(NSUInteger)page
                                            callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
@@ -163,7 +163,7 @@
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -192,7 +192,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
                                            itemType:(LFMTaggingType)type
                                        itemsPerPage:(NSUInteger)limit
@@ -207,7 +207,7 @@
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -248,7 +248,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getRecentTracksForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getRecentTracksForUsername:(NSString *)username
                                          itemsPerPage:(NSUInteger)limit
                                                onPage:(NSUInteger)page
                                         fromStartDate:(NSDate *)startDate
@@ -258,7 +258,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getRecentTracks"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"extended" value:@"1"],
@@ -293,7 +293,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopAlbumsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopAlbumsForUsername:(NSString *)username
                                       itemsPerPage:(NSUInteger)limit
                                             onPage:(NSUInteger)page
                                         overPeriod:(LFMTimePeriod)period
@@ -302,7 +302,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopAlbums"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
@@ -335,7 +335,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopArtistsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopArtistsForUsername:(NSString *)username
                                        itemsPerPage:(NSUInteger)limit
                                              onPage:(NSUInteger)page
                                          overPeriod:(LFMTimePeriod)period
@@ -344,7 +344,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopArtists"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
@@ -377,7 +377,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTracksForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopTracksForUsername:(NSString *)username
                                       itemsPerPage:(NSUInteger)limit
                                             onPage:(NSUInteger)page
                                         overPeriod:(LFMTimePeriod)period
@@ -386,7 +386,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTracks"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
@@ -419,14 +419,14 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopTagsForUsername:(NSString *)username
                                            limit:(NSUInteger)limit
                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTags"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -455,7 +455,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyAlbumChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
                                                  callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull))block {
@@ -463,7 +463,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyAlbumChart"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"from" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"to" value:[NSString stringWithFormat:@"%f", endDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -493,7 +493,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyArtistChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(NSDate *)startDate
                                                  toEndDate:(NSDate *)endDate
                                                   callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull))block {
@@ -501,7 +501,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyArtistChart"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"from" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"to" value:[NSString stringWithFormat:@"%f", endDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -531,7 +531,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyTrackChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
                                                  callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull))block {
@@ -539,7 +539,7 @@
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyTrackChart"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"from" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"to" value:[NSString stringWithFormat:@"%f", endDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -569,13 +569,13 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyChartListForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyChartListForUsername:(NSString *)username
                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMChart *> * _Nonnull))block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyChartList"],
-                            [NSURLQueryItem queryItemWithName:@"user" value:userName],
+                            [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     

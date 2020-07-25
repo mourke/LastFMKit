@@ -1,8 +1,8 @@
 //
-//  LFMError.m
-//  LastFMKit
+//  LFMAuthTests.m
+//  LastFMKitTests
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright (c) 2017 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,25 +20,44 @@
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE
+//  THE SOFTWARE.
 //
 
-#import "LFMError.h"
+#import "LFMTestCase.h"
+#import <LastFMKit/LastFMKit.h>
 
-BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
-    NSError *_error;
-    NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&_error];
-    
-    NSString *errorMessage = [responseDictionary objectForKey:@"message"];
-    NSUInteger errorCode = [[responseDictionary objectForKey:@"error"] unsignedIntegerValue];
-    
-    if (errorMessage != nil && !isnan(errorCode)) {
-        _error = [NSError errorWithDomain:@"fm.last.kit.error" code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
-    }
-    
-    if (error) {
-        *error = _error;
-    }
-    
-    return _error == nil ? YES : NO;
+@interface LFMAuthTests : LFMTestCase
+
+@end
+
+@implementation LFMAuthTests {
+    LFMSession *_originalSession;
 }
+
+- (void)setUp {
+    [super setUp];
+}
+
+- (void)tearDown {
+    [super tearDown];
+}
+
+- (void)testUserAuth {
+    [[LFMAuth sharedInstance] setValue:nil forKey:@"_session"]; // clear the test session that's already there
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Should not have any error."];
+    
+    [[LFMAuth sharedInstance] getSessionWithUsername:@"test_lfmkit_ios"
+                                            password:@"Eethu3po5wia&!"
+                                            callback:^(NSError * _Nullable error, LFMSession * _Nullable session) {
+        XCTAssertNil(error);
+        XCTAssertNotNil(session);
+        XCTAssertNotNil(session.sessionKey);
+        XCTAssertNotNil(session.username);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+}
+
+@end

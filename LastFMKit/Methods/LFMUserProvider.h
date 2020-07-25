@@ -40,18 +40,18 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves information about a user's profile.
  
- @param userName    The user to fetch info for.
+ @param username    The user to fetch info for.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMUser` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)username
                                     callback:(void(^)(NSError * _Nullable, LFMUser * _Nullable))block NS_SWIFT_NAME(getInfo(on:callback:));
 
 /**
  Retrieves a list of a user's friends on Last.fm.
  
- @param userName        The name of the user whose friends are to be fetched.
+ @param username        The name of the user whose friends are to be fetched.
  @param includeRecents  A boolean value indiciating whether or not to include information about a friend's recently played tracks.
  @param limit           The maximum number of friends to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page            The page of results to be fetched. Start page is 1 and is also the default value.
@@ -59,7 +59,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
                                    itemsPerPage:(NSUInteger)limit
                                          onPage:(NSUInteger)page
@@ -68,7 +68,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves a list of tracks by a given artist scrobbled by a user, including scrobble time. Can be limited to specific timeranges, defaults to all time.
  
- @param userName    The name of the user whose scrobbles are to be fetched.
+ @param username    The name of the user whose scrobbles are to be fetched.
  @param artistName  The scrobbled tracks' artist.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param startDate   The earliest date from which to fetch scrobbles.
@@ -77,7 +77,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
                                                  onPage:(NSUInteger)page
                                           fromStartDate:(nullable NSDate *)startDate
@@ -87,14 +87,14 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves the last 50 tracks loved by a user.
  
- @param userName    The user for whom to fetch the loved tracks.
+ @param username    The user for whom to fetch the loved tracks.
  @param limit       The maximum number of tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)username
                                        itemsPerPage:(NSUInteger)limit
                                              onPage:(NSUInteger)page
                                            callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTracksLoved(by:limit:on:callback:));
@@ -102,7 +102,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves items to which the user added personal tags.
  
- @param userName    The user who performed the taggings.
+ @param username    The user who performed the taggings.
  @param tagName     The name of the tag to which the user applied the items.
  @param type        The type of the items to be returned.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
@@ -111,7 +111,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
                                            itemType:(LFMTaggingType)type
                                        itemsPerPage:(NSUInteger)limit
@@ -121,7 +121,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves a list of the recent tracks listened to by this user.
  
- @param userName    The user for whom to fetch recent tracks.
+ @param username    The user for whom to fetch recent tracks.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param startDate   The earliest date from which to fetch tracks.
@@ -130,7 +130,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getRecentTracksForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getRecentTracksForUsername:(NSString *)username
                                          itemsPerPage:(NSUInteger)limit
                                                onPage:(NSUInteger)page
                                         fromStartDate:(nullable NSDate *)startDate
@@ -140,7 +140,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves the top albums listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
- @param userName    The user for whom to fetch top albums.
+ @param username    The user for whom to fetch top albums.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top albums.
@@ -148,7 +148,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopAlbumsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopAlbumsForUsername:(NSString *)username
                                       itemsPerPage:(NSUInteger)limit
                                             onPage:(NSUInteger)page
                                         overPeriod:(nullable LFMTimePeriod)period
@@ -157,7 +157,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves the top artists listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
- @param userName    The user for whom to fetch top artists.
+ @param username    The user for whom to fetch top artists.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top artists.
@@ -165,7 +165,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopArtistsForUsername:(NSString *)username
                                        itemsPerPage:(NSUInteger)limit
                                              onPage:(NSUInteger)page
                                          overPeriod:(nullable LFMTimePeriod)period
@@ -174,7 +174,7 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves the top tracks listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
- @param userName    The user for whom to fetch top tracks.
+ @param username    The user for whom to fetch top tracks.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top tracks.
@@ -182,7 +182,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopTracksForUsername:(NSString *)username
                                       itemsPerPage:(NSUInteger)limit
                                             onPage:(NSUInteger)page
                                         overPeriod:(nullable LFMTimePeriod)period
@@ -191,27 +191,27 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves the top tags used by this user.
  
- @param userName    The user for whom to fetch top tags.
+ @param username    The user for whom to fetch top tags.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag` objects and an `LFMQuery` object if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getTopTagsForUsername:(NSString *)username
                                            limit:(NSUInteger)limit
                                         callback:(void(^)(NSError * _Nullable, NSArray<LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:limit:callback:));
 
 /**
  Retrieves an album chart for a user profile, for a given date range. If no date range is supplied, the most recent album chart for this user will be returned.
  
- @param userName    The user for whom to fetch album charts.
+ @param username    The user for whom to fetch album charts.
  @param startDate   The date from which the chart should start.
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum` objects if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyAlbumChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
                                                 toEndDate:(nullable NSDate *)endDate
                                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMAlbum *> *))block NS_SWIFT_NAME(getWeeklyAlbumChart(for:from:to:callback:));
@@ -219,14 +219,14 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves an artist chart for a user profile, for a given date range. If no date range is supplied, it will return the most recent artist chart for this user.
  
- @param userName    The user for whom to fetch artist charts.
+ @param username    The user for whom to fetch artist charts.
  @param startDate   The date from which the chart should start.
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyArtistChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(nullable NSDate *)startDate
                                                  toEndDate:(nullable NSDate *)endDate
                                                   callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *))block NS_SWIFT_NAME(getWeeklyArtistChart(for:from:to:callback:));
@@ -234,14 +234,14 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves a track chart for a user profile, for a given date range. If no date range is supplied, it will return the most recent track chart for this user.
  
- @param userName    The user for whom to fetch track charts.
+ @param username    The user for whom to fetch track charts.
  @param startDate   The date from which the chart should start.
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyTrackChartForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
                                                 toEndDate:(nullable NSDate *)endDate
                                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *))block NS_SWIFT_NAME(getWeeklyTrackChart(for:from:to:callback:));
@@ -249,14 +249,15 @@ NS_SWIFT_NAME(UserProvider)
 /**
  Retrieves a list of available charts for this user, expressed as date ranges which can be sent to the chart services.
  
- @param userName    The user for whom to fetch chart lists.
+ @param username    The user for whom to fetch chart lists.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMChart` objects if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyChartListForUserNamed:(NSString *)userName
++ (NSURLSessionDataTask *)getWeeklyChartListForUsername:(NSString *)username
                                                 callback:(void(^)(NSError * _Nullable, NSArray<LFMChart *> *))block NS_SWIFT_NAME(getWeeklyChartList(for:callback:));
 
 @end
 
 NS_ASSUME_NONNULL_END
+

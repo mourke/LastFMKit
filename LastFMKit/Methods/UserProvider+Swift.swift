@@ -40,7 +40,7 @@ public extension UserProvider {
      
      - Returns: The `URLSessionDataTask` object from the web request.
      */
-    public class func getItemsTagged<T: NSObject>(by user: String, for tag: String, type: T.Type, limit: UInt, on page: UInt, callback block: @escaping (Error?, [T], Query?) -> Void) -> URLSessionDataTask {
+    class func getItemsTagged<T: NSObject>(by user: String, for tag: String, type: T.Type, limit: UInt, on page: UInt, callback block: @escaping (Error?, [T], Query?) -> Void) -> URLSessionDataTask {
         let taggingType: TaggingType
         
         switch type {

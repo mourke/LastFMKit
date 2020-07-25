@@ -82,7 +82,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param userName    The username for the context of the request. If supplied, the user's playcount for this artist is included in the response.
+ @param username    The username for the context of the request. If supplied, the user's playcount for this artist is included in the response.
  @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMArtist` object if the request succeeds.
  
@@ -91,7 +91,7 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getInfoOnArtistNamed:(nullable NSString *)artistName
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(nullable NSString *)userName
+                                       forUser:(nullable NSString *)username
                                   languageCode:(nullable NSString *)code
                                       callback:(void (^)(NSError * _Nullable, LFMArtist * _Nullable))block NS_SWIFT_NAME(getInfo(on:mbid:autoCorrect:username:languageCode:callback:));
 
@@ -120,7 +120,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param userName    The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
+ @param username    The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -128,7 +128,7 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTagsForArtistNamed:(nullable NSString *)artistName
                               withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(nullable NSString *)userName
+                                       forUser:(nullable NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forArtist:mbid:autoCorrect:forUser:callback:));
 
 /**
