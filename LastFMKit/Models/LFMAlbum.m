@@ -86,6 +86,8 @@
                 }
                 
                 _tracks = tracks;
+            } else {
+                _tracks = [NSArray new];
             }
             
             id tagsDictionary = [dictionary objectForKey:@"tags"];
@@ -103,6 +105,8 @@
                 }
                 
                 _tags = tags;
+            } else {
+                _tags = [NSArray new];
             }
             
             _wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
@@ -110,7 +114,6 @@
             _artist = artist;
             _URL = [NSURL URLWithString:URL];
             _mbid = mbid;
-            
             
             return self;
         }

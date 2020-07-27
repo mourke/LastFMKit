@@ -34,9 +34,12 @@
     self = [super initFromDictionary:dictionary];
     
     if (self) {
-        NSUInteger count = [[dictionary objectForKey:@"count"] unsignedIntegerValue];
-        
-        if (!isnan(count)) return self;
+        id count = [dictionary objectForKey:@"count"];
+        if (count != nil && [count isKindOfClass:NSString.class]) {
+            _count = [count unsignedIntegerValue];
+            
+            return self;
+        }
     }
     
     return nil;

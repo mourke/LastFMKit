@@ -81,6 +81,8 @@
                 }
                 
                 _similarArtists = similarArtists;
+            } else {
+                _similarArtists = [NSArray new];
             }
             
             id tagsDictionary = [dictionary objectForKey:@"tags"];
@@ -98,6 +100,8 @@
                 }
                 
                 _tags = tags;
+            } else {
+                _tags = [NSArray new];
             }
             
             id statsDictionary = [dictionary objectForKey:@"stats"];

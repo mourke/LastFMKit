@@ -130,6 +130,8 @@
                 }
                 
                 _tags = tags;
+            } else {
+                _tags = [NSArray new];
             }
             
             id listeners = [dictionary objectForKey:@"listeners"];

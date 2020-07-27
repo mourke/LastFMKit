@@ -39,7 +39,7 @@ NS_SWIFT_NAME(Track)
 @property(strong, nonatomic, readonly) NSString *name;
 
 /** The track's Musicbrainz id. */
-@property (strong, nonatomic, readonly) NSString *mbid;
+@property (strong, nonatomic, readonly, nullable) NSString *mbid;
 
 /** The Last.fm URL for the track. Eg. "http://www.last.fm/music/Cher/Believe" */
 @property(strong, nonatomic, readonly) NSURL *URL NS_SWIFT_NAME(url);

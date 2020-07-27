@@ -43,47 +43,48 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self && dictionary) {
-        NSString *username = [dictionary objectForKey:@"name"];
-        NSString *realName = [dictionary objectForKey:@"realname"];
-        NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        NSString *country = [dictionary objectForKey:@"country"];
-        NSUInteger age = [[dictionary objectForKey:@"age"] unsignedIntegerValue];
-        LFMUserGender gender = [dictionary objectForKey:@"gender"];
-        NSString *subscriberString = [dictionary objectForKey:@"subscriber"];
-        NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
-        NSUInteger playlistCount = [[dictionary objectForKey:@"playlists"] unsignedIntegerValue];
-        NSDictionary *registeredDictionary = [dictionary objectForKey:@"registered"];
-        double registeredTime = NAN;
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
+        id username = [dictionary objectForKey:@"name"];
+        id realName = [dictionary objectForKey:@"realname"];
+        id URL = [dictionary objectForKey:@"url"];
+        id country = [dictionary objectForKey:@"country"];
+        id age = [dictionary objectForKey:@"age"];
+        id gender = [dictionary objectForKey:@"gender"];
+        id subscriber = [dictionary objectForKey:@"subscriber"];
+        id playCount = [dictionary objectForKey:@"playcount"];
+        id playlistCount = [dictionary objectForKey:@"playlists"];
+        id registeredDictionary = [dictionary objectForKey:@"registered"];
+        id registeredTime;
         
-        if (registeredDictionary) {
-            registeredTime = [[registeredDictionary objectForKey:@"unixtime"] doubleValue];
+        if (registeredDictionary != nil &&
+            [registeredDictionary isKindOfClass:NSDictionary.class]) {
+            registeredTime = [(NSDictionary *)registeredDictionary objectForKey:@"unixtime"];
         }
-    
-        NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
         
-        if (username != nil &&
-            realName != nil &&
-            URL != nil &&
-            country != nil &&
-            !isnan(age) &&
-            gender != nil &&
-            subscriberString != nil &&
-            !isnan(playCount) &&
-            !isnan(playlistCount) &&
-            !isnan(registeredTime))
+        if (username != nil && [username isKindOfClass:NSString.class] &&
+            realName != nil && [realName isKindOfClass:NSString.class] &&
+            URL != nil && [URL isKindOfClass:NSString.class] &&
+            country != nil && [country isKindOfClass:NSString.class] &&
+            age != nil && [age isKindOfClass:NSString.class] &&
+            gender != nil && [gender isKindOfClass:NSString.class] &&
+            subscriber != nil && [subscriber isKindOfClass:NSNumber.class] &&
+            playCount != nil && [playCount isKindOfClass:NSString.class] &&
+            playlistCount != nil && [playlistCount isKindOfClass:NSString.class] &&
+            registeredTime != nil && [username isKindOfClass:NSString.class])
         {
             _userName = username;
             _realName = realName;
-            _images = images;
-            _URL = URL;
+            _images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
+            _URL = [NSURL URLWithString:URL];
             _country = country;
-            _age = age;
+            _age = [age unsignedIntegerValue];
             _gender = gender;
-            _subscriber = [subscriberString boolValue];
-            _playCount = playCount;
-            _playlistCount = playlistCount;
-            _dateRegistered = [NSDate dateWithTimeIntervalSince1970:registeredTime];
+            _subscriber = [subscriber boolValue];
+            _playCount = [playCount unsignedIntegerValue];
+            _playlistCount = [playlistCount unsignedIntegerValue];
+            _dateRegistered = [NSDate dateWithTimeIntervalSince1970:[registeredTime unsignedIntegerValue]];
             
             return self;
         }
