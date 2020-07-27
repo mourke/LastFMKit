@@ -157,14 +157,6 @@
 		4D04E03B1FA5F9D7004675CA /* LFMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */; };
 		4D04E03C1FA5F9ED004675CA /* LFMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB381F8E7E780062279A /* LFMTestCase.m */; };
 		4D04E03D1FA5F9EE004675CA /* LFMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB381F8E7E780062279A /* LFMTestCase.m */; };
-		4D04E0401FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4D04E0411FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4D04E0421FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4D04E0431FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4D04E0441FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
-		4D04E0451FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
-		4D04E0461FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
-		4D04E0471FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */; };
 		4D1685A31F9680B80013355C /* LFMGeoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A11F9680B80013355C /* LFMGeoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
 		4D1685A71F9687EB0013355C /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -190,12 +182,26 @@
 		4D9DCF551F923ECA005D8EED /* LFMSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF531F923ECA005D8EED /* LFMSession.m */; };
 		4D9DCF581F923ED9005D8EED /* LFMAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF561F923ED9005D8EED /* LFMAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D9DCF591F923ED9005D8EED /* LFMAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DCF571F923ED9005D8EED /* LFMAuth.m */; };
-		4D9DE56424CC775C004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumTests.m */; };
-		4D9DE56524CC775C004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumTests.m */; };
-		4D9DE56624CC775C004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumTests.m */; };
+		4D9DE56424CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */; };
+		4D9DE56524CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */; };
+		4D9DE56624CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */; };
 		4D9DE56924CC8E59004C38CA /* LFMAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56824CC8E59004C38CA /* LFMAuthTests.m */; };
 		4D9DE56A24CC8E59004C38CA /* LFMAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56824CC8E59004C38CA /* LFMAuthTests.m */; };
 		4D9DE56B24CC8E59004C38CA /* LFMAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE56824CC8E59004C38CA /* LFMAuthTests.m */; };
+		4D9DE57124CEDD00004C38CA /* LFMSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57024CEDD00004C38CA /* LFMSessionTests.m */; };
+		4D9DE57224CEDD00004C38CA /* LFMSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57024CEDD00004C38CA /* LFMSessionTests.m */; };
+		4D9DE57324CEDD00004C38CA /* LFMSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57024CEDD00004C38CA /* LFMSessionTests.m */; };
+		4D9DE57524CF2159004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */; };
+		4D9DE57624CF2159004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */; };
+		4D9DE57724CF2159004C38CA /* LFMAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */; };
+		4D9DE57A24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D9DE57B24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D9DE57C24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D9DE57D24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4D9DE57E24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */; };
+		4D9DE57F24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */; };
+		4D9DE58024CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */; };
+		4D9DE58124CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */; };
 		4D9FFB341F8E7E780062279A /* LastFMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D9FFB2A1F8E7E780062279A /* LastFMKit.framework */; };
 		4D9FFB391F8E7E780062279A /* LFMTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB381F8E7E780062279A /* LFMTestCase.m */; };
 		4D9FFB461F8E7FC00062279A /* LFMArtist.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB441F8E7FC00062279A /* LFMArtist.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -281,8 +287,6 @@
 		4D04DF801FA5F7AA004675CA /* LastFMKit tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LastFMKit tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D04DF941FA5F89D004675CA /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D04DF9C1FA5F89D004675CA /* LastFMKit macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LastFMKit macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+UnsignedIntegerValue.h"; sourceTree = "<group>"; };
-		4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+UnsignedIntegerValue.m"; sourceTree = "<group>"; };
 		4D1685A11F9680B80013355C /* LFMGeoProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMGeoProvider.h; sourceTree = "<group>"; };
 		4D1685A21F9680B80013355C /* LFMGeoProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMGeoProvider.m; sourceTree = "<group>"; };
 		4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMLibraryProvider.h; sourceTree = "<group>"; };
@@ -307,9 +311,13 @@
 		4D9DCF531F923ECA005D8EED /* LFMSession.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMSession.m; sourceTree = "<group>"; };
 		4D9DCF561F923ED9005D8EED /* LFMAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMAuth.h; sourceTree = "<group>"; };
 		4D9DCF571F923ED9005D8EED /* LFMAuth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMAuth.m; sourceTree = "<group>"; };
-		4D9DE56324CC775C004C38CA /* LFMAlbumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMAlbumTests.m; sourceTree = "<group>"; };
+		4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMAlbumProviderTests.m; sourceTree = "<group>"; };
 		4D9DE56824CC8E59004C38CA /* LFMAuthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMAuthTests.m; sourceTree = "<group>"; };
 		4D9DE56C24CCA3F5004C38CA /* LFMTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTestCase.h; sourceTree = "<group>"; };
+		4D9DE57024CEDD00004C38CA /* LFMSessionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMSessionTests.m; sourceTree = "<group>"; };
+		4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMAlbumTests.m; sourceTree = "<group>"; };
+		4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+UnsignedIntegerValue.h"; sourceTree = "<group>"; };
+		4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+UnsignedIntegerValue.m"; sourceTree = "<group>"; };
 		4D9FFB2A1F8E7E780062279A /* LastFMKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LastFMKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9FFB2D1F8E7E780062279A /* LastFMKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LastFMKit.h; sourceTree = "<group>"; };
 		4D9FFB2E1F8E7E780062279A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -405,9 +413,9 @@
 		4D6A23C51F94135000F377E2 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				4D9DE57824CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h */,
+				4D9DE57924CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m */,
 				4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */,
-				4D04E03E1FA6037B004675CA /* NSString+UnsignedIntegerValue.h */,
-				4D04E03F1FA6037B004675CA /* NSString+UnsignedIntegerValue.m */,
 				4D6A23C11F9411E000F377E2 /* LFMError.h */,
 				4D6A23C21F9411E000F377E2 /* LFMError.m */,
 			);
@@ -456,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				4D9DE56824CC8E59004C38CA /* LFMAuthTests.m */,
+				4D9DE57024CEDD00004C38CA /* LFMSessionTests.m */,
 			);
 			path = "Authentication Tests";
 			sourceTree = "<group>";
@@ -463,7 +472,7 @@
 		4D9DE56E24CCC9CD004C38CA /* Method Tests */ = {
 			isa = PBXGroup;
 			children = (
-				4D9DE56324CC775C004C38CA /* LFMAlbumTests.m */,
+				4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */,
 			);
 			path = "Method Tests";
 			sourceTree = "<group>";
@@ -471,6 +480,7 @@
 		4D9DE56F24CCC9D8004C38CA /* Model Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */,
 			);
 			path = "Model Tests";
 			sourceTree = "<group>";
@@ -600,10 +610,10 @@
 				4D04DFF01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFC21FA5F9A2004675CA /* LFMAuth.h in Headers */,
 				4D04DFEA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */,
+				4D9DE57B24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0301FA5F9D7004675CA /* LFMTag.h in Headers */,
 				4D04E0361FA5F9D7004675CA /* LFMAlbum.h in Headers */,
 				4D04E03A1FA5F9D7004675CA /* LFMSearchQuery.h in Headers */,
-				4D04E0411FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0381FA5F9D7004675CA /* LFMQuery.h in Headers */,
 				4D04DFE41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */,
 				4D04DFEE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */,
@@ -636,10 +646,10 @@
 				4D04DFD01FA5F9B9004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFBA1FA5F9A0004675CA /* LFMAuth.h in Headers */,
 				4D04DFCA1FA5F9B9004675CA /* LFMGeoProvider.h in Headers */,
+				4D9DE57D24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0001FA5F9D6004675CA /* LFMTag.h in Headers */,
 				4D04E0061FA5F9D6004675CA /* LFMAlbum.h in Headers */,
 				4D04E00A1FA5F9D6004675CA /* LFMSearchQuery.h in Headers */,
-				4D04E0431FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0081FA5F9D6004675CA /* LFMQuery.h in Headers */,
 				4D04DFC41FA5F9B9004675CA /* LFMAlbumProvider.h in Headers */,
 				4D04DFCE1FA5F9B9004675CA /* LFMTagProvider.h in Headers */,
@@ -672,10 +682,10 @@
 				4D04DFE01FA5F9BA004675CA /* LFMTrackProvider.h in Headers */,
 				4D04DFBE1FA5F9A1004675CA /* LFMAuth.h in Headers */,
 				4D04DFDA1FA5F9BA004675CA /* LFMGeoProvider.h in Headers */,
+				4D9DE57C24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0181FA5F9D6004675CA /* LFMTag.h in Headers */,
 				4D04E01E1FA5F9D6004675CA /* LFMAlbum.h in Headers */,
 				4D04E0221FA5F9D6004675CA /* LFMSearchQuery.h in Headers */,
-				4D04E0421FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04E0201FA5F9D6004675CA /* LFMQuery.h in Headers */,
 				4D04DFD41FA5F9BA004675CA /* LFMAlbumProvider.h in Headers */,
 				4D04DFDE1FA5F9BA004675CA /* LFMTagProvider.h in Headers */,
@@ -708,10 +718,10 @@
 				4D389F221F964A160030EAD5 /* LFMQuery.h in Headers */,
 				4D9FFB4A1F8E80200062279A /* LFMAlbum.h in Headers */,
 				4DDDA8AA1FA0D00F00E16078 /* LFMTrackProvider.h in Headers */,
+				4D9DE57A24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D9FFB561F8E827B0062279A /* LFMWiki.h in Headers */,
 				4D389F1E1F9638890030EAD5 /* LFMChartProvider.h in Headers */,
 				4D9FFB601F9122BD0062279A /* LFMImageSize.h in Headers */,
-				4D04E0401FA6037B004675CA /* NSString+UnsignedIntegerValue.h in Headers */,
 				4D04DF641FA5F2AA004675CA /* LFMUserProvider.h in Headers */,
 				4D9FFB461F8E7FC00062279A /* LFMArtist.h in Headers */,
 				4D9DCF581F923ED9005D8EED /* LFMAuth.h in Headers */,
@@ -977,10 +987,10 @@
 				4D04E0311FA5F9D7004675CA /* LFMTag.m in Sources */,
 				4D04DFF31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
 				4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */,
-				4D04E0451FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */,
+				4D9DE57F24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */,
 				4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */,
@@ -1012,10 +1022,10 @@
 				4D04E0011FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFD31FA5F9B9004675CA /* LFMUserProvider.m in Sources */,
 				4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */,
-				4D04E0471FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D9DE58124CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */,
@@ -1043,7 +1053,9 @@
 			files = (
 				4D04E03D1FA5F9EE004675CA /* LFMTestCase.m in Sources */,
 				4D9DE56B24CC8E59004C38CA /* LFMAuthTests.m in Sources */,
-				4D9DE56624CC775C004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57724CF2159004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57324CEDD00004C38CA /* LFMSessionTests.m in Sources */,
+				4D9DE56624CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,10 +1069,10 @@
 				4D04E0191FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFE31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
 				4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */,
-				4D04E0461FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D9DE58024CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */,
@@ -1088,7 +1100,9 @@
 			files = (
 				4D04E03C1FA5F9ED004675CA /* LFMTestCase.m in Sources */,
 				4D9DE56A24CC8E59004C38CA /* LFMAuthTests.m in Sources */,
-				4D9DE56524CC775C004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57624CF2159004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57224CEDD00004C38CA /* LFMSessionTests.m in Sources */,
+				4D9DE56524CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1102,10 +1116,10 @@
 				4D389F231F964A160030EAD5 /* LFMQuery.m in Sources */,
 				4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */,
 				4D389F1B1F9630180030EAD5 /* LFMTopTag.m in Sources */,
-				4D04E0441FA6037B004675CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */,
 				4D9DCF4F1F923E97005D8EED /* LFMAlbumProvider.m in Sources */,
 				4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */,
+				4D9DE57E24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D6A23C41F9411E000F377E2 /* LFMError.m in Sources */,
 				4D9FFB621F912A430062279A /* LFMImageSize.m in Sources */,
@@ -1133,7 +1147,9 @@
 			files = (
 				4D9FFB391F8E7E780062279A /* LFMTestCase.m in Sources */,
 				4D9DE56924CC8E59004C38CA /* LFMAuthTests.m in Sources */,
-				4D9DE56424CC775C004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57524CF2159004C38CA /* LFMAlbumTests.m in Sources */,
+				4D9DE57124CEDD00004C38CA /* LFMSessionTests.m in Sources */,
+				4D9DE56424CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1417,10 +1433,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1430,14 +1451,20 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES_ERROR;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_INTERFACE_IVARS = YES_ERROR;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES_AGGRESSIVE;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1446,6 +1473,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1456,17 +1484,28 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1481,10 +1520,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER = YES;
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY = YES;
+				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1494,14 +1538,20 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES_ERROR;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_INTERFACE_IVARS = YES_ERROR;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES_AGGRESSIVE;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1510,21 +1560,33 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;

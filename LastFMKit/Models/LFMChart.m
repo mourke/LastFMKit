@@ -2,7 +2,7 @@
 //  LFMChart.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,13 +34,16 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
-        NSTimeInterval startDateInterval = [[dictionary objectForKey:@"from"] doubleValue];
-        NSTimeInterval endDateInterval = [[dictionary objectForKey:@"to"] integerValue];
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
+        id startDateInterval = [dictionary objectForKey:@"from"];
+        id endDateInterval = [dictionary objectForKey:@"to"];
         
-        if (!isnan(startDateInterval) && !isnan(endDateInterval)) {
-            _startDate = [NSDate dateWithTimeIntervalSince1970:startDateInterval];
-            _endDate = [NSDate dateWithTimeIntervalSince1970:endDateInterval];
+        if (startDateInterval != nil && [startDateInterval isKindOfClass:NSNumber.class] &&
+            endDateInterval != nil && [endDateInterval isKindOfClass:NSNumber.class]) {
+            _startDate = [NSDate dateWithTimeIntervalSince1970:[startDateInterval doubleValue]];
+            _endDate = [NSDate dateWithTimeIntervalSince1970:[endDateInterval doubleValue]];
             
             return self;
         }

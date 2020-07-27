@@ -2,7 +2,7 @@
 //  NSString+UnsignedIntegerValue.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@
 
 @implementation NSString (UnsignedIntegerValue)
 
+// used for converting numbers wrapped in nsstrings from api to unsigned ints. for some reason this doesn't exist
 - (NSUInteger)unsignedIntegerValue {
     return (NSUInteger)[self integerValue];
 }

@@ -2,7 +2,7 @@
 //  LFMAlbum.h
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -47,9 +47,6 @@ NS_SWIFT_NAME(Album)
 
 /** A dictionary album artwork. All the images are the exact same only different sizes. */
 @property(strong, nonatomic, readonly) NSDictionary<LFMImageSize, NSURL *> *images;
-
-/** A boolean value indicating whether or not the album is streamable. */
-@property(nonatomic, readonly, getter=isStreamable) BOOL streamable;
 
 /** The album's Musicbrainz id. */
 @property(strong, nonatomic, readonly) NSString *mbid;

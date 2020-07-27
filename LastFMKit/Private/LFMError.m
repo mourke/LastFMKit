@@ -2,7 +2,7 @@
 //  LFMError.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&_error];
     
     NSString *errorMessage = [responseDictionary objectForKey:@"message"];
-    NSUInteger errorCode = [[responseDictionary objectForKey:@"error"] unsignedIntegerValue];
+    NSInteger errorCode = [[responseDictionary objectForKey:@"error"] integerValue];
     
     if (errorMessage != nil && !isnan(errorCode)) {
         _error = [NSError errorWithDomain:@"fm.last.kit.error" code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorMessage}];

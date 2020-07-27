@@ -2,7 +2,7 @@
 //  LFMSession.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 #import "LFMAuth.h"
 
 @implementation LFMSession {
-    NSString *_userName;
+    NSString *_username;
     BOOL _userIsSubscriber;
     NSString *_sessionKey;
 }
@@ -41,14 +41,16 @@
     self = [super init];
     
     if (self) {
-        NSString *name = [dictionary objectForKey:@"name"];
-        NSString *key = [dictionary objectForKey:@"key"];
-        NSUInteger subscriber = [[dictionary objectForKey:@"subscriber"] unsignedIntegerValue];
+        id name = [dictionary objectForKey:@"name"];
+        id key = [dictionary objectForKey:@"key"];
+        id subscriber = [dictionary objectForKey:@"subscriber"];
         
-        if (name != nil && key != nil && !isnan(subscriber)) {
-            _userName = name;
+        if (name != nil && [name isKindOfClass:NSString.class] &&
+            key != nil && [key isKindOfClass:NSString.class] &&
+            subscriber != nil && [subscriber isKindOfClass:NSNumber.class]) {
+            _username = name;
             _sessionKey = key;
-            _userIsSubscriber = subscriber;
+            _userIsSubscriber = [subscriber boolValue];
             
             return self;
         }
@@ -58,7 +60,7 @@
 }
 
 - (NSString *)username {
-    return _userName;
+    return _username;
 }
 
 - (BOOL)userIsSubscriber {
@@ -70,13 +72,13 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ sessionKey: %@; userIsSubscriber: %d; username: %@", [super description], _sessionKey, _userIsSubscriber, _userName];
+    return [NSString stringWithFormat:@"%@ sessionKey: %@; userIsSubscriber: %d; username: %@", [super description], _sessionKey, _userIsSubscriber, _username];
 }
 
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_userName forKey:NSStringFromSelector(@selector(username))];
+    [aCoder encodeObject:_username forKey:NSStringFromSelector(@selector(username))];
     [aCoder encodeBool:_userIsSubscriber forKey:NSStringFromSelector(@selector(userIsSubscriber))];
     [aCoder encodeObject:_sessionKey forKey:NSStringFromSelector(@selector(sessionKey))];
 }
@@ -85,7 +87,7 @@
     self = [super init];
     
     if (self) {
-        _userName = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(username))];
+        _username = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(username))];
         _userIsSubscriber = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(userIsSubscriber))];
         _sessionKey = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(sessionKey))];
     }

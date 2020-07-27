@@ -2,7 +2,7 @@
 //  LFMArtist.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -45,52 +45,89 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
         // Basic variables every artist must have.
-        NSString *name = [dictionary objectForKey:@"name"];
-        NSString *mbid = [dictionary objectForKey:@"mbid"];
-        NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        NSString *streamableString = [dictionary objectForKey:@"streamable"];
+        id name = [dictionary objectForKey:@"name"];
+        id mbid = [dictionary objectForKey:@"mbid"];
+        id URL = [dictionary objectForKey:@"url"];
         
-        if (name != nil &&
-            mbid != nil &&
-            URL != nil &&
-            streamableString != nil)
+        if (name != nil && [name isKindOfClass:NSString.class] &&
+            mbid != nil && [name isKindOfClass:NSString.class] &&
+            URL != nil && [name isKindOfClass:NSString.class])
         {
-            // Advanced variables that are only aquired on a `getInfo` call to Artist.
-            NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
-            
-            NSMutableArray<LFMArtist *> *similarArtists = [NSMutableArray array];
-            
-            for (NSDictionary *similarArtistDictionary in [[dictionary objectForKey:@"similar"] objectForKey:@"artist"]) {
-                LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:similarArtistDictionary];
-                artist == nil ?: [similarArtists addObject:artist];
+            // Advanced variables
+            id streamable = [dictionary objectForKey:@"streamable"];
+            if (streamable != nil &&
+                [streamable isKindOfClass:NSNumber.class]) {
+                _streamable = [streamable boolValue];
             }
             
-            NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
+            _images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
             
-            for (NSDictionary *tagDictionary in [[dictionary objectForKey:@"tags"] objectForKey:@"tag"]) {
-                LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-                tag == nil ?: [tags addObject:tag];
+            id similarDictionary = [dictionary objectForKey:@"similar"];
+            if (similarDictionary != nil &&
+                [similarDictionary isKindOfClass:NSDictionary.class]) {
+                NSMutableArray<LFMArtist *> *similarArtists = [NSMutableArray array];
+                
+                id similarArtistsArray = [(NSDictionary *)similarDictionary objectForKey:@"artist"];
+                if (similarArtistsArray != nil &&
+                    [similarArtistsArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *similarArtistDictionary in similarArtistsArray) {
+                        LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:similarArtistDictionary];
+                        if (artist) [similarArtists addObject:artist];
+                    }
+                }
+                
+                _similarArtists = similarArtists;
             }
             
-            NSUInteger listeners = [[[dictionary objectForKey:@"stats"] objectForKey:@"listeners"] unsignedIntegerValue];
-            NSUInteger playCount = [[[dictionary objectForKey:@"stats"] objectForKey:@"playcount"] unsignedIntegerValue];
-            BOOL onTour = [[dictionary objectForKey:@"ontour"] boolValue];
+            id tagsDictionary = [dictionary objectForKey:@"tags"];
+            if (tagsDictionary != nil &&
+                [tagsDictionary isKindOfClass:NSDictionary.class]) {
+                NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
+                
+                id tagsArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
+                if (tagsArray != nil &&
+                    [tagsArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *tagDictionary in tagsArray) {
+                        LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
+                        if (tag) [tags addObject:tag];
+                    }
+                }
+                
+                _tags = tags;
+            }
             
-            LFMWiki *wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"bio"]];
+            id statsDictionary = [dictionary objectForKey:@"stats"];
+            if (statsDictionary != nil &&
+                [statsDictionary isKindOfClass:NSDictionary.class]) {
+                id listeners = [(NSDictionary *)statsDictionary objectForKey:@"listeners"];
+                if (listeners != nil &&
+                    [listeners isKindOfClass:NSString.class]) {
+                    _listeners = [listeners unsignedIntegerValue];
+                }
+                
+                id playCount = [(NSDictionary *)statsDictionary objectForKey:@"playcount"];
+                if (playCount != nil &&
+                    [playCount isKindOfClass:NSString.class]) {
+                    _playCount = [playCount unsignedIntegerValue];
+                }
+            }
+            
+            
+            id onTour = [dictionary objectForKey:@"ontour"];
+            if (onTour != nil &&
+                [onTour isKindOfClass:NSNumber.class]) {
+                _onTour = [onTour boolValue];
+            }
+            
+            _wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"bio"]];
             
             _name = name;
             _mbid = mbid;
-            _URL = URL;
-            _streamable = [streamableString boolValue];
-            _images = images;
-            _similarArtists = similarArtists;
-            _tags = tags;
-            _listeners = listeners;
-            _playCount = playCount;
-            _onTour = onTour;
-            _wiki = wiki;
+            _URL = [NSURL URLWithString:URL];
             
             return self;
         }

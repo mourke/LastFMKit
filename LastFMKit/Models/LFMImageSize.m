@@ -2,7 +2,7 @@
 //  LFMImageSize.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,12 +34,17 @@ LFMImageSize const LFMImageSizeMega = @"mega";
 NSDictionary <LFMImageSize, NSURL*>* imageDictionaryFromArray(NSArray *array) {
     NSMutableDictionary<LFMImageSize, NSURL *> *images = [NSMutableDictionary dictionary];
     
+    if (array == nil || ![array isKindOfClass:NSArray.class]) {
+        return images;
+    }
+    
     for (NSDictionary *imageDictionary in array) {
-        NSURL *URL = [NSURL URLWithString:[imageDictionary objectForKey:@"#text"]];
-        LFMImageSize size = [imageDictionary objectForKey:@"size"];
+        id URL = [imageDictionary objectForKey:@"#text"];
+        id size = [imageDictionary objectForKey:@"size"];
         
-        if (URL != nil && size != nil) {
-            images[size] = URL;
+        if (URL != nil && [URL isKindOfClass:NSString.class] &&
+            size != nil && [size isKindOfClass:NSString.class]) {
+            images[size] = [NSURL URLWithString:URL];
         }
     }
     

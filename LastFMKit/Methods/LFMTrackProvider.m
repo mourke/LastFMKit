@@ -2,7 +2,7 @@
 //  LFMTrackProvider.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -67,7 +67,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -102,7 +105,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -137,7 +143,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -170,17 +179,26 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[], nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[], nil);
+            return;
+        }
         
-        NSDictionary *responseDictionary = [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error] objectForKey:@"results"];
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"results"];
+        }
         
         LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:responseDictionary];
         
         NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
         
-        for (NSDictionary *trackDictionary in [[responseDictionary objectForKey:@"trackmatches"] objectForKey:@"track"]) {
+        NSDictionary *trackMatchesDictionary = [responseDictionary objectForKey:@"trackmatches"];
+        
+        for (NSDictionary *trackDictionary in [trackMatchesDictionary objectForKey:@"track"]) {
             LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            track == nil ?: [tracks addObject:track];
+            if (track) [tracks addObject:track];
         }
         
         block(error, tracks, searchQuery);
@@ -226,7 +244,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -262,15 +283,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
         
-        for (NSDictionary *trackDictionary in [[responseDictionary objectForKey:@"similartracks"] objectForKey:@"track"]) {
+        if ((responseDictionary = [responseDictionary objectForKey:@"similartracks"])) {
+            responseDictionary = [responseDictionary objectForKey:@"track"];
+        }
+        
+        for (NSDictionary *trackDictionary in responseDictionary) {
             LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            track == nil ?: [tracks addObject:track];
+            if (track) [tracks addObject:track];
         }
         
         block(error, tracks);
@@ -305,7 +333,10 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
@@ -335,9 +366,16 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, nil);
+            return;
+        }
         
-        NSDictionary *responseDictionary = [[[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error] objectForKey:@"corrections"] objectForKey:@"correction"];
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        
+        if ((responseDictionary = [responseDictionary objectForKey:@"corrections"])) {
+            responseDictionary = [responseDictionary objectForKey:@"correction"];
+        }
         
         LFMTrack *track = [[LFMTrack alloc] initFromDictionary:[responseDictionary objectForKey:@"track"]];
         
@@ -381,7 +419,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -418,7 +459,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -458,7 +502,10 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
@@ -466,7 +513,7 @@
         
         for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tags"]) {
             LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-            tag == nil ?: [tags addObject:tag];
+            if (tag) [tags addObject:tag];
         }
         
         block(error, tags);
@@ -500,15 +547,20 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
         NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [[responseDictionary objectForKey:@"toptags"] objectForKey:@"tag"]) {
+        NSDictionary *topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
+        
+        for (NSDictionary *tagDictionary in [topTagsDictionary objectForKey:@"tag"]) {
             LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
-            tag == nil ?: [tags addObject:tag];
+            if (tag) [tags addObject:tag];
         }
         
         block(error, tags);

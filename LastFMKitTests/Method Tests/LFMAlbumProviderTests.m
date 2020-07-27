@@ -1,8 +1,8 @@
 //
-//  LFMAlbumTests.m
+//  LFMAlbumProviderTests.m
 //  LastFMKitTests
 //
-//  Copyright (c) 2017 Mark Bourke
+//  Copyright (c) 2020 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,16 +26,16 @@
 #import "LFMTestCase.h"
 #import <LastFMKit/LastFMKit.h>
 
-@interface LFMAlbumTests : LFMTestCase {
+@interface LFMAlbumProviderTests : LFMTestCase
+
+@end
+
+@implementation LFMAlbumProviderTests {
     NSArray<LFMTag *> *_testTags;
     NSString *_testAlbumName;
     NSString *_testArtistName;
     NSString *_testAlbumReleaseMBID;
 }
-
-@end
-
-@implementation LFMAlbumTests
 
 - (void)setUp {
     [super setUp];
@@ -231,7 +231,8 @@
                               autoCorrect:YES
                               forUsername:self.testUsername
                              languageCode:@"en"
-                                 callback:^(NSError * _Nullable error, LFMAlbum * _Nullable album) {
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
         XCTAssertNotNil(album);
         XCTAssertNil(error);
         [expectation fulfill];

@@ -2,7 +2,7 @@
 //  LFMAuthTests.m
 //  LastFMKitTests
 //
-//  Copyright (c) 2017 Mark Bourke
+//  Copyright (c) 2020 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
         XCTAssertNotNil(session);
         XCTAssertNotNil(session.sessionKey);
         XCTAssertNotNil(session.username);
+        XCTAssertTrue([session.username isEqualToString:@"test_lfmkit_ios"]);
         [expectation fulfill];
     }];
     

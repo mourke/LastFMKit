@@ -2,7 +2,7 @@
 //  LFMWiki.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,14 +34,18 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
-        NSString *dateString = [dictionary objectForKey:@"published"];
-        NSString *summary = [dictionary objectForKey:@"summary"];
-        NSString *content = [dictionary objectForKey:@"content"];
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
+        id dateString = [dictionary objectForKey:@"published"];
+        id summary = [dictionary objectForKey:@"summary"];
+        id content = [dictionary objectForKey:@"content"];
         
-        if (dateString != nil && summary != nil && content != nil) {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"DD MMM YYYY, HH:mm"];
+        if (dateString != nil && [dateString isKindOfClass:NSString.class] &&
+            summary != nil && [summary isKindOfClass:NSString.class] &&
+            content != nil && [content isKindOfClass:NSString.class]) {
+            NSDateFormatter *formatter = [NSDateFormatter new];
+            [formatter setDateFormat:@"dd MMM yyyy, HH:mm"];
             
             NSDate *date = [formatter dateFromString:dateString];
             

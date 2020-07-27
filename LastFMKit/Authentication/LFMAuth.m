@@ -2,7 +2,7 @@
 //  LFMAuth.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,8 @@
 @implementation LFMAuth {
     LFMSession *_session;
 }
+
+NSString* md5(NSString *string);
 
 + (LFMAuth *)sharedInstance {
     static LFMAuth *sharedInstance;
@@ -63,7 +65,9 @@
     return NO;
 }
 
-- (void) setSession:(LFMSession *)session __attribute__((objc_direct)) {
+// TODO: Once xcode is updated do this shit
+
+- (void)setSession:(LFMSession *)session /*__attribute__((objc_direct))*/ {
     _session = session;
     [session saveInKeychain];
 }
@@ -99,9 +103,15 @@
     __weak __typeof__(self) weakSelf = self;
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil) return block(error, nil);
+        if (error != nil || data == nil) {
+            block(error, nil);
+            return;
+        }
         
-        if (!lfm_error_validate(data, &error)) return block(error, nil);
+        if (!lfm_error_validate(data, &error)) {
+            block(error, nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         

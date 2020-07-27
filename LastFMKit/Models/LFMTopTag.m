@@ -2,7 +2,7 @@
 //  LFMTopTag.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,9 @@
 
 #pragma mark - Unavailable
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-parameter"
+
 - (instancetype)initWithName:(NSString *)tagName {
     NSAssert(false, @"Top tags should not be created. Please use the `LFMTag` object instead.");
     return nil;
@@ -57,5 +60,7 @@
     NSAssert(false, @"Top tags should not be created. Please use the `LFMTag` object instead.");
     return nil;
 }
+
+#pragma clang diagnostic pop
 
 @end

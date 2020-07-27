@@ -2,7 +2,7 @@
 //  LFMAlbum.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,6 @@
     NSString *_artist;
     NSURL *_URL;
     NSDictionary<LFMImageSize, NSURL *> *_images;
-    BOOL _streamable;
     NSString *_mbid;
     NSUInteger _listeners;
     NSUInteger _playCount;
@@ -46,52 +45,72 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
         // Basic variables every album must have.
-        NSString *name = [dictionary objectForKey:@"name"];
-        NSString *artist = [dictionary objectForKey:@"artist"];
-        NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        NSString *streamableString = [dictionary objectForKey:@"streamable"];
-        NSString *mbid = [dictionary objectForKey:@"mbid"];
+        id name = [dictionary objectForKey:@"name"];
+        id artist = [dictionary objectForKey:@"artist"];
+        id URL = [dictionary objectForKey:@"url"];
+        id mbid = [dictionary objectForKey:@"mbid"];
         
-        if (name != nil &&
-            artist != nil &&
-            URL != nil &&
-            streamableString != nil &&
-            mbid != nil)
+        if (name != nil && [name isKindOfClass:NSString.class] &&
+            artist != nil && [artist isKindOfClass:NSString.class] &&
+            URL != nil && [URL isKindOfClass:NSString.class] &&
+            mbid != nil && [mbid isKindOfClass:NSString.class])
         {
-            NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
+            _images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
             
-            // Advanced variables that are only aquired on a `getInfo` call to Album.
-            NSUInteger listeners = [[dictionary objectForKey:@"listeners"] unsignedIntegerValue];
-            NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
-            NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-            
-            for (NSDictionary *trackDictionary in [[dictionary objectForKey:@"tracks"] objectForKey:@"track"]) {
-                LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-                track == nil ?: [tracks addObject: track];
+            id listeners = [dictionary objectForKey:@"listeners"];
+            if ([listeners isKindOfClass:NSString.class]) {
+                _listeners = [listeners unsignedIntegerValue];
             }
             
-            NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
-            
-            for (NSDictionary *tagDictionary in [[dictionary objectForKey:@"tags"] objectForKey:@"tag"]) {
-                LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-                tag == nil ?: [tags addObject: tag];
+            id playCount = [dictionary objectForKey:@"playcount"];
+            if ([playCount isKindOfClass:NSString.class]) {
+                _playCount = [playCount unsignedIntegerValue];
             }
             
-            LFMWiki *wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
+            id tracksDictionary = [dictionary objectForKey:@"tracks"];
+            if (tracksDictionary != nil &&
+                [tracksDictionary isKindOfClass:NSDictionary.class]) {
+                NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
+                
+                id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+                if (tracksArray != nil &&
+                    [tracksArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *trackDictionary in tracksArray) {
+                        LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                        if (track) [tracks addObject: track];
+                    }
+                }
+                
+                _tracks = tracks;
+            }
             
+            id tagsDictionary = [dictionary objectForKey:@"tags"];
+            if (tagsDictionary != nil &&
+                [tagsDictionary isKindOfClass:NSDictionary.class]) {
+                NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
+                
+                id tagsArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
+                if (tagsArray != nil &&
+                    [tagsArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *tagDictionary in tagsArray) {
+                        LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
+                        if (tag) [tags addObject: tag];
+                    }
+                }
+                
+                _tags = tags;
+            }
+            
+            _wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
             _name = name;
             _artist = artist;
-            _URL = URL;
-            _images = images;
-            _streamable = [streamableString boolValue];
+            _URL = [NSURL URLWithString:URL];
             _mbid = mbid;
-            _listeners = listeners;
-            _playCount = playCount;
-            _tracks = tracks;
-            _tags = tags;
-            _wiki = wiki;
+            
             
             return self;
         }
@@ -114,10 +133,6 @@
 
 - (NSDictionary<LFMImageSize,NSURL *> *)images {
     return _images;
-}
-
-- (BOOL)isStreamable {
-    return _streamable;
 }
 
 - (NSString *)mbid {

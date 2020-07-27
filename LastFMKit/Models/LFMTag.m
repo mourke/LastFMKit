@@ -2,7 +2,7 @@
 //  LFMTag.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -39,25 +39,42 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
+    if (self &&
+        dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
         // Required variable
-        NSString *name = [dictionary objectForKey:@"name"];
+        id name = [dictionary objectForKey:@"name"];
         
-        // Extra variables that are only obtained from certain api calls.
-        NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
-        NSUInteger reach = [[dictionary objectForKey:@"reach"] unsignedIntegerValue];
-        NSUInteger total = [[dictionary objectForKey:@"total"] unsignedIntegerValue];
-        BOOL streamable = [[dictionary objectForKey:@"streamable"] boolValue];
-        LFMWiki *wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
-        
-        if (name != nil) {
+        if (name != nil &&
+            [name isKindOfClass:NSString.class]) {
             _name = name;
             
-            _URL = URL;
-            _reach = isnan(reach) ? 0 : reach;
-            _total = isnan(total) ? 0 : total;
-            _streamable = streamable;
-            _wiki = wiki;
+            // Extra variables that are only obtained from certain api calls.
+            id URL = [dictionary objectForKey:@"url"];
+            if (URL != nil &&
+                [URL isKindOfClass:NSString.class]) {
+                _URL = [NSURL URLWithString:URL];
+            }
+            
+            id reach = [dictionary objectForKey:@"reach"];
+            if (reach != nil &&
+                [reach isKindOfClass:NSString.class]) {
+                _reach = [reach unsignedIntegerValue];
+            }
+                        
+            id total = [dictionary objectForKey:@"total"];
+            if (total != nil &&
+                [total isKindOfClass:NSString.class]) {
+                _total = [total unsignedIntegerValue];
+            }
+                        
+            id streamable = [dictionary objectForKey:@"streamable"];
+            if (streamable != nil &&
+                [streamable isKindOfClass:NSNumber.class]) {
+                _streamable = [streamable boolValue];
+            }
+            
+            _wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
             
             return self;
         }

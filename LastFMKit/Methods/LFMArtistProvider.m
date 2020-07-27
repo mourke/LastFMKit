@@ -2,7 +2,7 @@
 //  LFMArtistProvider.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -100,7 +103,10 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) return block(error);
+        if (error != nil || data == nil) {
+            block(error);
+            return;
+        }
         
         lfm_error_validate(data, &error);
         
@@ -127,11 +133,18 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[[[responseDictionary objectForKey:@"corrections"] objectForKey:@"correction"] objectForKey:@"artist"]];
+        if ((responseDictionary = [responseDictionary objectForKey:@"corrections"])) {
+            responseDictionary = [responseDictionary objectForKey:@"correction"];
+        }
+        
+        LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[responseDictionary objectForKey:@"artist"]];
         
         block(error, artist);
     }];
@@ -165,7 +178,10 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
@@ -201,15 +217,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"similarartists"];
+        }
+        
         NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
         
-        for (NSDictionary *artistDictionary in [[responseDictionary objectForKey:@"similarartists"] objectForKey:@"artist"]) {
+        for (NSDictionary *artistDictionary in [responseDictionary objectForKey:@"artist"]) {
             LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            artist == nil ?: [artists addObject:artist];
+            if (artist) [artists addObject:artist];
         }
         
         block(error, artists);
@@ -246,15 +269,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"tags"];
+        }
+        
         NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [[responseDictionary objectForKey:@"tags"] objectForKey:@"tag"]) {
+        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
             LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-            tag == nil ?: [tags addObject:tag];
+            if (tag) [tags addObject:tag];
         }
         
         block(error, tags);
@@ -289,20 +319,25 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[], nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[], nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
-        
-        for (NSDictionary *albumDictionary in [[responseDictionary objectForKey:@"topalbums"] objectForKey:@"album"]) {
-            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
-            album == nil ?: [albums addObject:album];
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"topalbums"];
         }
         
-        NSDictionary *attributesDictionary = [[responseDictionary objectForKey:@"topalbums"] objectForKey:@"@attr"];
+        NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
         
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:attributesDictionary];
+        for (NSDictionary *albumDictionary in [responseDictionary objectForKey:@"album"]) {
+            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+            if (album) [albums addObject:album];
+        }
+        
+        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
         
         block(error, albums, query);
     }];
@@ -336,20 +371,25 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[], nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[], nil);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [[responseDictionary objectForKey:@"toptracks"] objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            track == nil ?: [tracks addObject:track];
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"toptracks"];
         }
         
-        NSDictionary *attributesDictionary = [[responseDictionary objectForKey:@"toptracks"] objectForKey:@"@attr"];
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
         
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:attributesDictionary];
+        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
+            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+            if (track) [tracks addObject:track];
+        }
+        
+        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
         
         block(error, tracks, query);
     }];
@@ -380,15 +420,22 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[]);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[]);
+            return;
+        }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"toptags"];
+        }
+        
         NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [[responseDictionary objectForKey:@"toptags"] objectForKey:@"tag"]) {
+        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
             LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
-            tag == nil ?: [tags addObject:tag];
+            if (tag) [tags addObject:tag];
         }
         
         block(error, tags);
@@ -418,17 +465,26 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) return block(error, @[], nil);
+        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+            block(error, @[], nil);
+            return;
+        }
         
-        NSDictionary *responseDictionary = [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error] objectForKey:@"results"];
+        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        
+        if (responseDictionary) {
+            responseDictionary = [responseDictionary objectForKey:@"results"];
+        }
         
         LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:responseDictionary];
         
         NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
         
-        for (NSDictionary *artistDictionary in [[responseDictionary objectForKey:@"artistmatches"] objectForKey:@"artist"]) {
+        NSDictionary *artistMatchesDictionary = [responseDictionary objectForKey:@"artistmatches"];
+        
+        for (NSDictionary *artistDictionary in [artistMatchesDictionary objectForKey:@"artist"]) {
             LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            artist == nil ?: [artists addObject:artist];
+            if (artist) [artists addObject:artist];
         }
         
         block(error, artists, searchQuery);

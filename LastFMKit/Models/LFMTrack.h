@@ -2,7 +2,7 @@
 //  LFMTrack.h
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -63,7 +63,7 @@ NS_SWIFT_NAME(Track)
 @property(strong, nonatomic, nullable) LFMWiki *wiki;
 
 /** The album that the track is a part of, if any. */
-@property(weak, nonatomic, nullable) LFMAlbum *album;
+@property(strong, nonatomic, nullable) LFMAlbum *album;
 
 /** The amount of listeners the track has. */
 @property(nonatomic, readonly) NSUInteger listeners;

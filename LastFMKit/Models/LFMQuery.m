@@ -2,7 +2,7 @@
 //  LFMQuery.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,22 +33,30 @@
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    NSUInteger currentPage = [[dictionary objectForKey:@"page"] unsignedIntegerValue];
-    NSUInteger totalResults = [[dictionary objectForKey:@"total"] unsignedIntegerValue];
-    NSUInteger itemsPerPage = [[dictionary objectForKey:@"perPage"] unsignedIntegerValue];
+    if (dictionary != nil &&
+        [dictionary isKindOfClass:NSDictionary.class]) {
+        id currentPage = [dictionary objectForKey:@"page"];
+        id totalResults = [dictionary objectForKey:@"total"];
+        id itemsPerPage = [dictionary objectForKey:@"perPage"];
+        
+        if (currentPage != nil && [currentPage isKindOfClass:NSString.class] &&
+            totalResults != nil && [totalResults isKindOfClass:NSString.class] &&
+            itemsPerPage != nil && [itemsPerPage isKindOfClass:NSString.class]) {
+            return [self initWithPage:[currentPage unsignedIntegerValue]
+                         totalResults:[totalResults unsignedIntegerValue]
+                         itemsPerPage:[itemsPerPage unsignedIntegerValue]];
+        }
+    }
     
-    return [[LFMQuery alloc] initWithPage:currentPage totalResults:totalResults itemsPerPage:itemsPerPage];
+    return nil;
 }
 
 - (instancetype)initWithPage:(NSUInteger)currentPage
                 totalResults:(NSUInteger)totalResults
                 itemsPerPage:(NSUInteger)itemsPerPage {
     self = [super init];
-    if (self &&
-        !isnan(currentPage) &&
-        !isnan(totalResults) &&
-        !isnan(itemsPerPage))
-    {
+    
+    if (self) {
         _currentPage = currentPage;
         _totalResults = totalResults;
         _itemsPerPage = itemsPerPage;

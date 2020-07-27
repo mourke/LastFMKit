@@ -2,7 +2,7 @@
 //  LFMUser.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
-    if (self) {
+    if (self && dictionary) {
         NSString *username = [dictionary objectForKey:@"name"];
         NSString *realName = [dictionary objectForKey:@"realname"];
         NSURL *URL = [NSURL URLWithString:[dictionary objectForKey:@"url"]];
@@ -53,7 +53,13 @@
         NSString *subscriberString = [dictionary objectForKey:@"subscriber"];
         NSUInteger playCount = [[dictionary objectForKey:@"playcount"] unsignedIntegerValue];
         NSUInteger playlistCount = [[dictionary objectForKey:@"playlists"] unsignedIntegerValue];
-        double registeredTime = [[[dictionary objectForKey:@"registered"] objectForKey:@"unixtime"] doubleValue];
+        NSDictionary *registeredDictionary = [dictionary objectForKey:@"registered"];
+        double registeredTime = NAN;
+        
+        if (registeredDictionary) {
+            registeredTime = [[registeredDictionary objectForKey:@"unixtime"] doubleValue];
+        }
+    
         NSDictionary *images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
         
         if (username != nil &&

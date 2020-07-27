@@ -2,7 +2,7 @@
 //  LFMSearchQuery.m
 //  LastFMKit
 //
-//  Copyright © 2017 Mark Bourke.
+//  Copyright © 2020 Mark Bourke.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -31,16 +31,30 @@
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    NSString *searchQuery = [[dictionary objectForKey:@"opensearch:Query"] objectForKey:@"searchTerms"];
-    NSUInteger currentPage = [[[dictionary objectForKey:@"opensearch:Query"] objectForKey:@"startPage"] unsignedIntegerValue];
-    NSUInteger totalResults = [[dictionary objectForKey:@"opensearch:totalResults"] unsignedIntegerValue];
-    NSUInteger itemsPerPage = [[dictionary objectForKey:@"opensearch:itemsPerPage"] unsignedIntegerValue];
+    if (dictionary == nil || ![dictionary isKindOfClass:NSDictionary.class]) return nil;
     
-    self = [[LFMSearchQuery alloc] initWithPage:currentPage totalResults:totalResults itemsPerPage:itemsPerPage];
-    
-    if (self && searchQuery != nil) {
-        _searchQuery = searchQuery;
-        return self;
+    id queryDictionary = [dictionary objectForKey:@"opensearch:Query"];
+    if (queryDictionary != nil &&
+        [queryDictionary isKindOfClass:NSDictionary.class]) {
+        id searchQuery = [(NSDictionary *)queryDictionary objectForKey:@"searchTerms"];
+        id currentPage = [(NSDictionary *)queryDictionary objectForKey:@"startPage"];
+        if (searchQuery != nil && [searchQuery isKindOfClass:NSString.class] &&
+            currentPage != nil && [currentPage isKindOfClass:NSString.class]) {
+            id totalResults = [dictionary objectForKey:@"opensearch:totalResults"];
+            id itemsPerPage = [dictionary objectForKey:@"opensearch:itemsPerPage"];
+            
+            if (totalResults != nil && [totalResults isKindOfClass:NSString.class] &&
+                itemsPerPage != nil && [itemsPerPage isKindOfClass:NSString.class]) {
+                self = [super initWithPage:[currentPage unsignedIntegerValue]
+                              totalResults:[totalResults unsignedIntegerValue]
+                              itemsPerPage:[itemsPerPage unsignedIntegerValue]];
+                
+                if (self) {
+                    _searchQuery = searchQuery;
+                    return self;
+                }
+            }
+        }
     }
     
     return nil;

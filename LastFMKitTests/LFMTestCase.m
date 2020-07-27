@@ -2,7 +2,7 @@
 //  LFMTestCase.m
 //  LastFMKitTests
 //
-//  Copyright (c) 2017 Mark Bourke
+//  Copyright (c) 2020 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@
     LFMSession *testSession = [[LFMSession alloc] performSelector:NSSelectorFromString(@"init")]; // Initialiser is private.
 #pragma clang diagnostic pop
     [testSession setValue:[NSNumber numberWithBool:NO] forKey:@"_userIsSubscriber"];
-    [testSession setValue:self.testUsername forKey:@"_userName"];
+    [testSession setValue:self.testUsername forKey:@"_username"];
     [testSession setValue:@"1irfXzHD5BaqXja0y-k5WeeFxWiRvLrO" forKey:@"_sessionKey"];
     
     [[LFMAuth sharedInstance] setValue:testSession forKey:@"_session"];
