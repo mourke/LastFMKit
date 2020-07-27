@@ -29,16 +29,19 @@ BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
     NSError *_error;
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&_error];
     
-    NSString *errorMessage = [responseDictionary objectForKey:@"message"];
-    NSInteger errorCode = [[responseDictionary objectForKey:@"error"] integerValue];
+    id errorMessage = [responseDictionary objectForKey:@"message"];
+    id errorCode = [responseDictionary objectForKey:@"error"];
     
-    if (errorMessage != nil && !isnan(errorCode)) {
-        _error = [NSError errorWithDomain:@"fm.last.kit.error" code:errorCode userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+    if (errorMessage != nil && [errorMessage isKindOfClass:NSString.class] &&
+        errorCode != nil && [errorCode isKindOfClass:NSNumber.class]) {
+        _error = [NSError errorWithDomain:@"fm.last.kit.error"
+                                     code:[errorCode integerValue]
+                                 userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
     }
     
-    if (error) {
+    if (error) { // check if user passed in an error param.
         *error = _error;
     }
     
-    return _error == nil ? YES : NO;
+    return _error == nil ? YES : NO; // must check _error instead of error as error could be nil if the user doesn't want the exact error message back.
 }
