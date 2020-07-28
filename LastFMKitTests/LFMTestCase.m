@@ -27,6 +27,8 @@
 #import <LastFMKit/LastFMKit.h>
 #import <LastFMKit/LFMKit+Protected.h>
 
+NSTimeInterval const TestRequestTimeout = 60.0;
+
 @implementation LFMTestCase
 
 - (NSString *)testUsername {

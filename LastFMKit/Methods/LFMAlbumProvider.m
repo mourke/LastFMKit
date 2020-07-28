@@ -138,20 +138,23 @@
                                   forUsername:(NSString *)username
                                  languageCode:(NSString *)code
                                      callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block {
+    NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getInfo"],
+    NSMutableArray *queryItems = [NSMutableArray arrayWithArray:@[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getInfo"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"album" value:albumName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:albumArtist],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"username" value:username],
                             [NSURLQueryItem queryItemWithName:@"lang" value:code],
-                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
+                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]]];
+    if (username != nil) { // API breaks if we do this like the other ones. This is a workaround until it's fixed on the API side which will probably be never.
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"username" value:username]];
+    }
     components.queryItems = queryItems;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
@@ -178,26 +181,31 @@
                                  byArtistNamed:(NSString *)albumArtist
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(NSString *)username
+                                   forUsername:(NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
     NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
-    
+    NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getTags"],
+    NSMutableArray *queryItems = [NSMutableArray arrayWithArray:@[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"album" value:albumName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:albumArtist],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]]];
     
-    components.queryItems = [LFMSession sharedSession].sessionKey == nil ? queryItems : [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
+    if (username) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"user" value:username]];
+    } else {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+        [queryItems addObject:[[LFMAuth sharedInstance] signatureItemForQueryItems:queryItems]];
+    }
+    
+    components.queryItems = queryItems;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -208,12 +216,17 @@
         }
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
         NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tags"]) {
-            LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id tagsDictionary = [responseDictionary objectForKey:@"tags"];
+        if (tagsDictionary != nil && [tagsDictionary isKindOfClass:NSDictionary.class]) {
+            id tagArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
+            if (tagArray != nil && [tagArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagArray) {
+                    LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
         }
         
         block(error, tags);
@@ -230,6 +243,7 @@
                                       autoCorrect:(BOOL)autoCorrect
                                          callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -256,11 +270,16 @@
         
         NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
         
-        NSDictionary *topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
-        
-        for (NSDictionary *tagDictionary in [topTagsDictionary objectForKey:@"tag"]) {
-            LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
+        if (topTagsDictionary != nil &&
+            [topTagsDictionary isKindOfClass:NSDictionary.class]) {
+            id tagArray = [(NSDictionary *)topTagsDictionary objectForKey:@"tag"];
+            if (tagArray != nil && [tagArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagArray) {
+                    LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
         }
         
         block(error, tags);
@@ -275,6 +294,8 @@
                                  itemsPerPage:(NSUInteger)limit
                                        onPage:(NSUInteger)page
                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMSearchQuery * _Nullable))block {
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];

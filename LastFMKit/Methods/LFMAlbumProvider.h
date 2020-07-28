@@ -110,7 +110,7 @@ NS_SWIFT_NAME(AlbumProvider)
                                  byArtistNamed:(nullable NSString *)albumArtist
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(nullable NSString *)username
+                                   forUsername:(nullable NSString *)username
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forAlbum:by:mbid:autoCorrect:forUser:callback:));
 
 /**

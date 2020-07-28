@@ -25,6 +25,8 @@
 
 #import <XCTest/XCTest.h>
 
+extern NSTimeInterval const TestRequestTimeout;
+
 @interface LFMTestCase : XCTestCase
 
 @property (strong, readonly, nonatomic) NSString *testUsername;

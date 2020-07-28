@@ -35,7 +35,7 @@
     
     if (self) {
         id count = [dictionary objectForKey:@"count"];
-        if (count != nil && [count isKindOfClass:NSString.class]) {
+        if (count != nil && [count isKindOfClass:NSNumber.class]) {
             _count = [count unsignedIntegerValue];
             
             return self;

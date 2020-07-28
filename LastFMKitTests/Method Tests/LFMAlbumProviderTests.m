@@ -63,7 +63,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
 - (void)testAddTags_ShouldPass_WithGiberishAlbumNameAndArtistName {
@@ -77,7 +77,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
 - (void)testAddTags_ShouldNotCrash_WithNoCallback {
@@ -159,7 +159,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
 - (void)testRemoveTag_ShouldPass_WhenNoTagExistsOnAlbum {
@@ -173,7 +173,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
 - (void)testRemoveTag_ShouldNotCrash_WithNoCallback {
@@ -238,24 +238,315 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldPass_WithAllNoUsername {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getInfoOnAlbumNamed:_testAlbumName
+                            byArtistNamed:_testArtistName
+                                albumMBID:_testAlbumReleaseMBID
+                              autoCorrect:YES
+                              forUsername:nil
+                             languageCode:@"en"
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
+        XCTAssertNotNil(album);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldPass_WithAllNoLanguageCode {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getInfoOnAlbumNamed:_testAlbumName
+                            byArtistNamed:_testArtistName
+                                albumMBID:_testAlbumReleaseMBID
+                              autoCorrect:YES
+                              forUsername:self.testUsername
+                             languageCode:nil
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
+        XCTAssertNotNil(album);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldPass_WithNoAlbumName {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getInfoOnAlbumNamed:nil
+                            byArtistNamed:_testArtistName
+                                albumMBID:_testAlbumReleaseMBID
+                              autoCorrect:YES
+                              forUsername:self.testUsername
+                             languageCode:@"en"
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
+        XCTAssertNotNil(album);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldPass_WithNoAlbumNameAndNoArtistName {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getInfoOnAlbumNamed:nil
+                            byArtistNamed:nil
+                                albumMBID:_testAlbumReleaseMBID
+                              autoCorrect:YES
+                              forUsername:self.testUsername
+                             languageCode:@"en"
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
+        XCTAssertNotNil(album);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldPass_WithNoMBID {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getInfoOnAlbumNamed:_testAlbumName
+                            byArtistNamed:_testArtistName
+                                albumMBID:nil
+                              autoCorrect:YES
+                              forUsername:self.testUsername
+                             languageCode:@"en"
+                                 callback:^(NSError * _Nullable error,
+                                            LFMAlbum * _Nullable album) {
+        XCTAssertNotNil(album);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetInfoOnAlbum_ShouldCrash_WithNoCallback {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getInfoOnAlbumNamed:_testAlbumName
+                                             byArtistNamed:_testArtistName
+                                                 albumMBID:_testAlbumReleaseMBID
+                                               autoCorrect:YES
+                                               forUsername:self.testUsername
+                                              languageCode:@"en"
+                                                  callback:nil],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testGetInfoOnAlbum_ShouldCrash_WithNoAlbumNameAndNoArtistNameAndNoMBID {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getInfoOnAlbumNamed:nil
+                                                         byArtistNamed:nil
+                                                             albumMBID:nil
+                                                           autoCorrect:YES
+                                                           forUsername:self.testUsername
+                                                          languageCode:@"en"
+                                                              callback:^(NSError * _Nullable error,
+                                                                         LFMAlbum * _Nullable album) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+#pragma mark - Tags
+
+- (void)testGetTags_ShouldPass_WithAllInfoPresent {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTagsForAlbumNamed:_testAlbumName
+                             byArtistNamed:_testArtistName
+                         withMusicBrainzId:_testAlbumReleaseMBID
+                               autoCorrect:YES
+                               forUsername:self.testUsername
+                                  callback:^(NSError * _Nullable error,
+                                             NSArray<LFMTag *> * _Nonnull tags) {
+        XCTAssertNotNil(tags);
+        XCTAssertGreaterThan(tags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTags_ShouldPass_WithAllNoUsernameOnly {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTagsForAlbumNamed:_testAlbumName
+                             byArtistNamed:_testArtistName
+                         withMusicBrainzId:_testAlbumReleaseMBID
+                               autoCorrect:YES
+                               forUsername:nil
+                                  callback:^(NSError * _Nullable error,
+                                             NSArray<LFMTag *> * _Nonnull tags) {
+        XCTAssertNotNil(tags);
+        XCTAssertGreaterThan(tags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTags_ShouldCrash_WithNoUsernameOrSessionKey {
+    [[LFMAuth sharedInstance] setValue:nil forKey:@"_session"]; // clear the test session that's already there
+    
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getTagsForAlbumNamed:_testAlbumName
+                                                          byArtistNamed:_testArtistName
+                                                      withMusicBrainzId:_testAlbumReleaseMBID
+                                                            autoCorrect:YES
+                                                            forUsername:nil
+                                                               callback:^(NSError * _Nullable error,
+                                                                          NSArray<LFMTag *> * _Nonnull tags) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testGetTags_ShouldPass_WithNoAlbumNameAndNoArtistName {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTagsForAlbumNamed:nil
+                             byArtistNamed:nil
+                         withMusicBrainzId:_testAlbumReleaseMBID
+                               autoCorrect:YES
+                               forUsername:self.testUsername
+                                  callback:^(NSError * _Nullable error,
+                                             NSArray<LFMTag *> * _Nonnull tags) {
+        XCTAssertNotNil(tags);
+        XCTAssertGreaterThan(tags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTags_ShouldPass_WithNoMBID {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTagsForAlbumNamed:_testAlbumName
+                             byArtistNamed:_testArtistName
+                         withMusicBrainzId:nil
+                               autoCorrect:YES
+                               forUsername:self.testUsername
+                                  callback:^(NSError * _Nullable error,
+                                             NSArray<LFMTag *> * _Nonnull tags) {
+        XCTAssertNotNil(tags);
+        XCTAssertGreaterThan(tags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTags_ShouldCrash_WithNoCallback {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getTagsForAlbumNamed:_testAlbumName
+                                                          byArtistNamed:_testArtistName
+                                                      withMusicBrainzId:_testAlbumReleaseMBID
+                                                            autoCorrect:YES
+                                                            forUsername:self.testUsername
+                                                               callback:nil],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testGetTags_ShouldCrash_WithNoAlbumNameAndNoArtistNameAndNoMBID {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getTagsForAlbumNamed:nil
+                                                          byArtistNamed:nil
+                                                      withMusicBrainzId:nil
+                                                            autoCorrect:YES
+                                                            forUsername:self.testUsername
+                                                               callback:^(NSError * _Nullable error, NSArray<LFMTag *> * _Nonnull tags) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+#pragma mark - Top Tags
+
+- (void)testGetTopTags_ShouldPass_WithAllInfoPresent {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTopTagsForAlbumNamed:_testAlbumName
+                                byArtistNamed:_testArtistName
+                            withMusicBrainzId:_testAlbumReleaseMBID
+                                  autoCorrect:YES
+                                     callback:^(NSError * _Nullable error,
+                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+        XCTAssertNotNil(topTags);
+        XCTAssertGreaterThan(topTags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTopTags_ShouldPass_WithNoMBID {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTopTagsForAlbumNamed:_testAlbumName
+                                byArtistNamed:_testArtistName
+                            withMusicBrainzId:nil
+                                  autoCorrect:YES
+                                     callback:^(NSError * _Nullable error,
+                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+        XCTAssertNotNil(topTags);
+        XCTAssertGreaterThan(topTags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTopTags_ShouldPass_WithNoAlbumNameAndNoArtistName {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider getTopTagsForAlbumNamed:nil
+                                byArtistNamed:nil
+                            withMusicBrainzId:_testAlbumReleaseMBID
+                                  autoCorrect:YES
+                                     callback:^(NSError * _Nullable error,
+                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+        XCTAssertNotNil(topTags);
+        XCTAssertGreaterThan(topTags.count, 0);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testGetTopTags_ShouldCrash_WithNoAlbumNameAndNoArtistNameAndNoMBID {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getTopTagsForAlbumNamed:nil
+                                                             byArtistNamed:nil
+                                                         withMusicBrainzId:nil
+                                                               autoCorrect:YES
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMTopTag *> * _Nonnull topTags) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testGetTopTags_ShouldCrash_WithNoCallback {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider getTopTagsForAlbumNamed:_testAlbumName
+                                                             byArtistNamed:_testArtistName
+                                                         withMusicBrainzId:_testAlbumReleaseMBID
+                                                               autoCorrect:YES
+                                                                  callback:nil],
+                                 NSException, NSInternalInconsistencyException);
 }
 
 
+
 /*
-
-    getTagsForAlbumNamed:(nullable NSString *)albumName
-                                     byArtistNamed:(nullable NSString *)albumArtist
-                                 withMusicBrainzId:(nullable NSString *)mbid
-                                       autoCorrect:(BOOL)autoCorrect
-                                           forUser:(nullable NSString *)username
-                                          callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forAlbum:by:mbid:autoCorrect:forUser:callback:));
-
-    getTopTagsForAlbumNamed:(nullable NSString *)albumName
-                                        byArtistNamed:(nullable NSString *)albumArtist
-                                    withMusicBrainzId:(nullable NSString *)mbid
-                                          autoCorrect:(BOOL)autoCorrect
-                                             callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:by:mbid:autoCorrect:callback:));
 
     searchForAlbumNamed:(NSString *)albumName
                                      itemsPerPage:(NSUInteger)limit

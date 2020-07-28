@@ -58,7 +58,7 @@
         [expectation fulfill];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
 @end
