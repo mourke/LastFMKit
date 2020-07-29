@@ -25,7 +25,11 @@
 
 #import "LFMError.h"
 
-BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
+BOOL lfm_error_validate(NSData *responseData, NSError **error) {
+    if (responseData == nil) {
+        return NO;
+    }
+    
     NSError *_error;
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&_error];
     
@@ -36,6 +40,28 @@ BOOL lfm_error_validate(NSData *responseData, NSError * *error) {
         errorCode != nil && [errorCode isKindOfClass:NSNumber.class]) {
         _error = [NSError errorWithDomain:@"fm.last.kit.error"
                                      code:[errorCode integerValue]
+                                 userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
+    }
+    
+    if (error) { // check if user passed in an error param.
+        *error = _error;
+    }
+    
+    return _error == nil ? YES : NO; // must check _error instead of error as error could be nil if the user doesn't want the exact error message back.
+}
+
+BOOL http_error_validate(NSURLResponse *response, NSError **error) {
+    if (response == nil || ![response isKindOfClass:NSHTTPURLResponse.class]) {
+        return YES;
+    }
+    
+    NSError *_error;
+    NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+    
+    if (statusCode != 200) {
+        NSString *errorMessage = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
+        _error = [NSError errorWithDomain:@"fm.last.kit.http.error"
+                                     code:statusCode
                                  userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
     }
     

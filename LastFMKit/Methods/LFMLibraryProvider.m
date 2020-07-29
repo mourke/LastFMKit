@@ -51,7 +51,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil || !lfm_error_validate(data, &error)) {
+        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
             block(error, @[], nil);
             return;
         }

@@ -33,4 +33,14 @@
  
  @return   Boolean indicating whether or not there is an error - i.e. returns `YES` when there is no error and `NO` when there is an error.
  */
-BOOL lfm_error_validate(NSData *responseData, NSError * *error);
+BOOL lfm_error_validate(NSData *responseData, NSError **error);
+
+/**
+Validates http response status codes.
+
+@param response     An `NSHTTPURLResponse`. If it is not this, the status code will not be checked.
+@param error            An error pointer. If there is a http error, an `NSError` object will be created with the status code and a generic localised description. Unfortunately, iOS does not have a built-in way to get the response-phrase.
+
+@return   Boolean indicating whether or not there is an error - i.e. returns `YES` when there is no error and `NO` when there is an error.
+*/
+BOOL http_error_validate(NSURLResponse *response, NSError **error);

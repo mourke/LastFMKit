@@ -103,12 +103,7 @@ NSString* md5(NSString *string);
     __weak __typeof__(self) weakSelf = self;
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || data == nil) {
-            block(error, nil);
-            return;
-        }
-        
-        if (!lfm_error_validate(data, &error)) {
+        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
             block(error, nil);
             return;
         }
