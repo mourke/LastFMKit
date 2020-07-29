@@ -45,10 +45,7 @@
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    self = [super init];
-    
-    if (self &&
-        dictionary != nil &&
+    if (dictionary != nil &&
         [dictionary isKindOfClass:NSDictionary.class]) {
         id name = [dictionary objectForKey:@"name"];
         id URL = [dictionary objectForKey:@"url"];
@@ -56,32 +53,40 @@
         if (name != nil && [name isKindOfClass:NSString.class] &&
             URL != nil && [URL isKindOfClass:NSString.class])
         {
-            id mbid = [dictionary objectForKey:@"mbid"];
-            if (mbid != nil &&
-                [mbid isKindOfClass:NSString.class]) {
-                _mbid = mbid;
+            NSString *mbid;
+            NSUInteger duration = 0;
+            NSUInteger playCount = 0;
+            BOOL streamable = NO;
+            NSUInteger positionInAlbum = 0;
+            LFMAlbum *album;
+            NSUInteger listeners = 0;
+            
+            id mbidObject = [dictionary objectForKey:@"mbid"];
+            if (mbidObject != nil &&
+                [mbidObject isKindOfClass:NSString.class]) {
+                mbid = mbidObject;
             }
             
-            id duration = [dictionary objectForKey:@"duration"];
-            if (duration != nil &&
-                [duration isKindOfClass:NSString.class]) {
-                _duration = [duration unsignedIntegerValue];
+            id durationObject = [dictionary objectForKey:@"duration"];
+            if (durationObject != nil &&
+                [durationObject isKindOfClass:NSString.class]) {
+                duration = [durationObject unsignedIntegerValue];
             }
             
-            id playCount = [dictionary objectForKey:@"playcount"];
-            if (playCount != nil &&
-                [playCount isKindOfClass:NSString.class]) {
-                _playCount = [duration unsignedIntegerValue];
+            id playCountObject = [dictionary objectForKey:@"playcount"];
+            if (playCountObject != nil &&
+                [playCountObject isKindOfClass:NSString.class]) {
+                playCount = [playCountObject unsignedIntegerValue];
             }
             
             id streamableDictionary = [dictionary objectForKey:@"streamable"];
             if (streamableDictionary != nil &&
                 [streamableDictionary isKindOfClass:NSDictionary.class]) {
-                id streamable = [(NSDictionary *)streamableDictionary objectForKey:@"fulltrack"];
+                id fullTrack = [(NSDictionary *)streamableDictionary objectForKey:@"fulltrack"];
                 
-                if (streamable != nil &&
-                    [streamable isKindOfClass:NSString.class]) {
-                    _streamable = [streamable boolValue];
+                if (fullTrack != nil &&
+                    [fullTrack isKindOfClass:NSString.class]) {
+                    streamable = [fullTrack boolValue];
                 }
             }
             
@@ -91,35 +96,31 @@
                 id rank = [(NSDictionary *)attributesDictionary objectForKey:@"rank"];
                 if (rank != nil &&
                     [rank isKindOfClass:NSString.class]) {
-                    _positionInAlbum = [rank unsignedIntegerValue];
+                    positionInAlbum = [rank unsignedIntegerValue];
                 }
             }
             
             id albumDictionary = [dictionary objectForKey:@"album"];
             if (albumDictionary != nil &&
                 [albumDictionary isKindOfClass:NSDictionary.class]) {
-                _album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+                album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
                 
                 id albumAttributesDictionary = [(NSDictionary *)albumDictionary objectForKey:@"@attr"];
                 if (albumAttributesDictionary != nil &&
                     [albumAttributesDictionary isKindOfClass:NSDictionary.class]) {
-                    id positionInAlbum = [(NSDictionary *)albumAttributesDictionary objectForKey:@"position"];
+                    id position = [(NSDictionary *)albumAttributesDictionary objectForKey:@"position"];
                     
-                    if (positionInAlbum != nil &&
-                        [positionInAlbum isKindOfClass:NSString.class]) {
-                        _positionInAlbum = [positionInAlbum unsignedIntegerValue];
+                    if (position != nil &&
+                        [position isKindOfClass:NSString.class]) {
+                        positionInAlbum = [position unsignedIntegerValue];
                     }
                 }
             }
             
-            _artist = [[LFMArtist alloc] initFromDictionary:[dictionary objectForKey:@"artist"]];
-            _wiki = [[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]];
-            
+            NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
             id topTagsDictionary = [dictionary objectForKey:@"toptags"];
             if (topTagsDictionary != nil &&
                 [topTagsDictionary isKindOfClass:NSDictionary.class]) {
-                NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
-                
                 id topTagsArray = [(NSDictionary *)topTagsDictionary objectForKey:@"tag"];
                 if (topTagsArray != nil &&
                     [topTagsArray isKindOfClass:NSArray.class]) {
@@ -128,22 +129,25 @@
                         if (tag) [tags addObject:tag];
                     }
                 }
-                
-                _tags = tags;
-            } else {
-                _tags = [NSArray new];
             }
             
-            id listeners = [dictionary objectForKey:@"listeners"];
-            if ([listeners isKindOfClass:NSString.class]) {
-                _listeners = [listeners unsignedIntegerValue];
+            id listenersObject = [dictionary objectForKey:@"listeners"];
+            if (listenersObject != nil && [listenersObject isKindOfClass:NSString.class]) {
+                listeners = [listenersObject unsignedIntegerValue];
             }
             
-            _name = name;
-            _mbid = mbid;
-            _URL = [NSURL URLWithString:URL];
-            
-            return self;
+            return [self initWithName:name
+                               artist:[[LFMArtist alloc] initFromDictionary:[dictionary objectForKey:@"artist"]]
+                        musicBrainzID:mbid
+                                album:album
+                      positionInAlbum:positionInAlbum
+                                  URL:[NSURL URLWithString:URL]
+                             duration:duration
+                           streamable:streamable
+                                 tags:tags
+                                 wiki:[[LFMWiki alloc] initFromDictionary:[dictionary objectForKey:@"wiki"]]
+                            listeners:listeners
+                            playCount:playCount];
         }
     }
     
@@ -152,7 +156,7 @@
 
 - (instancetype)initWithName:(NSString *)trackName
                       artist:(nullable LFMArtist *)artist
-               musicBrainzID:(NSString *)mbid
+               musicBrainzID:(nullable NSString *)mbid
                        album:(nullable LFMAlbum *)album
              positionInAlbum:(NSUInteger)position
                          URL:(NSURL *)URL
@@ -162,6 +166,10 @@
                         wiki:(nullable LFMWiki *)wiki
                    listeners:(NSUInteger)listeners
                    playCount:(NSUInteger)playCount {
+    NSParameterAssert(trackName);
+    NSParameterAssert(URL);
+    NSParameterAssert(tags);
+    
     self = [super init];
     
     if (self) {
@@ -180,6 +188,16 @@
     }
     
     return self;
+}
+
+- (instancetype)init {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
++ (instancetype)new {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
 }
 
 - (NSString *)name {

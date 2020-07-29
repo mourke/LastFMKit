@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMTag, LFMTopTag, LFMArtist, LFMAlbum, LFMQuery, LFMSearchQuery, LFMTrack;
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for looking up info on Artists using Last.fm.
  */
 NS_SWIFT_NAME(ArtistProvider)
-@interface LFMArtistProvider : NSObject
+@interface LFMArtistProvider : LFMProvider
 
 /**
  Tags an artist using a list of user supplied tags.

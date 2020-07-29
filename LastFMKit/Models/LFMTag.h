@@ -71,8 +71,8 @@ NS_SWIFT_NAME(Tag)
  */
 + (instancetype)tagWithName:(NSString *)tagName NS_SWIFT_UNAVAILABLE("Please use `init(name:)` instead.");
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

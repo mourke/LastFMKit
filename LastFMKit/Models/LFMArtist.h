@@ -69,8 +69,8 @@ NS_SWIFT_NAME(Artist)
 /** A small amount of information about the artist. */
 @property(strong, nonatomic, nullable) LFMWiki *wiki;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

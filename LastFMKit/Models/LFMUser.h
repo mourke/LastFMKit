@@ -68,8 +68,8 @@ NS_SWIFT_NAME(User)
 /** The date on which the user signed up for Last.fm */
 @property(strong, nonatomic, readonly) NSDate *dateRegistered;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

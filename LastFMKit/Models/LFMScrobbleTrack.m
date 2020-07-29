@@ -30,26 +30,61 @@
     BOOL _chosenByUser;
 }
 
-- (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser {
-    self = [super initWithName:track.name
-                        artist:track.artist
-                 musicBrainzID:track.mbid
-                         album:track.album
-               positionInAlbum:track.positionInAlbum
-                           URL:track.URL
-                      duration:track.duration
-                    streamable:track.isStreamable
-                          tags:track.tags
-                          wiki:track.wiki
-                     listeners:track.listeners
-                     playCount:track.playCount];
+- (instancetype)initWithName:(NSString *)trackName
+                      artist:(nullable LFMArtist *)artist
+               musicBrainzID:(NSString *)mbid
+                       album:(nullable LFMAlbum *)album
+             positionInAlbum:(NSUInteger)position
+                         URL:(NSURL *)URL
+                    duration:(NSUInteger)duration
+                  streamable:(BOOL)streamable
+                        tags:(NSArray<LFMTag *> *)tags
+                        wiki:(nullable LFMWiki *)wiki
+                   listeners:(NSUInteger)listeners
+                   playCount:(NSUInteger)playCount
+                   timestamp:(NSDate *)timestamp
+                chosenByUser:(BOOL)chosenByUser {
+    self = [super initWithName:trackName
+                        artist:artist
+                 musicBrainzID:mbid
+                         album:album
+               positionInAlbum:position
+                           URL:URL
+                      duration:duration
+                    streamable:streamable
+                          tags:tags
+                          wiki:wiki
+                     listeners:listeners
+                     playCount:playCount];
     
     if (self) {
         _timestamp = timestamp;
         _chosenByUser = chosenByUser;
     }
     
-    return self;
+    return nil;
+}
+
+- (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser {
+    return [self initWithName:track.name
+                       artist:track.artist
+                musicBrainzID:track.mbid
+                        album:track.album
+              positionInAlbum:track.positionInAlbum
+                          URL:track.URL
+                     duration:track.duration
+                   streamable:track.isStreamable
+                         tags:track.tags
+                         wiki:track.wiki
+                    listeners:track.listeners
+                    playCount:track.playCount
+                    timestamp:timestamp
+                 chosenByUser:chosenByUser];
+}
+
+- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSUInteger)position URL:(NSURL *)URL duration:(NSUInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSUInteger)listeners playCount:(NSUInteger)playCount {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
 }
 
 - (NSDate *)timestamp {

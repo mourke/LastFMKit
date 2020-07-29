@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMTag, LFMTopTag, LFMAlbum, LFMSearchQuery;
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for looking up info on Albums using Last.fm.
  */
 NS_SWIFT_NAME(AlbumProvider)
-@interface LFMAlbumProvider : NSObject
+@interface LFMAlbumProvider : LFMProvider
 
 /**
  Tags an album using a list of user supplied tags.
@@ -70,13 +70,15 @@ NS_SWIFT_NAME(AlbumProvider)
                            callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:by:callback:));
 
 /**
- Retrieves the metadata and tracklist for an album on Last.fm using the album name or MusicBrainzID.
+ Retrieves the metadata and tracklist for an album on Last.fm using the album name and album artist or album release MusicBrainzID.
  
- @param albumName   The name of the album. Required, unless mbid is specified.
- @param albumArtist The name of the album's artist. Required, unless mbid is specified.
- @param mbid        The MusicBrainzID for the album @b release. Required, unless both albumName and albumArtist are specified. Having all three will result in the mbid being preferred as it is more accurate.
+ @note  🔒: Authentication Optional.
+ 
+ @param albumName   The name of the album.
+ @param albumArtist The name of the album's artist.
+ @param mbid        The MusicBrainzID for the album @b release.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param username    The username for the context of the request. If supplied, the user's playcount for this album is included in the response.
+ @param username    The username for the context of the request. If supplied, the user's playcount for this album is included in the response. If not supplied, the playcount for the authenticated user (if any) will be returned.
  @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMAlbum` object if the request succeeds.
  
@@ -90,7 +92,7 @@ NS_SWIFT_NAME(AlbumProvider)
                                   autoCorrect:(BOOL)autoCorrect
                                   forUsername:(nullable NSString *)username
                                  languageCode:(nullable NSString *)code
-                                     callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block NS_SWIFT_NAME(getInfo(on:by:mbid:autoCorrect:username:languageCode:callback:));
+                                     callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the tags applied by an individual user to an album on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
@@ -111,7 +113,7 @@ NS_SWIFT_NAME(AlbumProvider)
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                    forUsername:(nullable NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forAlbum:by:mbid:autoCorrect:forUser:callback:));
+                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tags for an album on Last.fm, ordered by popularity.
@@ -128,7 +130,7 @@ NS_SWIFT_NAME(AlbumProvider)
                                     byArtistNamed:(nullable NSString *)albumArtist
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:by:mbid:autoCorrect:callback:));
+                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an album by name. Returns album matches sorted by relevance.
@@ -143,7 +145,7 @@ NS_SWIFT_NAME(AlbumProvider)
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(NSUInteger)limit
                                        onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:on:callback:));
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an album by name. Returns the first 30 album matches sorted by relevance.
@@ -154,7 +156,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:callback:));
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an album by name with a limit of 30 items per page. Returns album matches sorted by relevance.
@@ -167,7 +169,7 @@ NS_SWIFT_NAME(AlbumProvider)
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
                                        onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:on:callback:));
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an album by name. Returns album matches sorted by relevance.
@@ -180,7 +182,7 @@ NS_SWIFT_NAME(AlbumProvider)
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(NSUInteger)limit
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:callback:));
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
 
 @end
 

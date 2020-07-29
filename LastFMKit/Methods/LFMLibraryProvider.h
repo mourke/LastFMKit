@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMArtist, LFMQuery;
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for looking up a user's Last.fm library.
  */
 NS_SWIFT_NAME(LibraryProvider)
-@interface LFMLibraryProvider : NSObject
+@interface LFMLibraryProvider : LFMProvider
 
 /**
  Retrieves a list of all the artists in a user's library, with play counts and tag counts.

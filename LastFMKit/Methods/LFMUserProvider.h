@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 #import "LFMTaggingType.h"
 #import "LFMTimePeriod.h"
 
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for interacting with a user's information on Last.fm.
  */
 NS_SWIFT_NAME(UserProvider)
-@interface LFMUserProvider : NSObject
+@interface LFMUserProvider : LFMProvider
 
 /**
  Retrieves information about a user's profile.

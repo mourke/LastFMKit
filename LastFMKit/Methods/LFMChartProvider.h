@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMArtist, LFMSearchQuery, LFMTag, LFMTrack;
 
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for looking up info on Charts using Last.fm.
  */
 NS_SWIFT_NAME(ChartProvider)
-@interface LFMChartProvider : NSObject
+@interface LFMChartProvider : LFMProvider
 
 /**
  Retrieves the top artists chart.

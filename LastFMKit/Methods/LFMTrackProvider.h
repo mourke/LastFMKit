@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMTrack, LFMSearchQuery, LFMScrobbleTrack, LFMTag, LFMTopTag;
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for interacting with tracks on Last.fm.
  */
 NS_SWIFT_NAME(TrackProvider)
-@interface LFMTrackProvider : NSObject
+@interface LFMTrackProvider : LFMProvider
 
 /**
  Notifies Last.fm that a user has started listening to a track.

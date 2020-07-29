@@ -28,6 +28,7 @@
 #import "LFMSession.h"
 #import "LFMKit+Protected.h"
 #import "LFMError.h"
+#import "LFMProvider.h"
 
 @implementation LFMAuth {
     LFMSession *_session;
@@ -85,7 +86,7 @@ NSString* md5(NSString *string);
                                         callback:(LFMAuthCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
+    NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"auth.getMobileSession"],

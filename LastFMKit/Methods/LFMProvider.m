@@ -1,5 +1,5 @@
 //
-//  LFMTopTag.m
+//  LFMProvider.m
 //  LastFMKit
 //
 //  Copyright © 2020 Mark Bourke.
@@ -23,40 +23,18 @@
 //  THE SOFTWARE
 //
 
-#import "LFMTopTag.h"
-#import "LFMKit+Protected.h"
+#import "LFMProvider.h"
 
-@implementation LFMTopTag {
-    NSUInteger _count;
-}
+NSString * const APIEndpoint = @"https://ws.audioscrobbler.com/2.0";
 
-- (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    self = [super initFromDictionary:dictionary];
-    
-    if (self) {
-        id count = [dictionary objectForKey:@"count"];
-        if (count != nil && [count isKindOfClass:NSNumber.class]) {
-            _count = [count unsignedIntegerValue];
-            
-            return self;
-        }
-    }
-    
-    return nil;
-}
+@implementation LFMProvider
 
-- (NSUInteger)count {
-    return _count;
-}
-
-#pragma mark - Unavailable
-
-- (instancetype)initWithName:(NSString *)tagName {
+- (instancetype)init {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
-+ (instancetype)tagWithName:(NSString *)tagName {
++ (instancetype)new {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
 }

@@ -66,8 +66,8 @@ NS_SWIFT_NAME(Album)
 /** A small amount of information about the album. */
 @property(strong, nonatomic, readonly, nullable) LFMWiki *wiki;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

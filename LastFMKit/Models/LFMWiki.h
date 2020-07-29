@@ -42,8 +42,8 @@ NS_SWIFT_NAME(Wiki)
 /** A short paragraph of information taken from wikipedia. */
 @property(strong, nonatomic, readonly) NSString *content;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

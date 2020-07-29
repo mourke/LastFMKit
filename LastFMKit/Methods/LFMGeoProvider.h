@@ -23,7 +23,7 @@
 //  THE SOFTWARE
 //
 
-#import <Foundation/Foundation.h>
+#import "LFMProvider.h"
 
 @class LFMArtist, LFMQuery, LFMTrack;
 
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class provides helper methods for looking up geographical info using Last.fm.
  */
 NS_SWIFT_NAME(GeoProvider)
-@interface LFMGeoProvider : NSObject
+@interface LFMGeoProvider : LFMProvider
 
 /**
  Retrieves the top artists in a specific country.

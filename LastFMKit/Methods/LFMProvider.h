@@ -1,5 +1,5 @@
 //
-//  LFMTopTag.m
+//  LFMProvider.h
 //  LastFMKit
 //
 //  Copyright © 2020 Mark Bourke.
@@ -23,42 +23,17 @@
 //  THE SOFTWARE
 //
 
-#import "LFMTopTag.h"
-#import "LFMKit+Protected.h"
+#import <Foundation/Foundation.h>
 
-@implementation LFMTopTag {
-    NSUInteger _count;
-}
+NS_ASSUME_NONNULL_BEGIN
 
-- (instancetype)initFromDictionary:(NSDictionary *)dictionary {
-    self = [super initFromDictionary:dictionary];
-    
-    if (self) {
-        id count = [dictionary objectForKey:@"count"];
-        if (count != nil && [count isKindOfClass:NSNumber.class]) {
-            _count = [count unsignedIntegerValue];
-            
-            return self;
-        }
-    }
-    
-    return nil;
-}
+extern NSString * const APIEndpoint;
 
-- (NSUInteger)count {
-    return _count;
-}
+@interface LFMProvider : NSObject
 
-#pragma mark - Unavailable
-
-- (instancetype)initWithName:(NSString *)tagName {
-    [self doesNotRecognizeSelector:_cmd];
-    return nil;
-}
-
-+ (instancetype)tagWithName:(NSString *)tagName {
-    [self doesNotRecognizeSelector:_cmd];
-    return nil;
-}
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

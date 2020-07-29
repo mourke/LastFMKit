@@ -98,6 +98,16 @@
     return self;
 }
 
+- (instancetype)init {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
++ (instancetype)new {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
 + (instancetype)tagWithName:(NSString *)tagName {
     return [[LFMTag alloc] initWithName:tagName];
 }

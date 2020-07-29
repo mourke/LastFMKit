@@ -93,6 +93,16 @@
     return nil;
 }
 
+- (instancetype)init {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
++ (instancetype)new {
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
 - (NSString *)username {
     return _userName;
 }

@@ -87,11 +87,11 @@ NS_SWIFT_NAME(Track)
  @param listeners   The amount of listeners the track has.
  @param playCount   The amount of "scrobbles" the track has.
  
- @return   An `LFMScrobbleTrack` object.
+ @return   An `LFMTrack` object.
  */
 - (instancetype)initWithName:(NSString *)trackName
                       artist:(nullable LFMArtist *)artist
-               musicBrainzID:(NSString *)mbid
+               musicBrainzID:(nullable NSString *)mbid
                        album:(nullable LFMAlbum *)album
              positionInAlbum:(NSUInteger)position
                          URL:(NSURL *)URL
@@ -100,10 +100,10 @@ NS_SWIFT_NAME(Track)
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
                    listeners:(NSUInteger)listeners
-                   playCount:(NSUInteger)playCount NS_SWIFT_NAME(init(name:artist:mbid:album:position:url:duration:streamable:tags:wiki:listeners:playCount:));
+                   playCount:(NSUInteger)playCount NS_SWIFT_NAME(init(name:artist:mbid:album:position:url:duration:streamable:tags:wiki:listeners:playCount:)) NS_DESIGNATED_INITIALIZER;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

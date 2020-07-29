@@ -39,6 +39,9 @@ NS_SWIFT_NAME(Chart)
 /** The date on which the chart ended. Usually a week from the `startDate`. */
 @property(strong, nonatomic, readonly) NSDate *endDate;
 
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
+
 @end
 
 NS_ASSUME_NONNULL_END

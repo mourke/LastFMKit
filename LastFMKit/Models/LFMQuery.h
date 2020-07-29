@@ -42,8 +42,8 @@ NS_SWIFT_NAME(Query)
 /** The number of results per page. This value can range from 1-10,000. */
 @property(nonatomic, readonly) NSUInteger itemsPerPage;
 
-- (instancetype) __unavailable init;
-+ (instancetype) __unavailable new;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 
