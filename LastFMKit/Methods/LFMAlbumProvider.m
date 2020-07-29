@@ -294,6 +294,9 @@
                                  itemsPerPage:(NSUInteger)limit
                                        onPage:(NSUInteger)page
                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMSearchQuery * _Nullable))block {
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(albumName);
     NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -318,27 +321,67 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"results"];
+        id resultsDictionary = [responseDictionary objectForKey:@"results"];
+        if (resultsDictionary != nil &&
+            [resultsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
+            
+            NSMutableArray <LFMAlbum *> *albums = [NSMutableArray array];
+            
+            id albumMatchDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"albummatches"];
+            if (albumMatchDictionary != nil &&
+                [albumMatchDictionary isKindOfClass:NSDictionary.class]) {
+                id albumArray = [(NSDictionary *)albumMatchDictionary objectForKey:@"album"];
+                if (albumArray != nil &&
+                    [albumArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *albumDictionary in albumArray) {
+                        LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+                        if (album) [albums addObject:album];
+                    }
+                }
+            }
+            
+            block(error, albums, searchQuery);
+        } else {
+            block(error, @[], nil);
         }
-        
-        LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:responseDictionary];
-        
-        NSMutableArray <LFMAlbum *> *albums = [NSMutableArray array];
-        
-        NSDictionary *albumMatchDictionary = [responseDictionary objectForKey:@"albummatches"];
-        
-        for (NSDictionary *albumDictionary in [albumMatchDictionary objectForKey:@"album"]) {
-            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
-            if (album) [albums addObject:album];
-        }
-        
-        block(error, albums, searchQuery);
     }];
     
     [dataTask resume];
     
     return dataTask;
+}
+
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                     callback:(void (^)(NSError * _Nullable,
+                                                        NSArray <LFMAlbum *> *,
+                                                        LFMSearchQuery * _Nullable))block {
+    return [self searchForAlbumNamed:albumName
+                        itemsPerPage:30
+                              onPage:1
+                            callback:block];
+}
+
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                       onPage:(NSUInteger)page
+                                     callback:(void (^)(NSError * _Nullable,
+                                                        NSArray <LFMAlbum *> *,
+                                                        LFMSearchQuery * _Nullable))block {
+    return [self searchForAlbumNamed:albumName
+                        itemsPerPage:30
+                              onPage:page
+                            callback:block];
+}
+
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                 itemsPerPage:(NSUInteger)limit
+                                     callback:(void (^)(NSError * _Nullable,
+                                                        NSArray <LFMAlbum *> *,
+                                                        LFMSearchQuery * _Nullable))block {
+    return [self searchForAlbumNamed:albumName
+                        itemsPerPage:limit
+                              onPage:1
+                            callback:block];
 }
 
 @end

@@ -134,8 +134,8 @@ NS_SWIFT_NAME(AlbumProvider)
  Searches for an album by name. Returns album matches sorted by relevance.
  
  @param albumName   The name of the album.
- @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
- @param page        The page of results to be fetched. Start page is 1 and is also the default value.
+ @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000.
+ @param page        The page of results to be fetched. Start page is 1. Page must be less than 10,000.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -144,6 +144,43 @@ NS_SWIFT_NAME(AlbumProvider)
                                  itemsPerPage:(NSUInteger)limit
                                        onPage:(NSUInteger)page
                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:on:callback:));
+
+/**
+ Searches for an album by name. Returns the first 30 album matches sorted by relevance.
+ 
+ @param albumName   The name of the album.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
+ 
+ @return   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:callback:));
+
+/**
+ Searches for an album by name with a limit of 30 items per page. Returns album matches sorted by relevance.
+ 
+ @param albumName   The name of the album.
+ @param page        The page of results to be fetched. Start page is 1. Page must be less than 10,000.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
+ 
+ @return   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                       onPage:(NSUInteger)page
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:on:callback:));
+
+/**
+ Searches for an album by name. Returns album matches sorted by relevance.
+ 
+ @param albumName   The name of the album.
+ @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
+ 
+ @return   The `NSURLSessionDataTask` object from the web request.
+ */
++ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
+                                 itemsPerPage:(NSUInteger)limit
+                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:callback:));
 
 @end
 

@@ -547,16 +547,124 @@
                                  NSException, NSInternalInconsistencyException);
 }
 
+#pragma mark - Search
 
-
-/*
-
-    searchForAlbumNamed:(NSString *)albumName
-                                     itemsPerPage:(NSUInteger)limit
-                                           onPage:(NSUInteger)page
-                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block
+- (void)testSearch_ShouldPass_WithAllInfoPresent {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                             itemsPerPage:30
+                                   onPage:1
+                                 callback:^(NSError * _Nullable error,
+                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            LFMSearchQuery * _Nullable query) {
+        XCTAssertNotNil(albums);
+        XCTAssertGreaterThan(albums.count, 0);
+        XCTAssertNotNil(query);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
- 
- */
+
+- (void)testSearch_ShouldPass_WithDefaultLimitAndPageBeingUsed {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                 callback:^(NSError * _Nullable error,
+                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            LFMSearchQuery * _Nullable query) {
+        XCTAssertNotNil(albums);
+        XCTAssertGreaterThan(albums.count, 0);
+        XCTAssertNotNil(query);
+        XCTAssertEqual(query.currentPage, 1);
+        XCTAssertEqual(query.itemsPerPage, 30);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testSearch_ShouldPass_WithDefaultLimitUsed {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                   onPage:2
+                                 callback:^(NSError * _Nullable error,
+                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            LFMSearchQuery * _Nullable query) {
+        XCTAssertNotNil(albums);
+        XCTAssertGreaterThan(albums.count, 0);
+        XCTAssertNotNil(query);
+        XCTAssertEqual(query.currentPage, 2);
+        XCTAssertEqual(query.itemsPerPage, 30);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testSearch_ShouldPass_WithDefaultPageUsed {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors and should return a valid LFMAlbum when all values are present."];
+    
+    [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                             itemsPerPage:25
+                                 callback:^(NSError * _Nullable error,
+                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            LFMSearchQuery * _Nullable query) {
+        XCTAssertNotNil(albums);
+        XCTAssertGreaterThan(albums.count, 0);
+        XCTAssertNotNil(query);
+        XCTAssertEqual(query.currentPage, 1);
+        XCTAssertEqual(query.itemsPerPage, 25);
+        XCTAssertNil(error);
+        [expectation fulfill];
+    }];
+        
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+- (void)testSearch_ShouldCrash_WithNoAlbumName {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:nil
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testSearch_ShouldCrash_WithZeroPage {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                                                onPage:0
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testSearch_ShouldCrash_WithOutOfBoundsPage {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                                                onPage:10001
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testSearch_ShouldCrash_WithZeroLimit {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                                          itemsPerPage:0
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testSearch_ShouldCrash_WithOutOfBoundsLimit {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                                          itemsPerPage:10001
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                 NSException, NSInternalInconsistencyException);
+}
+
+- (void)testSearch_ShouldCrash_WithNoCallback {
+    XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
+                                                              callback:nil],
+                                 NSException, NSInternalInconsistencyException);
+}
 
 @end
