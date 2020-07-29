@@ -40,7 +40,7 @@ NS_SWIFT_NAME(GeoProvider)
  
  @param country A country name, as defined by the ISO 3166-1 country names standard.
  @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -56,7 +56,7 @@ NS_SWIFT_NAME(GeoProvider)
  @param country     A country name, as defined by the ISO 3166-1 country names standard.
  @param province    A metropoiltan name, to narrow down the geographical search result (must be within the country specified).
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit       The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.

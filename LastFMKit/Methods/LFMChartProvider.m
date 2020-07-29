@@ -35,6 +35,10 @@
 + (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
                                  itemsPerPage:(NSUInteger)limit
                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -56,20 +60,25 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"artists"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
         NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
         
-        for (NSDictionary *artistDictionary in [responseDictionary objectForKey:@"artist"]) {
-            LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            if (artist) [artists addObject:artist];
+        id artistsDictionary = [responseDictionary objectForKey:@"artists"];
+        if (artistsDictionary != nil &&
+            [artistsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
+            
+            id artistArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
+            if (artistArray != nil && [artistArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *artistDictionary in artistArray) {
+                    LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
+                    if (artist) [artists addObject:artist];
+                }
+            }
+            
+            block(error, artists, query);
+        } else {
+            block(error, artists, nil);
         }
-        
-        block(error, artists, query);
     }];
     
     [dataTask resume];
@@ -77,9 +86,35 @@
     return dataTask;
 }
 
++ (NSURLSessionDataTask *)getTopArtistsWithCallback:(void(^)(NSError * _Nullable,
+                                                             NSArray<LFMArtist *> *,
+                                                             LFMQuery * _Nullable))block {
+    return [self getTopArtistsOnPage:1
+                        itemsPerPage:30
+                            callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
+                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block {
+    return [self getTopArtistsOnPage:page
+                        itemsPerPage:30
+                            callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopArtistsWithLimit:(NSUInteger)limit
+                                        callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block {
+    return [self getTopArtistsOnPage:1
+                        itemsPerPage:limit
+                            callback:block];
+}
+
 + (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
                               itemsPerPage:(NSUInteger)limit
                                   callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull, LFMQuery * _Nullable))block {
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -101,20 +136,25 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"tags"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
         NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
-            LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id tagsDictionary = [responseDictionary objectForKey:@"tags"];
+        if (tagsDictionary != nil &&
+            [tagsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tagsDictionary objectForKey:@"@attr"]];
+            
+            id tagArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
+            if (tagArray != nil && [tagArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagArray) {
+                    LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
+            
+            block(error, tags, query);
+        } else {
+            block(error, tags, nil);
         }
-        
-        block(error, tags, query);
     }];
     
     [dataTask resume];
@@ -122,9 +162,35 @@
     return dataTask;
 }
 
++ (NSURLSessionDataTask *)getTopTagsWithCallback:(void(^)(NSError * _Nullable,
+                                                          NSArray<LFMTag *> *,
+                                                          LFMQuery * _Nullable))block {
+    return [self getTopTagsOnPage:1
+                     itemsPerPage:30
+                         callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
+                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block {
+    return [self getTopTagsOnPage:page
+                     itemsPerPage:30
+                         callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopTagWithLimit:(NSUInteger)limit
+                                    callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block {
+    return [self getTopTagsOnPage:1
+                     itemsPerPage:limit
+                         callback:block];
+}
+
 + (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
                                 itemsPerPage:(NSUInteger)limit
                                     callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -146,25 +212,54 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"tracks"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
         NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
         
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
+        id tracksDictionary = [responseDictionary objectForKey:@"tracks"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            
+            id trackArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (trackArray != nil && [trackArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in trackArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(error, tracks, query);
+        } else {
+            block(error, tracks, nil);
         }
-        
-        block(error, tracks, query);
     }];
     
     [dataTask resume];
     
     return dataTask;
+}
+
++ (NSURLSessionDataTask *)getTopTracksWithCallback:(void(^)(NSError * _Nullable,
+                                                            NSArray<LFMTrack *> *,
+                                                            LFMQuery * _Nullable))block {
+    return [self getTopTracksOnPage:1
+                       itemsPerPage:30
+                           callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
+                                    callback:(void(^)(NSError * _Nullable,
+                                                      NSArray<LFMTrack *> *,
+                                                      LFMQuery * _Nullable))block {
+    return [self getTopTracksOnPage:page
+                       itemsPerPage:30
+                           callback:block];
+}
+
++ (NSURLSessionDataTask *)getTopTracksWithLimit:(NSUInteger)limit
+                                       callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block {
+    return [self getTopTracksOnPage:1
+                       itemsPerPage:limit
+                           callback:block];
 }
 
 @end

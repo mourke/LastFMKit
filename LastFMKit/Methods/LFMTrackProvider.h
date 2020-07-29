@@ -131,7 +131,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @param trackName   The name of the track.
  @param artistName  The track's artist.
- @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMSearchQuery` object if it succeeds.
  
@@ -150,7 +150,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the track. Required unless both the trackName and artistName are specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
- @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if the request succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.

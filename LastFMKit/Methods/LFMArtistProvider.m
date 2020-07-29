@@ -38,7 +38,10 @@
 + (NSURLSessionDataTask *)addTags:(NSArray *)tags
                     toArtistNamed:(NSString *)artistName
                          callback:(void (^)(NSError * _Nullable))block {
+    NSAssert(tags.count > 0, @"Tags may not be empty");
     NSAssert(tags.count <= 10, @"This method call accepts a maximum of 10 tags.");
+    NSParameterAssert(artistName);
+    NSAssert([LFMSession sharedSession].sessionKey != nil, @"This method requires user authentication");
     
     NSMutableString *tagString = [NSMutableString string];
     [tags enumerateObjectsUsingBlock:^(LFMTag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -65,14 +68,12 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) {
+        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
             block(error);
             return;
         }
         
-        lfm_error_validate(data, &error);
-        
-        block(error);
+        block(nil);
     }];
     
     [dataTask resume];
@@ -83,6 +84,10 @@
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                     fromArtistNamed:(NSString *)artistName
                            callback:(void (^)(NSError * _Nullable))block {
+    NSParameterAssert(tag);
+    NSParameterAssert(artistName);
+    NSAssert([LFMSession sharedSession].sessionKey != nil, @"This method requires user authentication");
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -103,14 +108,12 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) {
+        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
             block(error);
             return;
         }
         
-        lfm_error_validate(data, &error);
-        
-        block(error);
+        block(nil);
     }];
     
     [dataTask resume];
@@ -120,6 +123,9 @@
 
 + (NSURLSessionDataTask *)getCorrectionForMisspeltArtistName:(NSString *)artistName
                                                     callback:(void (^)(NSError * _Nullable, LFMArtist * _Nullable))block {
+    NSParameterAssert(artistName);
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -132,7 +138,6 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (block == nil) return;
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
             block(error, nil);
             return;
@@ -140,13 +145,19 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if ((responseDictionary = [responseDictionary objectForKey:@"corrections"])) {
-            responseDictionary = [responseDictionary objectForKey:@"correction"];
+        id correctionsDictionary = [responseDictionary objectForKey:@"corrections"];
+        if (correctionsDictionary != nil &&
+            [correctionsDictionary isKindOfClass:NSDictionary.class]) {
+            id correctionDictionary = [(NSDictionary *)correctionsDictionary objectForKey:@"correction"];
+            if (correctionDictionary != nil &&
+                [correctionDictionary isKindOfClass:NSDictionary.class]) {
+                LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[(NSDictionary *)correctionDictionary objectForKey:@"artist"]];
+                block(error, artist);
+                return;
+            }
         }
         
-        LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[responseDictionary objectForKey:@"artist"]];
-        
-        block(error, artist);
+        block(error, nil);
     }];
     
     [dataTask resume];
@@ -157,10 +168,11 @@
 + (NSURLSessionDataTask *)getInfoOnArtistNamed:(NSString *)artistName
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
-                                       forUser:(NSString *)username
+                                   forUsername:(NSString *)username
                                   languageCode:(NSString *)code
                                       callback:(void (^)(NSError * _Nullable, LFMArtist * _Nullable))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -201,6 +213,8 @@
                                                    limit:(NSUInteger)limit
                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -246,25 +260,29 @@
 + (NSURLSessionDataTask *)getTagsForArtistNamed:(NSString *)artistName
                               withMusicBrainzId:(NSString *)mbid
                                     autoCorrect:(BOOL)autoCorrect
-                                        forUser:(NSString *)username
+                                    forUsername:(NSString *)username
                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
     NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
-    
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"artist.getTags"],
+    NSMutableArray *queryItems = [NSMutableArray arrayWithArray:@[[NSURLQueryItem queryItemWithName:@"method" value:@"artist.getTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]]];
+    if (username) {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"user" value:username]];
+    } else {
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+        [queryItems addObject:[[LFMAuth sharedInstance] signatureItemForQueryItems:queryItems]];
+    }
     
-    components.queryItems = [LFMSession sharedSession].sessionKey == nil ? queryItems : [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
+    components.queryItems = queryItems;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -276,15 +294,19 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"tags"];
-        }
-        
         NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
-            LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id tagsDictionary = [responseDictionary objectForKey:@"tags"];
+        if (tagsDictionary != nil &&
+            [tagsDictionary isKindOfClass:NSDictionary.class]) {
+            id tagArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
+            if (tagArray != nil &&
+                [tagArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagArray) {
+                    LFMTag *tag = [[LFMTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
         }
         
         block(error, tags);
@@ -302,6 +324,9 @@
                                               onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMQuery * _Nullable))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -326,20 +351,25 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"topalbums"];
-        }
-        
         NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
         
-        for (NSDictionary *albumDictionary in [responseDictionary objectForKey:@"album"]) {
-            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
-            if (album) [albums addObject:album];
+        id topAlbumsDictionary = [responseDictionary objectForKey:@"topalbums"];
+        if (topAlbumsDictionary != nil &&
+            [topAlbumsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topAlbumsDictionary objectForKey:@"@attr"]];
+            
+            id albumArray = [(NSDictionary *)topAlbumsDictionary objectForKey:@"album"];
+            if (albumArray != nil && [albumArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *albumDictionary in albumArray) {
+                    LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+                    if (album) [albums addObject:album];
+                }
+            }
+            
+            block(error, albums, query);
+        } else {
+            block(error, albums, nil);
         }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        block(error, albums, query);
     }];
     
     [dataTask resume];
@@ -354,6 +384,9 @@
                                               onPage:(NSUInteger)page
                                             callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -378,20 +411,25 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"toptracks"];
-        }
-        
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
         
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
+        id topTracksDictionary = [responseDictionary objectForKey:@"toptracks"];
+        if (topTracksDictionary != nil &&
+            [topTracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topTracksDictionary objectForKey:@"@attr"]];
+            
+            id trackArray = [(NSDictionary *)topTracksDictionary objectForKey:@"track"];
+            if (trackArray != nil && [trackArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in trackArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(error, tracks, query);
+        } else {
+            block(error, tracks, nil);
         }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        block(error, tracks, query);
     }];
     
     [dataTask resume];
@@ -404,6 +442,7 @@
                                        autoCorrect:(BOOL)autoCorrect
                                           callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> * _Nonnull))block {
     NSAssert(artistName != nil || mbid != nil, @"Either the artistName or the mbid parameter must be set.");
+    NSParameterAssert(block);
     
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -427,18 +466,23 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"toptags"];
-        }
-        
         NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
         
-        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
-            LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
+        if (topTagsDictionary != nil &&
+            [topTagsDictionary isKindOfClass:NSDictionary.class]) {
+            id tagArray = [(NSDictionary *)topTagsDictionary objectForKey:@"tag"];
+            if (tagArray != nil && [tagArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagArray) {
+                    LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
+            
+            block(error, tags);
+        } else {
+            block(error, tags);
         }
-        
-        block(error, tags);
     }];
     
     [dataTask resume];
@@ -450,6 +494,11 @@
                                   itemsPerPage:(NSUInteger)limit
                                         onPage:(NSUInteger)page
                                       callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> * _Nonnull, LFMSearchQuery * _Nullable))block {
+    NSParameterAssert(artistName);
+    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
+    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+    NSParameterAssert(block);
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ws.audioscrobbler.com/2.0"];
@@ -472,27 +521,61 @@
         
         NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"results"];
+        id resultsDictionary = [responseDictionary objectForKey:@"results"];
+        if (resultsDictionary != nil &&
+            [resultsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
+            
+            NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
+            
+            id artistMatchesDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"artistmatches"];
+            if (artistMatchesDictionary != nil &&
+                [artistMatchesDictionary isKindOfClass:NSDictionary.class]) {
+                id artistArray = [(NSDictionary *)artistMatchesDictionary objectForKey:@"artist"];
+                if (artistArray != nil &&
+                    [artistArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *artistDictionary in artistArray) {
+                        LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
+                        if (artist) [artists addObject:artist];
+                    }
+                }
+            }
+            
+            block(error, artists, searchQuery);
+        } else {
+            block(error, @[], nil);
         }
-        
-        LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:responseDictionary];
-        
-        NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
-        
-        NSDictionary *artistMatchesDictionary = [responseDictionary objectForKey:@"artistmatches"];
-        
-        for (NSDictionary *artistDictionary in [artistMatchesDictionary objectForKey:@"artist"]) {
-            LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            if (artist) [artists addObject:artist];
-        }
-        
-        block(error, artists, searchQuery);
     }];
     
     [dataTask resume];
     
     return dataTask;
+}
+
++ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
+                                        onPage:(NSUInteger)page
+                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block {
+    return [self searchForArtistNamed:artistName
+                         itemsPerPage:30
+                               onPage:page
+                             callback:block];
+}
+
++ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
+                                  itemsPerPage:(NSUInteger)limit
+                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block {
+    return [self searchForArtistNamed:artistName
+                         itemsPerPage:limit
+                               onPage:1
+                             callback:block];
+}
+
++ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
+                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block {
+    return [self searchForArtistNamed:artistName
+                         itemsPerPage:30
+                               onPage:1
+                             callback:block];
 }
 
 

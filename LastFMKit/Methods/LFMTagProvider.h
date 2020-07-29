@@ -73,7 +73,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @param tagName The name of the tag.
  @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -88,7 +88,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @param tagName The name of the tag.
  @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -103,7 +103,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @param tagName The name of the tag.
  @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.

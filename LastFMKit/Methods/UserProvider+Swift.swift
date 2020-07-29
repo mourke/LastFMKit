@@ -34,7 +34,7 @@ public extension UserProvider {
      - Parameter user:  The user who performed the taggings.
      - Parameter tag:   The name of the tag to which the user applied the items.
      - Parameter type:  The type of the item. This MUST be either `Track`, `Album` or `Artist` or an exception will be raised.
-     - Parameter limit: The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+     - Parameter limit: The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
      - Parameter page:  The page of results to be fetched. Start page is 1 and is also the default value.
      - Parameter block: The callback block containing an optional `Error` if the request fails and an array of the specified type (`Aritst`s, `Track`s, `Album`s) and a `Query` object if it succeeds.
      

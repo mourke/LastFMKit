@@ -53,7 +53,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @param username        The name of the user whose friends are to be fetched.
  @param includeRecents  A boolean value indiciating whether or not to include information about a friend's recently played tracks.
- @param limit           The maximum number of friends to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit           The maximum number of friends to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page            The page of results to be fetched. Start page is 1 and is also the default value.
  @param block           The callback block containing an optional `NSError` if the request fails and an array of `LFMUser` objects and an `LFMQuery` object if it succeeds.
  
@@ -88,7 +88,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves the last 50 tracks loved by a user.
  
  @param username    The user for whom to fetch the loved tracks.
- @param limit       The maximum number of tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
@@ -105,7 +105,7 @@ NS_SWIFT_NAME(UserProvider)
  @param username    The user who performed the taggings.
  @param tagName     The name of the tag to which the user applied the items.
  @param type        The type of the items to be returned.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of the specified type (`LFMAritst`s, `LFMTrack`s, `LFMAlbum`s) and an `LFMQuery` object if it succeeds.
  
@@ -122,7 +122,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves a list of the recent tracks listened to by this user.
  
  @param username    The user for whom to fetch recent tracks.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param startDate   The earliest date from which to fetch tracks.
  @param endDate     The latest date from which to fetch tracks.
@@ -141,7 +141,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves the top albums listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
  @param username    The user for whom to fetch top albums.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top albums.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum` objects and an `LFMQuery` object if it succeeds.
@@ -158,7 +158,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves the top artists listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
  @param username    The user for whom to fetch top artists.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top artists.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects and an `LFMQuery` object if it succeeds.
@@ -175,7 +175,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves the top tracks listened to by a user. The period can be stipulated. Sends the overall chart by default.
  
  @param username    The user for whom to fetch top tracks.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param page        The page of results to be fetched. Start page is 1 and is also the default value.
  @param period      The time period over which to retrieve top tracks.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
@@ -192,7 +192,7 @@ NS_SWIFT_NAME(UserProvider)
  Retrieves the top tags used by this user.
  
  @param username    The user for whom to fetch top tags.
- @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 50.
+ @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag` objects and an `LFMQuery` object if it succeeds.
  
  @return    The `NSURLSessionDataTask` object from the web request.
