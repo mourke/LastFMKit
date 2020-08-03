@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm track object that is to be sent to the scrobbling api.
  */
 NS_SWIFT_NAME(ScrobbleTrack)
-@interface LFMScrobbleTrack : LFMTrack
+@interface LFMScrobbleTrack : LFMTrack <NSSecureCoding>
 
 /** The date at which the track started playing. */
 @property(strong, nonatomic) NSDate *timestamp;
@@ -65,14 +65,14 @@ NS_SWIFT_NAME(ScrobbleTrack)
                       artist:(nullable LFMArtist *)artist
                musicBrainzID:(NSString *)mbid
                        album:(nullable LFMAlbum *)album
-             positionInAlbum:(NSUInteger)position
+             positionInAlbum:(NSInteger)position
                          URL:(NSURL *)URL
-                    duration:(NSUInteger)duration
+                    duration:(NSInteger)duration
                   streamable:(BOOL)streamable
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
-                   listeners:(NSUInteger)listeners
-                   playCount:(NSUInteger)playCount
+                   listeners:(NSInteger)listeners
+                   playCount:(NSInteger)playCount
                    timestamp:(NSDate *)timestamp
                 chosenByUser:(BOOL)chosenByUser NS_DESIGNATED_INITIALIZER;
 
@@ -87,7 +87,7 @@ NS_SWIFT_NAME(ScrobbleTrack)
  */
 - (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser;
 
-- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(nullable NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSUInteger)position URL:(NSURL *)URL duration:(NSUInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSUInteger)listeners playCount:(NSUInteger)playCount NS_UNAVAILABLE;
+- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(nullable NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSInteger)position URL:(NSURL *)URL duration:(NSInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSInteger)listeners playCount:(NSInteger)playCount NS_UNAVAILABLE;
 
 @end
 

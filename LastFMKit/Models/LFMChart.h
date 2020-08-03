@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm chart object.
  */
 NS_SWIFT_NAME(Chart)
-@interface LFMChart : NSObject
+@interface LFMChart : NSObject <NSSecureCoding>
 
 /** The date on which the chart started. */
 @property(strong, nonatomic, readonly) NSDate *startDate;

@@ -41,7 +41,8 @@
                                          positionInAlbum:(NSNumber *)trackNumber
                                     withAlbumArtistNamed:(NSString *)albumArtist
                                            trackDuration:(NSNumber *)duration
-                                           musicBrainzId:(NSString *)mbid callback:(void (^)(NSError * _Nullable))block {
+                                           musicBrainzId:(NSString *)mbid
+                                                callback:(nullable LFMErrorCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -84,7 +85,7 @@
 
 + (NSURLSessionDataTask *)loveTrackNamed:(NSString *)trackName
                            byArtistNamed:(NSString *)artistName
-                                callback:(void (^)(NSError * _Nullable))block {
+                                callback:(nullable LFMErrorCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -122,7 +123,7 @@
 
 + (NSURLSessionDataTask *)unloveTrackNamed:(NSString *)trackName
                              byArtistNamed:(NSString *)artistName
-                                  callback:(void (^)(NSError * _Nullable))block {
+                                  callback:(nullable LFMErrorCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -160,9 +161,9 @@
 
 + (NSURLSessionDataTask *)searchForTrackNamed:(NSString *)trackName
                                 byArtistNamed:(NSString *)artistName
-                                 itemsPerPage:(NSUInteger)limit
-                                       onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMSearchQuery * _Nullable))block {
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                       onPage:(nullable NSNumber *)page
+                                     callback:(LFMTrackSearchCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -170,8 +171,8 @@
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -180,7 +181,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -201,7 +202,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, searchQuery);
+        block(tracks, searchQuery, error);
     }];
     
     [dataTask resume];
@@ -209,7 +210,7 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks callback:(void (^)(NSError * _Nullable))block {
++ (NSURLSessionDataTask *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks callback:(nullable LFMErrorCallback)block {
     NSAssert(tracks.count <= 50, @"There is a a maximum of 50 scrobbles per batch.");
     NSURLSession *session = [NSURLSession sharedSession];
     
@@ -263,8 +264,8 @@
                                          byArtistNamed:(NSString *)artistName
                                      withMusicBrainzId:(NSString *)mbid
                                            autoCorrect:(BOOL)autoCorrect
-                                                 limit:(NSUInteger)limit
-                                              callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull))block {
+                                                 limit:(nullable NSNumber *)limit
+                                              callback:(LFMTracksCallback)block {
     NSAssert((trackName != nil && artistName != nil) || mbid != nil, @"Either the trackName and artistName or the mbid parameter must be set.");
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -276,7 +277,7 @@
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     components.queryItems = queryItems;
     
@@ -284,7 +285,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -301,7 +302,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks);
+        block(tracks, error);
     }];
     
     [dataTask resume];
@@ -314,7 +315,7 @@
                             withMusicBrainzId:(NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
                                       forUser:(NSString *)username
-                                     callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block {
+                                     callback:(LFMTrackCallback)block {
     NSAssert((trackName != nil && artistName != nil) || mbid != nil, @"Either the trackName and artistName or the mbid parameter must be set.");
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -334,7 +335,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, nil);
+            block(nil, error);
             return;
         }
         
@@ -342,7 +343,7 @@
         
         LFMTrack *track = [[LFMTrack alloc] initFromDictionary:[responseDictionary objectForKey:@"track"]];
         
-        block(error, track);
+        block(track, error);
     }];
     
     [dataTask resume];
@@ -352,7 +353,7 @@
 
 + (NSURLSessionDataTask *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
                                      withMisspelledArtistNamed:(NSString *)artistName
-                                                      callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block {
+                                                      callback:(LFMTrackCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -367,7 +368,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, nil);
+            block(nil, error);
             return;
         }
         
@@ -379,7 +380,7 @@
         
         LFMTrack *track = [[LFMTrack alloc] initFromDictionary:[responseDictionary objectForKey:@"track"]];
         
-        block(error, track);
+        block(track, error);
     }];
     
     [dataTask resume];
@@ -390,7 +391,7 @@
 + (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                      toTrackNamed:(NSString *)trackName
                     byArtistNamed:(NSString *)artistName
-                         callback:(void (^)(NSError * _Nullable))block {
+                         callback:(nullable LFMErrorCallback)block {
     NSAssert(tags.count <= 10, @"This method call accepts a maximum of 10 tags.");
     
     NSMutableString *tagString = [NSMutableString string];
@@ -437,7 +438,7 @@
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromTrackNamed:(NSString *)trackName
                       byArtistNamed:(NSString *)artistName
-                           callback:(void (^)(NSError * _Nullable))block {
+                           callback:(nullable LFMErrorCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -479,7 +480,7 @@
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                        forUser:(NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
+                                      callback:(LFMTagsCallback)block {
     NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
     
     NSAssert((trackName != nil && artistName != nil) || (mbid != nil), @"Either the trackName and the artistName or the mbid parameter must be set.");
@@ -503,7 +504,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -516,7 +517,7 @@
             if (tag) [tags addObject:tag];
         }
         
-        block(error, tags);
+        block(tags, error);
     }];
     
     [dataTask resume];
@@ -528,7 +529,7 @@
                                     byArtistNamed:(NSString *)artistName
                                 withMusicBrainzId:(NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
+                                         callback:(LFMTopTagsCallback)block {
     NSAssert((trackName != nil && artistName != nil) || (mbid != nil), @"Either the trackName and the artistName or the mbid parameter must be set.");
     
     NSURLSession *session = [NSURLSession sharedSession];
@@ -548,7 +549,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -563,7 +564,7 @@
             if (tag) [tags addObject:tag];
         }
         
-        block(error, tags);
+        block(tags, error);
     }];
     
     [dataTask resume];

@@ -39,33 +39,33 @@ NS_SWIFT_NAME(GeoProvider)
  Retrieves the top artists in a specific country.
  
  @param country A country name, as defined by the ISO 3166-1 country names standard.
- @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 30.
+ @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopArtistsInCountry:(NSString *)country
-                                    itemsPerPage:(NSUInteger)limit
-                                          onPage:(NSUInteger)page
-                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(in:limit:on:callback:));
+                                    itemsPerPage:(nullable NSNumber *)limit
+                                          onPage:(nullable NSNumber *)page
+                                        callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tracks in a specific country.
  
  @param country     A country name, as defined by the ISO 3166-1 country names standard.
  @param province    A metropoiltan name, to narrow down the geographical search result (must be within the country specified).
- @param page        The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit       The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 30.
+ @param limit       The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTracksInCountry:(NSString *)country
                                  withinProvince:(nullable NSString *)province
-                                   itemsPerPage:(NSUInteger)limit
-                                         onPage:(NSUInteger)page
-                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(in:within:limit:on:callback:));
+                                   itemsPerPage:(nullable NSNumber *)limit
+                                         onPage:(nullable NSNumber *)page
+                                       callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 

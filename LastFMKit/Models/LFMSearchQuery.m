@@ -45,9 +45,9 @@
             
             if (totalResults != nil && [totalResults isKindOfClass:NSString.class] &&
                 itemsPerPage != nil && [itemsPerPage isKindOfClass:NSString.class]) {
-                self = [super initWithPage:[currentPage unsignedIntegerValue]
-                              totalResults:[totalResults unsignedIntegerValue]
-                              itemsPerPage:[itemsPerPage unsignedIntegerValue]];
+                self = [super initWithPage:[currentPage integerValue]
+                              totalResults:[totalResults integerValue]
+                              itemsPerPage:[itemsPerPage integerValue]];
                 
                 if (self) {
                     _searchQuery = searchQuery;
@@ -62,6 +62,25 @@
 
 - (NSString *)searchQuery {
     return _searchQuery;
+}
+
+#pragma mark - NSCoding
+
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    
+    [coder encodeObject:_searchQuery forKey:NSStringFromSelector(@selector(searchQuery))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super initWithCoder:decoder];
+    
+    if (self) {
+        _searchQuery = [decoder decodeObjectForKey:NSStringFromSelector(@selector(searchQuery))];
+    }
+    
+    return self;
 }
 
 @end

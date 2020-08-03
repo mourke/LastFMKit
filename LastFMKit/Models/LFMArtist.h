@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents a Last.fm artist object.
  */
 NS_SWIFT_NAME(Artist)
-@interface LFMArtist : NSObject
+@interface LFMArtist : NSObject <NSSecureCoding>
 
 /** The artist's name. */
 @property(strong, nonatomic, readonly) NSString *name;
@@ -55,16 +55,16 @@ NS_SWIFT_NAME(Artist)
 @property(nonatomic, readonly, getter=isOnTour) BOOL onTour;
 
 /** The amount of listeners the artist has. */
-@property(nonatomic, readonly) NSUInteger listeners;
+@property(nonatomic, readonly) NSInteger listeners;
 
 /** The amount of "scrobbles" the artist has. */
-@property(nonatomic, readonly) NSUInteger playCount;
+@property(nonatomic, readonly) NSInteger playCount;
 
 /** An array of artists similar to the artist. */
 @property(strong, nonatomic, readonly) NSArray<LFMArtist *> *similarArtists NS_SWIFT_NAME(similar);
 
 /** An array of tags that most accurately describe the artist's music. */
-@property(strong, nonatomic) NSArray <LFMTag *> *tags;
+@property(strong, nonatomic) NSArray<LFMTag *> *tags;
 
 /** A small amount of information about the artist. */
 @property(strong, nonatomic, nullable) LFMWiki *wiki;

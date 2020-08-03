@@ -31,16 +31,16 @@ NS_ASSUME_NONNULL_BEGIN
  An object returned when you make a paginated request to the API containing usefull information about the page.
  */
 NS_SWIFT_NAME(Query)
-@interface LFMQuery : NSObject
+@interface LFMQuery : NSObject <NSSecureCoding>
 
 /** The current page of results. This variable is not 0 based - i.e. the first page is 1, second is 2 etc. This value can range from 1-10,000. */
-@property(nonatomic, readonly) NSUInteger currentPage;
+@property(nonatomic, readonly) NSInteger currentPage;
 
 /** The total number of results. */
-@property(nonatomic, readonly) NSUInteger totalResults;
+@property(nonatomic, readonly) NSInteger totalResults;
 
 /** The number of results per page. This value can range from 1-10,000. */
-@property(nonatomic, readonly) NSUInteger itemsPerPage;
+@property(nonatomic, readonly) NSInteger itemsPerPage;
 
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;

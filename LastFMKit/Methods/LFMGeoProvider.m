@@ -34,17 +34,30 @@
 @implementation LFMGeoProvider
 
 + (NSURLSessionDataTask *)getTopArtistsInCountry:(NSString *)country
-                                    itemsPerPage:(NSUInteger)limit
-                                          onPage:(NSUInteger)page
-                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
+                                    itemsPerPage:(nullable NSNumber *)limit
+                                          onPage:(nullable NSNumber *)page
+                                        callback:(LFMArtistPaginatedCallback)block {
+    NSParameterAssert(block);
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"geo.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"country" value:country],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -53,7 +66,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -72,7 +85,7 @@
             if (artist) [artists addObject:artist];
         }
         
-        block(error, artists, query);
+        block(artists, query, error);
     }];
     
     [dataTask resume];
@@ -82,9 +95,22 @@
 
 + (NSURLSessionDataTask *)getTopTracksInCountry:(NSString *)country
                                  withinProvince:(NSString *)province
-                                   itemsPerPage:(NSUInteger)limit
-                                         onPage:(NSUInteger)page
-                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+                                   itemsPerPage:(nullable NSNumber *)limit
+                                         onPage:(nullable NSNumber *)page
+                                       callback:(LFMTrackPaginatedCallback)block {
+    NSParameterAssert(block);
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
+    
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -92,8 +118,8 @@
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"location" value:province],
                             [NSURLQueryItem queryItemWithName:@"country" value:country],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -102,7 +128,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -121,7 +147,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, query);
+        block(tracks, query, error);
     }];
     
     [dataTask resume];

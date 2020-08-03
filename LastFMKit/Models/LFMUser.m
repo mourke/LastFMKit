@@ -27,16 +27,16 @@
 #import "LFMKit+Protected.h"
 
 @implementation LFMUser {
-    NSString *_userName;
+    NSString *_username;
     NSString *_realName;
     NSDictionary<LFMImageSize, NSURL *> *_images;
     NSURL *_URL;
     NSString *_country;
-    NSUInteger _age;
+    NSInteger _age;
     LFMUserGender _gender;
     BOOL _subscriber;
-    NSUInteger _playCount;
-    NSUInteger _playlistCount;
+    NSInteger _playCount;
+    NSInteger _playlistCount;
     NSDate *_dateRegistered;
 }
 
@@ -74,17 +74,17 @@
             playlistCount != nil && [playlistCount isKindOfClass:NSString.class] &&
             registeredTime != nil && [username isKindOfClass:NSString.class])
         {
-            _userName = username;
+            _username = username;
             _realName = realName;
             _images = imageDictionaryFromArray([dictionary objectForKey:@"image"]);
             _URL = [NSURL URLWithString:URL];
             _country = country;
-            _age = [age unsignedIntegerValue];
+            _age = [age integerValue];
             _gender = gender;
             _subscriber = [subscriber boolValue];
-            _playCount = [playCount unsignedIntegerValue];
-            _playlistCount = [playlistCount unsignedIntegerValue];
-            _dateRegistered = [NSDate dateWithTimeIntervalSince1970:[registeredTime unsignedIntegerValue]];
+            _playCount = [playCount integerValue];
+            _playlistCount = [playlistCount integerValue];
+            _dateRegistered = [NSDate dateWithTimeIntervalSince1970:[registeredTime integerValue]];
             
             return self;
         }
@@ -104,7 +104,7 @@
 }
 
 - (NSString *)username {
-    return _userName;
+    return _username;
 }
 
 - (NSString *)realName {
@@ -123,7 +123,7 @@
     return _country;
 }
 
-- (NSUInteger)age {
+- (NSInteger)age {
     return _age;
 }
 
@@ -135,16 +135,56 @@
     return _subscriber;
 }
 
-- (NSUInteger)playCount {
+- (NSInteger)playCount {
     return _playCount;
 }
 
--(NSUInteger)playlistCount {
+-(NSInteger)playlistCount {
     return _playlistCount;
 }
 
 - (NSDate *)dateRegistered {
     return _dateRegistered;
+}
+
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:_username forKey:NSStringFromSelector(@selector(username))];
+    [coder encodeObject:_realName forKey:NSStringFromSelector(@selector(realName))];
+    [coder encodeObject:_URL forKey:NSStringFromSelector(@selector(URL))];
+    [coder encodeObject:_images forKey:NSStringFromSelector(@selector(images))];
+    [coder encodeObject:_country forKey:NSStringFromSelector(@selector(country))];
+    [coder encodeBool:_subscriber forKey:NSStringFromSelector(@selector(isSubscriber))];
+    [coder encodeInteger:_age forKey:NSStringFromSelector(@selector(age))];
+    [coder encodeInteger:_playCount forKey:NSStringFromSelector(@selector(playCount))];
+    [coder encodeObject:_gender forKey:NSStringFromSelector(@selector(gender))];
+    [coder encodeInteger:_playlistCount forKey:NSStringFromSelector(@selector(playlistCount))];
+    [coder encodeObject:_dateRegistered forKey:NSStringFromSelector(@selector(dateRegistered))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _username = [decoder decodeObjectForKey:NSStringFromSelector(@selector(username))];
+        _realName = [decoder decodeObjectForKey:NSStringFromSelector(@selector(realName))];
+        _URL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(URL))];
+        _images = [decoder decodeObjectForKey:NSStringFromSelector(@selector(images))];
+        _country = [decoder decodeObjectForKey:NSStringFromSelector(@selector(country))];
+        _subscriber = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isSubscriber))];
+        _age = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(age))];
+        _playCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playCount))];
+        _gender = [decoder decodeObjectForKey:NSStringFromSelector(@selector(gender))];
+        _playlistCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playlistCount))];
+        _dateRegistered = [decoder decodeObjectForKey:NSStringFromSelector(@selector(dateRegistered))];
+    }
+    
+    return self;
 }
 
 @end

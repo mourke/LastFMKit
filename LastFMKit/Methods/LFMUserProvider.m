@@ -38,7 +38,7 @@
 @implementation LFMUserProvider
 
 + (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)username
-                                    callback:(void (^)(NSError * _Nullable, LFMUser * _Nullable))block {
+                                    callback:(LFMUserCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -53,7 +53,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, nil);
+            block(nil, error);
             return;
         }
         
@@ -61,7 +61,7 @@
         
         LFMUser *user = [[LFMUser alloc] initFromDictionary:[responseDictionary objectForKey:@"user"]];
         
-        block(error, user);
+        block(user, error);
     }];
     
     [dataTask resume];
@@ -71,16 +71,16 @@
 
 + (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
-                                   itemsPerPage:(NSUInteger)limit
-                                         onPage:(NSUInteger)page
-                                       callback:(void (^)(NSError * _Nullable, NSArray<LFMUser *> * _Nonnull, LFMQuery * _Nullable))block {
+                                   itemsPerPage:(nullable NSNumber *)limit
+                                         onPage:(nullable NSNumber *)page
+                                       callback:(LFMUserPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getFriends"],
                             [NSURLQueryItem queryItemWithName:@"recenttracks" value:[NSString stringWithFormat:@"%d", includeRecents]],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -91,7 +91,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -110,7 +110,7 @@
             if (user) [users addObject:user];
         }
         
-        block(error, users, query);
+        block(users, query, error);
     }];
     
     [dataTask resume];
@@ -120,17 +120,17 @@
 
 + (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
-                                                 onPage:(NSUInteger)page
+                                                 onPage:(nullable NSNumber *)page
                                           fromStartDate:(NSDate *)startDate
                                               toEndDate:(NSDate *)endDate
-                                               callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+                                               callback:(LFMTrackPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getArtistTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"startTimestamp" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"endTimestamp" value:[NSString stringWithFormat:@"%f", endDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -142,7 +142,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -161,7 +161,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, query);
+        block(tracks, query, error);
     }];
     
     [dataTask resume];
@@ -170,15 +170,15 @@
 }
 
 + (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)username
-                                       itemsPerPage:(NSUInteger)limit
-                                             onPage:(NSUInteger)page
-                                           callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+                                       itemsPerPage:(nullable NSNumber *)limit
+                                             onPage:(nullable NSNumber *)page
+                                           callback:(LFMTrackPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getLovedTracks"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -189,7 +189,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -208,7 +208,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, query);
+        block(tracks, query, error);
     }];
     
     [dataTask resume];
@@ -219,17 +219,17 @@
 + (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
                                            itemType:(LFMTaggingType)type
-                                       itemsPerPage:(NSUInteger)limit
-                                             onPage:(NSUInteger)page
-                                           callback:(void (^)(NSError * _Nullable, NSArray * _Nonnull, LFMQuery * _Nullable))block {
+                                       itemsPerPage:(nullable NSNumber *)limit
+                                             onPage:(nullable NSNumber *)page
+                                           callback:(LFMGenericPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getPersonalTags"],
                             [NSURLQueryItem queryItemWithName:@"tag" value:tagName],
                             [NSURLQueryItem queryItemWithName:@"taggingtype" value:type],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -240,7 +240,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -273,7 +273,7 @@
             if (item) [items addObject:item];
         }
         
-        block(error, items, query);
+        block(items, query, error);
     }];
     
     [dataTask resume];
@@ -282,18 +282,18 @@
 }
 
 + (NSURLSessionDataTask *)getRecentTracksForUsername:(NSString *)username
-                                         itemsPerPage:(NSUInteger)limit
-                                               onPage:(NSUInteger)page
+                                         itemsPerPage:(nullable NSNumber *)limit
+                                               onPage:(nullable NSNumber *)page
                                         fromStartDate:(NSDate *)startDate
                                             toEndDate:(NSDate *)endDate
-                                             callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+                                             callback:(LFMTrackPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getRecentTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"extended" value:@"1"],
                             [NSURLQueryItem queryItemWithName:@"startTimestamp" value:[NSString stringWithFormat:@"%f", startDate.timeIntervalSince1970]],
                             [NSURLQueryItem queryItemWithName:@"endTimestamp" value:[NSString stringWithFormat:@"%f", endDate.timeIntervalSince1970]],
@@ -306,7 +306,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -325,7 +325,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, query);
+        block(tracks, query, error);
     }];
     
     [dataTask resume];
@@ -334,17 +334,17 @@
 }
 
 + (NSURLSessionDataTask *)getTopAlbumsForUsername:(NSString *)username
-                                      itemsPerPage:(NSUInteger)limit
-                                            onPage:(NSUInteger)page
+                                      itemsPerPage:(nullable NSNumber *)limit
+                                            onPage:(nullable NSNumber *)page
                                         overPeriod:(LFMTimePeriod)period
-                                          callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMQuery * _Nullable))block {
+                                          callback:(LFMAlbumPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopAlbums"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -355,7 +355,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -374,7 +374,7 @@
             if (album) [albums addObject:album];
         }
         
-        block(error, albums, query);
+        block(albums, query, error);
     }];
     
     [dataTask resume];
@@ -383,17 +383,17 @@
 }
 
 + (NSURLSessionDataTask *)getTopArtistsForUsername:(NSString *)username
-                                       itemsPerPage:(NSUInteger)limit
-                                             onPage:(NSUInteger)page
+                                       itemsPerPage:(nullable NSNumber *)limit
+                                             onPage:(nullable NSNumber *)page
                                          overPeriod:(LFMTimePeriod)period
-                                           callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
+                                           callback:(LFMArtistPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -404,7 +404,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -423,7 +423,7 @@
             if (artist) [artists addObject:artist];
         }
         
-        block(error, artists, query);
+        block(artists, query, error);
     }];
     
     [dataTask resume];
@@ -432,17 +432,17 @@
 }
 
 + (NSURLSessionDataTask *)getTopTracksForUsername:(NSString *)username
-                                      itemsPerPage:(NSUInteger)limit
-                                            onPage:(NSUInteger)page
+                                      itemsPerPage:(nullable NSNumber *)limit
+                                            onPage:(nullable NSNumber *)page
                                         overPeriod:(LFMTimePeriod)period
-                                          callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
+                                          callback:(LFMTrackPaginatedCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"period" value:period],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
@@ -453,7 +453,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -472,7 +472,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks, query);
+        block(tracks, query, error);
     }];
     
     [dataTask resume];
@@ -481,14 +481,14 @@
 }
 
 + (NSURLSessionDataTask *)getTopTagsForUsername:(NSString *)username
-                                           limit:(NSUInteger)limit
-                                        callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
+                                           limit:(nullable NSNumber *)limit
+                                        callback:(LFMTopTagsCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTags"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
@@ -498,7 +498,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -515,7 +515,7 @@
             if (tag) [tags addObject:tag];
         }
         
-        block(error, tags);
+        block(tags, error);
     }];
     
     [dataTask resume];
@@ -526,7 +526,7 @@
 + (NSURLSessionDataTask *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
-                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull))block {
+                                                 callback:(LFMAlbumsCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -543,7 +543,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -560,7 +560,7 @@
             if (album) [albums addObject:album];
         }
         
-        block(error, albums);
+        block(albums, error);
     }];
     
     [dataTask resume];
@@ -571,7 +571,7 @@
 + (NSURLSessionDataTask *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(NSDate *)startDate
                                                  toEndDate:(NSDate *)endDate
-                                                  callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull))block {
+                                                  callback:(LFMArtistsCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -588,7 +588,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -605,7 +605,7 @@
             if (artist) [artists addObject:artist];
         }
         
-        block(error, artists);
+        block(artists, error);
     }];
     
     [dataTask resume];
@@ -616,7 +616,7 @@
 + (NSURLSessionDataTask *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
-                                                 callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull))block {
+                                                 callback:(LFMTracksCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -633,7 +633,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -650,7 +650,7 @@
             if (track) [tracks addObject:track];
         }
         
-        block(error, tracks);
+        block(tracks, error);
     }];
     
     [dataTask resume];
@@ -659,7 +659,7 @@
 }
 
 + (NSURLSessionDataTask *)getWeeklyChartListForUsername:(NSString *)username
-                                                callback:(void (^)(NSError * _Nullable, NSArray<LFMChart *> * _Nonnull))block {
+                                                callback:(LFMChartsCallback)block {
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
@@ -674,7 +674,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -691,7 +691,7 @@
             if (chart) [charts addObject:chart];
         }
         
-        block(error, charts);
+        block(charts, error);
     }];
     
     [dataTask resume];

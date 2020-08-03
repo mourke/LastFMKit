@@ -27,6 +27,6 @@
 
 @interface NSString (UnsignedIntegerValue)
 
-@property(readonly) NSUInteger unsignedIntegerValue;
+@property(readonly) NSInteger unsignedIntegerValue;
 
 @end

@@ -30,7 +30,7 @@
  An object returned when you make a search request to the API containing usefull information about the search.
  */
 NS_SWIFT_NAME(SearchQuery)
-@interface LFMSearchQuery : LFMQuery
+@interface LFMSearchQuery : LFMQuery <NSSecureCoding>
 
 /** The search query. */
 @property(strong, nonatomic, readonly, nonnull) NSString *searchQuery;

@@ -38,7 +38,7 @@
 + (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
                     byArtistNamed:(NSString *)albumArtist
-                         callback:(void (^)(NSError * _Nullable))block {
+                         callback:(nullable LFMErrorCallback)block {
     NSParameterAssert(tags);
     NSParameterAssert(albumName);
     NSParameterAssert(albumArtist);
@@ -89,7 +89,7 @@
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
                       byArtistNamed:(NSString *)albumArtist
-                           callback:(void (^)(NSError * _Nullable))block {
+                           callback:(nullable LFMErrorCallback)block {
     NSParameterAssert(tag);
     NSParameterAssert(albumName);
     NSParameterAssert(albumArtist);
@@ -137,7 +137,7 @@
                                   autoCorrect:(BOOL)autoCorrect
                                   forUsername:(NSString *)username
                                  languageCode:(NSString *)code
-                                     callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block {
+                                     callback:(LFMAlbumCallback)block {
     NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     
@@ -161,7 +161,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, nil);
+            block(nil, error);
             return;
         }
         
@@ -169,7 +169,7 @@
         
         LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:[responseDictionary objectForKey:@"album"]];
         
-        block(error, album);
+        block(album, error);
     }];
     
     [dataTask resume];
@@ -182,7 +182,7 @@
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                    forUsername:(NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull))block {
+                                      callback:(LFMTagsCallback)block {
     NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
     NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
@@ -211,7 +211,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -229,7 +229,7 @@
             }
         }
         
-        block(error, tags);
+        block(tags, error);
     }];
     
     [dataTask resume];
@@ -241,7 +241,7 @@
                                     byArtistNamed:(NSString *)albumArtist
                                 withMusicBrainzId:(NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray<LFMTopTag *> * _Nonnull))block {
+                                         callback:(LFMTopTagsCallback)block {
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     NSParameterAssert(block);
     
@@ -262,7 +262,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[]);
+            block(@[], error);
             return;
         }
         
@@ -282,7 +282,7 @@
             }
         }
         
-        block(error, tags);
+        block(tags, error);
     }];
     
     [dataTask resume];
@@ -291,11 +291,21 @@
 }
 
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(NSUInteger)limit
-                                       onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray<LFMAlbum *> * _Nonnull, LFMSearchQuery * _Nullable))block {
-    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
-    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                       onPage:(nullable NSNumber *)page
+                                     callback:(LFMAlbumSearchCallback)block {
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
+    
     NSParameterAssert(albumName);
     NSParameterAssert(block);
     
@@ -305,8 +315,8 @@
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.search"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"album" value:albumName],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -315,7 +325,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -341,47 +351,15 @@
                 }
             }
             
-            block(error, albums, searchQuery);
+            block(albums, searchQuery, error);
         } else {
-            block(error, @[], nil);
+            block(@[], nil, error);
         }
     }];
     
     [dataTask resume];
     
     return dataTask;
-}
-
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                     callback:(void (^)(NSError * _Nullable,
-                                                        NSArray <LFMAlbum *> *,
-                                                        LFMSearchQuery * _Nullable))block {
-    return [self searchForAlbumNamed:albumName
-                        itemsPerPage:30
-                              onPage:1
-                            callback:block];
-}
-
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                       onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable,
-                                                        NSArray <LFMAlbum *> *,
-                                                        LFMSearchQuery * _Nullable))block {
-    return [self searchForAlbumNamed:albumName
-                        itemsPerPage:30
-                              onPage:page
-                            callback:block];
-}
-
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(NSUInteger)limit
-                                     callback:(void (^)(NSError * _Nullable,
-                                                        NSArray <LFMAlbum *> *,
-                                                        LFMSearchQuery * _Nullable))block {
-    return [self searchForAlbumNamed:albumName
-                        itemsPerPage:limit
-                              onPage:1
-                            callback:block];
 }
 
 @end

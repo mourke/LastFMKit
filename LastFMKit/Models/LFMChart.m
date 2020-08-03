@@ -70,4 +70,26 @@
     return _endDate;
 }
 
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:_startDate forKey:NSStringFromSelector(@selector(startDate))];
+    [coder encodeObject:_endDate forKey:NSStringFromSelector(@selector(endDate))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _startDate = [decoder decodeObjectForKey:NSStringFromSelector(@selector(startDate))];
+        _endDate = [decoder decodeObjectForKey:NSStringFromSelector(@selector(endDate))];
+    }
+    
+    return self;
+}
+
 @end

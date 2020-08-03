@@ -34,14 +34,14 @@
                       artist:(nullable LFMArtist *)artist
                musicBrainzID:(NSString *)mbid
                        album:(nullable LFMAlbum *)album
-             positionInAlbum:(NSUInteger)position
+             positionInAlbum:(NSInteger)position
                          URL:(NSURL *)URL
-                    duration:(NSUInteger)duration
+                    duration:(NSInteger)duration
                   streamable:(BOOL)streamable
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
-                   listeners:(NSUInteger)listeners
-                   playCount:(NSUInteger)playCount
+                   listeners:(NSInteger)listeners
+                   playCount:(NSInteger)playCount
                    timestamp:(NSDate *)timestamp
                 chosenByUser:(BOOL)chosenByUser {
     self = [super initWithName:trackName
@@ -82,7 +82,7 @@
                  chosenByUser:chosenByUser];
 }
 
-- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSUInteger)position URL:(NSURL *)URL duration:(NSUInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSUInteger)listeners playCount:(NSUInteger)playCount {
+- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSInteger)position URL:(NSURL *)URL duration:(NSInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSInteger)listeners playCount:(NSInteger)playCount {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
@@ -93,6 +93,21 @@
 
 - (BOOL)wasChosenByUser {
     return _chosenByUser;
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    
+    [coder encodeObject:_timestamp forKey:NSStringFromSelector(@selector(timestamp))];
+    [coder encodeBool:_chosenByUser forKey:NSStringFromSelector(@selector(wasChosenByUser))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    return [self initFromTrack:[[LFMTrack alloc] initWithCoder:decoder]
+                 withTimestamp:[decoder decodeObjectForKey:NSStringFromSelector(@selector(timestamp))]
+                  chosenByUser:[decoder decodeBoolForKey:NSStringFromSelector(@selector(wasChosenByUser))]];
 }
 
 @end

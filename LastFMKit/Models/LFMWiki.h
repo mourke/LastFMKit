@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm wiki object.
  */
 NS_SWIFT_NAME(Wiki)
-@interface LFMWiki : NSObject
+@interface LFMWiki : NSObject <NSSecureCoding>
 
 /** The date on which the wiki was published. */
 @property(strong, nonatomic, readonly) NSDate *publishedDate;

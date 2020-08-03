@@ -39,16 +39,16 @@ NS_SWIFT_NAME(LibraryProvider)
  Retrieves a list of all the artists in a user's library, with play counts and tag counts.
  
  @param username    The user whose library is to be fetched.
- @param page        The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit       The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 30.
+ @param limit       The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getArtistsForUsername:(NSString *)username
-                                    itemsPerPage:(NSUInteger)limit
-                                          onPage:(NSUInteger)page
-                                        callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block;
+                                    itemsPerPage:(nullable NSNumber *)limit
+                                          onPage:(nullable NSNumber *)page
+                                        callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 

@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  @note This is done automatically using `LFMAuth` and it is recommended that you use said class.
  */
 NS_SWIFT_NAME(Session)
-@interface LFMSession : NSObject <NSCoding>
+@interface LFMSession : NSObject <NSSecureCoding>
 
 /** The authenticated user's username. */
 @property(strong, nonatomic, readonly) NSString *username;
@@ -48,7 +48,7 @@ NS_SWIFT_NAME(Session)
 /**
  Shared singleton instance. This can only be set using `LFMAuth` class's `getSessionWithUsername:password:callback` method.
  */
-+ (nullable LFMSession *)sharedSession NS_SWIFT_NAME(shared());
+@property(class, strong, readonly, nullable) LFMSession *sharedSession NS_SWIFT_NAME(shared);
 
 - (instancetype) __attribute__((unavailable("Please use `sharedSession` instead."))) init;
 

@@ -88,9 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
 
-- (nullable instancetype)initWithPage:(NSUInteger)currentPage
-                         totalResults:(NSUInteger)totalResults
-                         itemsPerPage:(NSUInteger)itemsPerPage;
+- (nullable instancetype)initWithPage:(NSInteger)currentPage
+                         totalResults:(NSInteger)totalResults
+                         itemsPerPage:(NSInteger)itemsPerPage;
 
 @end
 

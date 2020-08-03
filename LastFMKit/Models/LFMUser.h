@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm user object.
  */
 NS_SWIFT_NAME(User)
-@interface LFMUser : NSObject
+@interface LFMUser : NSObject <NSSecureCoding>
 
 /** The alias the user chose upon signing up. */
 @property(strong, nonatomic, readonly) NSString *username;
@@ -51,7 +51,7 @@ NS_SWIFT_NAME(User)
 @property(strong, nonatomic, readonly) NSString *country;
 
 /** The age of the user. */
-@property(nonatomic, readonly) NSUInteger age;
+@property(nonatomic, readonly) NSInteger age;
 
 /** The user's gender. */
 @property(nonatomic, readonly) LFMUserGender gender;
@@ -60,10 +60,10 @@ NS_SWIFT_NAME(User)
 @property(nonatomic, readonly, getter=isSubscriber) BOOL subscriber;
 
 /** The amount of "scrobbles" (songs played) the user has. */
-@property(nonatomic, readonly) NSUInteger playCount;
+@property(nonatomic, readonly) NSInteger playCount;
 
 /** The amount of playlists the user has currently in their library. */
-@property(nonatomic, readonly) NSUInteger playlistCount;
+@property(nonatomic, readonly) NSInteger playlistCount;
 
 /** The date on which the user signed up for Last.fm */
 @property(strong, nonatomic, readonly) NSDate *dateRegistered;

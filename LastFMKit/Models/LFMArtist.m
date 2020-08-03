@@ -35,10 +35,10 @@
     NSDictionary<LFMImageSize, NSURL *> *_images;
     BOOL _streamable;
     BOOL _onTour;
-    NSUInteger _listeners;
-    NSUInteger _playCount;
+    NSInteger _listeners;
+    NSInteger _playCount;
     NSArray<LFMArtist *> *_similarArtists;
-    NSArray <LFMTag *> *_tags;
+    NSArray<LFMTag *> *_tags;
     LFMWiki *_wiki;
 }
 
@@ -110,13 +110,13 @@
                 id listeners = [(NSDictionary *)statsDictionary objectForKey:@"listeners"];
                 if (listeners != nil &&
                     [listeners isKindOfClass:NSString.class]) {
-                    _listeners = [listeners unsignedIntegerValue];
+                    _listeners = [listeners integerValue];
                 }
                 
                 id playCount = [(NSDictionary *)statsDictionary objectForKey:@"playcount"];
                 if (playCount != nil &&
                     [playCount isKindOfClass:NSString.class]) {
-                    _playCount = [playCount unsignedIntegerValue];
+                    _playCount = [playCount integerValue];
                 }
             }
             
@@ -174,11 +174,11 @@
     return _onTour;
 }
 
-- (NSUInteger)listeners {
+- (NSInteger)listeners {
     return _listeners;
 }
 
-- (NSUInteger)playCount {
+- (NSInteger)playCount {
     return _playCount;
 }
 
@@ -192,6 +192,46 @@
 
 - (LFMWiki *)wiki {
     return _wiki;
+}
+
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:_name forKey:NSStringFromSelector(@selector(name))];
+    [coder encodeObject:_mbid forKey:NSStringFromSelector(@selector(mbid))];
+    [coder encodeObject:_URL forKey:NSStringFromSelector(@selector(URL))];
+    [coder encodeObject:_images forKey:NSStringFromSelector(@selector(images))];
+    [coder encodeBool:_streamable forKey:NSStringFromSelector(@selector(isStreamable))];
+    [coder encodeBool:_onTour forKey:NSStringFromSelector(@selector(isOnTour))];
+    [coder encodeInteger:_listeners forKey:NSStringFromSelector(@selector(listeners))];
+    [coder encodeInteger:_playCount forKey:NSStringFromSelector(@selector(playCount))];
+    [coder encodeObject:_similarArtists forKey:NSStringFromSelector(@selector(similarArtists))];
+    [coder encodeObject:_tags forKey:NSStringFromSelector(@selector(tags))];
+    [coder encodeObject:_wiki forKey:NSStringFromSelector(@selector(wiki))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _name = [decoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
+        _mbid = [decoder decodeObjectForKey:NSStringFromSelector(@selector(mbid))];
+        _URL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(URL))];
+        _images = [decoder decodeObjectForKey:NSStringFromSelector(@selector(images))];
+        _streamable = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isStreamable))];
+        _onTour = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isOnTour))];
+        _listeners = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(listeners))];
+        _playCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playCount))];
+        _similarArtists = [decoder decodeObjectForKey:NSStringFromSelector(@selector(similarArtists))];
+        _tags = [decoder decodeObjectForKey:NSStringFromSelector(@selector(tags))];
+        _wiki = [decoder decodeObjectForKey:NSStringFromSelector(@selector(wiki))];
+    }
+    
+    return self;
 }
 
 @end

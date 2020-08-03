@@ -370,7 +370,7 @@
                                autoCorrect:YES
                                forUsername:self.testUsername
                                   callback:^(NSError * _Nullable error,
-                                             NSArray<LFMTag *> * _Nonnull tags) {
+                                             NSArray<LFMTag *> * tags) {
         XCTAssertNotNil(tags);
         XCTAssertGreaterThan(tags.count, 0);
         XCTAssertNil(error);
@@ -389,7 +389,7 @@
                                autoCorrect:YES
                                forUsername:nil
                                   callback:^(NSError * _Nullable error,
-                                             NSArray<LFMTag *> * _Nonnull tags) {
+                                             NSArray<LFMTag *> * tags) {
         XCTAssertNotNil(tags);
         XCTAssertGreaterThan(tags.count, 0);
         XCTAssertNil(error);
@@ -408,7 +408,7 @@
                                                             autoCorrect:YES
                                                             forUsername:nil
                                                                callback:^(NSError * _Nullable error,
-                                                                          NSArray<LFMTag *> * _Nonnull tags) {}],
+                                                                          NSArray<LFMTag *> * tags) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
@@ -421,7 +421,7 @@
                                autoCorrect:YES
                                forUsername:self.testUsername
                                   callback:^(NSError * _Nullable error,
-                                             NSArray<LFMTag *> * _Nonnull tags) {
+                                             NSArray<LFMTag *> * tags) {
         XCTAssertNotNil(tags);
         XCTAssertGreaterThan(tags.count, 0);
         XCTAssertNil(error);
@@ -440,7 +440,7 @@
                                autoCorrect:YES
                                forUsername:self.testUsername
                                   callback:^(NSError * _Nullable error,
-                                             NSArray<LFMTag *> * _Nonnull tags) {
+                                             NSArray<LFMTag *> * tags) {
         XCTAssertNotNil(tags);
         XCTAssertGreaterThan(tags.count, 0);
         XCTAssertNil(error);
@@ -466,7 +466,7 @@
                                                       withMusicBrainzId:nil
                                                             autoCorrect:YES
                                                             forUsername:self.testUsername
-                                                               callback:^(NSError * _Nullable error, NSArray<LFMTag *> * _Nonnull tags) {}],
+                                                               callback:^(NSError * _Nullable error, NSArray<LFMTag *> * tags) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
@@ -480,7 +480,7 @@
                             withMusicBrainzId:_testAlbumReleaseMBID
                                   autoCorrect:YES
                                      callback:^(NSError * _Nullable error,
-                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+                                                NSArray<LFMTopTag *> * topTags) {
         XCTAssertNotNil(topTags);
         XCTAssertGreaterThan(topTags.count, 0);
         XCTAssertNil(error);
@@ -498,7 +498,7 @@
                             withMusicBrainzId:nil
                                   autoCorrect:YES
                                      callback:^(NSError * _Nullable error,
-                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+                                                NSArray<LFMTopTag *> * topTags) {
         XCTAssertNotNil(topTags);
         XCTAssertGreaterThan(topTags.count, 0);
         XCTAssertNil(error);
@@ -519,7 +519,7 @@
                             withMusicBrainzId:_testAlbumReleaseMBID
                                   autoCorrect:YES
                                      callback:^(NSError * _Nullable error,
-                                                NSArray<LFMTopTag *> * _Nonnull topTags) {
+                                                NSArray<LFMTopTag *> * topTags) {
         XCTAssertNotNil(topTags);
         XCTAssertGreaterThan(topTags.count, 0);
         XCTAssertNil(error);
@@ -534,7 +534,7 @@
                                                              byArtistNamed:nil
                                                          withMusicBrainzId:nil
                                                                autoCorrect:YES
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMTopTag *> * _Nonnull topTags) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMTopTag *> * topTags) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
@@ -556,7 +556,7 @@
                              itemsPerPage:30
                                    onPage:1
                                  callback:^(NSError * _Nullable error,
-                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            NSArray<LFMAlbum *> * albums,
                                             LFMSearchQuery * _Nullable query) {
         XCTAssertNotNil(albums);
         XCTAssertGreaterThan(albums.count, 0);
@@ -573,7 +573,7 @@
     
     [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                  callback:^(NSError * _Nullable error,
-                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            NSArray<LFMAlbum *> * albums,
                                             LFMSearchQuery * _Nullable query) {
         XCTAssertNotNil(albums);
         XCTAssertGreaterThan(albums.count, 0);
@@ -593,7 +593,7 @@
     [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                    onPage:2
                                  callback:^(NSError * _Nullable error,
-                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            NSArray<LFMAlbum *> * albums,
                                             LFMSearchQuery * _Nullable query) {
         XCTAssertNotNil(albums);
         XCTAssertGreaterThan(albums.count, 0);
@@ -613,7 +613,7 @@
     [LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                              itemsPerPage:25
                                  callback:^(NSError * _Nullable error,
-                                            NSArray<LFMAlbum *> * _Nonnull albums,
+                                            NSArray<LFMAlbum *> * albums,
                                             LFMSearchQuery * _Nullable query) {
         XCTAssertNotNil(albums);
         XCTAssertGreaterThan(albums.count, 0);
@@ -629,35 +629,35 @@
 
 - (void)testSearch_ShouldCrash_WithNoAlbumName {
     XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:nil
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * albums, LFMSearchQuery * _Nullable query) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
 - (void)testSearch_ShouldCrash_WithZeroPage {
     XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                                                 onPage:0
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * albums, LFMSearchQuery * _Nullable query) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
 - (void)testSearch_ShouldCrash_WithOutOfBoundsPage {
     XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                                                 onPage:10001
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * albums, LFMSearchQuery * _Nullable query) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
 - (void)testSearch_ShouldCrash_WithZeroLimit {
     XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                                           itemsPerPage:0
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * albums, LFMSearchQuery * _Nullable query) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 
 - (void)testSearch_ShouldCrash_WithOutOfBoundsLimit {
     XCTAssertThrowsSpecificNamed([LFMAlbumProvider searchForAlbumNamed:_testAlbumName
                                                           itemsPerPage:10001
-                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * _Nonnull albums, LFMSearchQuery * _Nullable query) {}],
+                                                                  callback:^(NSError * _Nullable error, NSArray<LFMAlbum *> * albums, LFMSearchQuery * _Nullable query) {}],
                                  NSException, NSInternalInconsistencyException);
 }
 

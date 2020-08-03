@@ -40,140 +40,41 @@ NS_SWIFT_NAME(ChartProvider)
 /**
  Retrieves the top artists chart.
  
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
-                                 itemsPerPage:(NSUInteger)limit
-                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(on:limit:callback:));
-
-/**
- Retrieves the top 30 artists on the chart.
- 
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopArtistsWithCallback:(void(^)(NSError * _Nullable,
-                                                             NSArray<LFMArtist *> *,
-                                                             LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(_:));
-
-/**
- Retrieves 30 artists on the top charts.
- 
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
-                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(on:callback:));
-
-/**
- Retrieves the top artists chart.
- 
- @param limit   The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopArtistsWithLimit:(NSUInteger)limit
-                                        callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtists(limit:callback:));
++ (NSURLSessionDataTask *)getTopArtistsOnPage:(nullable NSNumber *)page
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                     callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tags chart.
  
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param limit   The maximum number of tags to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of tags to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
-                              itemsPerPage:(NSUInteger)limit
-                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTags(on:limit:callback:));
-
-/**
- Retrieves the top 30 tags on the chart.
- 
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTagsWithCallback:(void(^)(NSError * _Nullable,
-                                                          NSArray<LFMTag *> *,
-                                                          LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTags(callback:));
-
-/**
- Retrieves 30 tags on the top charts.
- 
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
-                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTags(on:callback:));
-
-/**
- Retrieves the top tags chart.
- 
- @param limit   The maximum number of tags to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTagWithLimit:(NSUInteger)limit
-                                    callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTags(limit:callback:));
++ (NSURLSessionDataTask *)getTopTagsOnPage:(nullable NSNumber *)page
+                              itemsPerPage:(nullable NSNumber *)limit
+                                  callback:(LFMTagPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tracks chart.
  
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param limit   The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
-                                itemsPerPage:(NSUInteger)limit
-                                    callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(on:limit:callback:));
-
-/**
- Retrieves the top 30 tracks on the chart.
- 
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTracksWithCallback:(void(^)(NSError * _Nullable,
-                                                            NSArray<LFMTrack *> *,
-                                                            LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(callback:));
-
-/**
- Retrieves 30 tracks on the top charts.
- 
- @param page    The page of results to be fetched. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
-                                    callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(on:callback:));
-
-/**
- Retrieves the top tracks chart.
-
- @param limit   The maximum number of tracks to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)getTopTracksWithLimit:(NSUInteger)limit
-                                       callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(limit:callback:));
++ (NSURLSessionDataTask *)getTopTracksOnPage:(nullable NSNumber *)page
+                                itemsPerPage:(nullable NSNumber *)limit
+                                    callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 

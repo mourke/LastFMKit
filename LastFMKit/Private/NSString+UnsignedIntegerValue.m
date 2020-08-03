@@ -28,8 +28,8 @@
 @implementation NSString (UnsignedIntegerValue)
 
 // used for converting numbers wrapped in nsstrings from api to unsigned ints. for some reason this doesn't exist
-- (NSUInteger)unsignedIntegerValue {
-    return (NSUInteger)[self integerValue];
+- (NSInteger)unsignedIntegerValue {
+    return (NSInteger)[self integerValue];
 }
 
 @end

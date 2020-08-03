@@ -32,20 +32,29 @@
 
 @implementation LFMChartProvider
 
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
-                                 itemsPerPage:(NSUInteger)limit
-                                     callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> * _Nonnull, LFMQuery * _Nullable))block {
-    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
-    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
++ (NSURLSessionDataTask *)getTopArtistsOnPage:(nullable NSNumber *)page
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                     callback:(LFMArtistPaginatedCallback)block {
     NSParameterAssert(block);
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -54,7 +63,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -75,9 +84,9 @@
                 }
             }
             
-            block(error, artists, query);
+            block(artists, query, error);
         } else {
-            block(error, artists, nil);
+            block(artists, nil, error);
         }
     }];
     
@@ -86,42 +95,29 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopArtistsWithCallback:(void(^)(NSError * _Nullable,
-                                                             NSArray<LFMArtist *> *,
-                                                             LFMQuery * _Nullable))block {
-    return [self getTopArtistsOnPage:1
-                        itemsPerPage:30
-                            callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(NSUInteger)page
-                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block {
-    return [self getTopArtistsOnPage:page
-                        itemsPerPage:30
-                            callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopArtistsWithLimit:(NSUInteger)limit
-                                        callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block {
-    return [self getTopArtistsOnPage:1
-                        itemsPerPage:limit
-                            callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
-                              itemsPerPage:(NSUInteger)limit
-                                  callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> * _Nonnull, LFMQuery * _Nullable))block {
-    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
-    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
++ (NSURLSessionDataTask *)getTopTagsOnPage:(nullable NSNumber *)page
+                              itemsPerPage:(nullable NSNumber *)limit
+                                  callback:(LFMTagPaginatedCallback)block {
     NSParameterAssert(block);
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -130,7 +126,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -151,9 +147,9 @@
                 }
             }
             
-            block(error, tags, query);
+            block(tags, query, error);
         } else {
-            block(error, tags, nil);
+            block(tags, nil, error);
         }
     }];
     
@@ -162,42 +158,29 @@
     return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsWithCallback:(void(^)(NSError * _Nullable,
-                                                          NSArray<LFMTag *> *,
-                                                          LFMQuery * _Nullable))block {
-    return [self getTopTagsOnPage:1
-                     itemsPerPage:30
-                         callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(NSUInteger)page
-                                  callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block {
-    return [self getTopTagsOnPage:page
-                     itemsPerPage:30
-                         callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTagWithLimit:(NSUInteger)limit
-                                    callback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *, LFMQuery * _Nullable))block {
-    return [self getTopTagsOnPage:1
-                     itemsPerPage:limit
-                         callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
-                                itemsPerPage:(NSUInteger)limit
-                                    callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> * _Nonnull, LFMQuery * _Nullable))block {
-    NSAssert(page <= 10000 && page > 0, @"Page must be between 1 and 10,000");
-    NSAssert(limit <= 10000 && limit > 0, @"Limit must be between 1 and 10,000");
++ (NSURLSessionDataTask *)getTopTracksOnPage:(nullable NSNumber *)page
+                                itemsPerPage:(nullable NSNumber *)limit
+                                    callback:(LFMTrackPaginatedCallback)block {
     NSParameterAssert(block);
+    if (page) {
+        NSAssert(page.unsignedIntValue <= 10000 && page.unsignedIntValue > 0, @"Page must be between 1 and 10,000");
+    } else {
+        page = @1;
+    }
+    
+    if (limit) {
+        NSAssert(limit.unsignedIntValue <= 10000 && limit.unsignedIntValue > 0, @"Limit must be between 1 and 10,000");
+    } else {
+        limit = @30;
+    }
     
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTracks"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
-                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%tu", limit]],
-                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%tu", page]],
+                            [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
+                            [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
     components.queryItems = queryItems;
@@ -206,7 +189,7 @@
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, @[], nil);
+            block(@[], nil, error);
             return;
         }
         
@@ -227,39 +210,15 @@
                 }
             }
             
-            block(error, tracks, query);
+            block(tracks, query, error);
         } else {
-            block(error, tracks, nil);
+            block(tracks, nil, error);
         }
     }];
     
     [dataTask resume];
     
     return dataTask;
-}
-
-+ (NSURLSessionDataTask *)getTopTracksWithCallback:(void(^)(NSError * _Nullable,
-                                                            NSArray<LFMTrack *> *,
-                                                            LFMQuery * _Nullable))block {
-    return [self getTopTracksOnPage:1
-                       itemsPerPage:30
-                           callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(NSUInteger)page
-                                    callback:(void(^)(NSError * _Nullable,
-                                                      NSArray<LFMTrack *> *,
-                                                      LFMQuery * _Nullable))block {
-    return [self getTopTracksOnPage:page
-                       itemsPerPage:30
-                           callback:block];
-}
-
-+ (NSURLSessionDataTask *)getTopTracksWithLimit:(NSUInteger)limit
-                                       callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block {
-    return [self getTopTracksOnPage:1
-                       itemsPerPage:limit
-                           callback:block];
 }
 
 @end

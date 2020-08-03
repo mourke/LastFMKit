@@ -46,7 +46,7 @@ NS_SWIFT_NAME(TagProvider)
  */
 + (NSURLSessionDataTask *)getInfoOnTagNamed:(NSString *)tagName
                                    language:(nullable NSString *)language
-                                   callback:(void(^)(NSError * _Nullable, LFMTag * _Nullable))block NS_SWIFT_NAME(getInfo(on:in:callback:));
+                                   callback:(LFMTagCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top global tags on Last.fm, sorted by popularity (number of times used).
@@ -55,7 +55,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsWithCallback:(void(^)(NSError * _Nullable, NSArray<LFMTag *> *))block NS_SWIFT_NAME(getTopTags(callback:));
++ (NSURLSessionDataTask *)getTopTagsWithCallback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves tags similar to a specified tag. Returns tags ranked by similarity, based on listening data.
@@ -66,52 +66,52 @@ NS_SWIFT_NAME(TagProvider)
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTagsSimilarToTagNamed:(NSString *)tagName
-                                          callback:(void (^)(NSError * _Nullable, NSArray<LFMTag *> *))block NS_SWIFT_NAME(getTagsSimilar(to:callback:));
+                                          callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top albums tagged by this tag, ordered by tag count.
  
  @param tagName The name of the tag.
- @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
-                                          itemsPerPage:(NSUInteger)limit
-                                                onPage:(NSUInteger)page
-                                              callback:(void(^)(NSError * _Nullable, NSArray<LFMAlbum *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopAlbumsTagged(by:limit:on:callback:));
+                                          itemsPerPage:(nullable NSNumber *)limit
+                                                onPage:(nullable NSNumber *)page
+                                              callback:(LFMAlbumPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top artists tagged by this tag, ordered by tag count.
  
  @param tagName The name of the tag.
- @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
-                                           itemsPerPage:(NSUInteger)limit
-                                                 onPage:(NSUInteger)page
-                                               callback:(void(^)(NSError * _Nullable, NSArray<LFMArtist *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopArtistsTagged(by:limit:on:callback:));
+                                           itemsPerPage:(nullable NSNumber *)limit
+                                                 onPage:(nullable NSNumber *)page
+                                               callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tracks tagged by this tag, ordered by tag count.
  
  @param tagName The name of the tag.
- @param page    The page of results to be fetched. Start page is 1 and is also the default value.
- @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param page    The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+ @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getTopTracksTaggedByTagNamed:(NSString *)tagName
-                                          itemsPerPage:(NSUInteger)limit
-                                                onPage:(NSUInteger)page
-                                              callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracksTagged(by:limit:on:callback:));
+                                          itemsPerPage:(nullable NSNumber *)limit
+                                                onPage:(nullable NSNumber *)page
+                                              callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 
 @end

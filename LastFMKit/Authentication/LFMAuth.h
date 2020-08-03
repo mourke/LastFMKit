@@ -44,7 +44,7 @@ NS_SWIFT_NAME(Auth)
  @param error An `NSError` object if an error occurred, is `nil` if there is no error.
  @param session An `LFMSession` object containing information about the session and the authenticated user.
  */
-typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullable session);
+typedef void (^LFMAuthCallback)(LFMSession * _Nullable session, NSError * _Nullable error);
 
 /**
  Shared singleton instance of the `LFMAuth` class. A separate instance is not necessary and is not to be created.
@@ -80,7 +80,7 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  
  @return   An `NSURLQueryItem` for the api signature (key=@"api_sig", value=the api signature).
  */
-- (NSURLQueryItem *)signatureItemForQueryItems:(NSArray <NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(signatureItem(for:));
+- (NSURLQueryItem *)signatureItemForQueryItems:(NSArray<NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(signatureItem(for:));
 
 /**
  Generates an api signature string for use in the `api_sig` parameter when making authenticated requests to the API.
@@ -89,7 +89,7 @@ typedef void (^LFMAuthCallback)(NSError * _Nullable error, LFMSession * _Nullabl
  
  @return   A copy of the original array passed in with a new `NSURLQueryItem` for the api signature appended
  */
-- (NSArray <NSURLQueryItem *> *)appendingSignatureItemToQueryItems:(NSArray <NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(appendingSignature(to:));
+- (NSArray<NSURLQueryItem *> *)appendingSignatureItemToQueryItems:(NSArray<NSURLQueryItem *> *)queryItems NS_SWIFT_NAME(appendingSignature(to:));
 
 /**
  Your "API key" obtained from Last.fm.

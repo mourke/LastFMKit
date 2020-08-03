@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm album object.
  */
 NS_SWIFT_NAME(Album)
-@interface LFMAlbum : NSObject
+@interface LFMAlbum : NSObject <NSSecureCoding>
 
 /** The name of the album. */
 @property(strong, nonatomic, readonly) NSString *name;
@@ -52,16 +52,16 @@ NS_SWIFT_NAME(Album)
 @property(strong, nonatomic, readonly) NSString *mbid;
 
 /** The amount of listeners the album has. */
-@property(nonatomic, readonly) NSUInteger listeners;
+@property(nonatomic, readonly) NSInteger listeners;
 
 /** The amount of "scrobbles" the track has. */
-@property(nonatomic, readonly) NSUInteger playCount;
+@property(nonatomic, readonly) NSInteger playCount;
 
 /** An array of all the album's tracks. */
-@property(strong, nonatomic, readonly) NSArray <LFMTrack *> *tracks;
+@property(strong, nonatomic, readonly) NSArray<LFMTrack *> *tracks;
 
 /** An array of tags that most accurately describe the album. */
-@property(strong, nonatomic, readonly) NSArray <LFMTag *> *tags;
+@property(strong, nonatomic, readonly) NSArray<LFMTag *> *tags;
 
 /** A small amount of information about the album. */
 @property(strong, nonatomic, readonly, nullable) LFMWiki *wiki;

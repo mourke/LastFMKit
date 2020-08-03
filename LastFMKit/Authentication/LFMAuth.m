@@ -105,7 +105,7 @@ NSString* md5(NSString *string);
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(error, nil);
+            block(nil, error);
             return;
         }
         
@@ -114,7 +114,7 @@ NSString* md5(NSString *string);
         LFMSession *session = [[LFMSession alloc] initFromDictionary:[responseDictionary objectForKey:@"session"]];
         [weakSelf setSession:session];
         
-        block(error, session);
+        block(session, error);
     }];
     
     [dataTask resume];

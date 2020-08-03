@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the Last.fm tag object.
  */
 NS_SWIFT_NAME(Tag)
-@interface LFMTag : NSObject
+@interface LFMTag : NSObject <NSSecureCoding>
 
 /** The name of the tag. */
 @property(strong, nonatomic, readonly) NSString *name;
@@ -42,10 +42,10 @@ NS_SWIFT_NAME(Tag)
 @property(strong, nonatomic, readonly, nullable) NSURL *URL NS_SWIFT_NAME(url);
 
 /** The reach of the tag this month. */
-@property(nonatomic, readonly) NSUInteger reach;
+@property(nonatomic, readonly) NSInteger reach;
 
 /** The total reach of the tag. */
-@property(nonatomic, readonly) NSUInteger total;
+@property(nonatomic, readonly) NSInteger total;
 
 /** A boolean value indicating whether this tag is streamable. */
 @property(nonatomic, readonly, getter=isStreamable) BOOL streamable;

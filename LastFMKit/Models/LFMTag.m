@@ -30,8 +30,8 @@
 @implementation LFMTag {
     NSString *_name;
     NSURL *_URL;
-    NSUInteger _reach;
-    NSUInteger _total;
+    NSInteger _reach;
+    NSInteger _total;
     BOOL _streamable;
     LFMWiki *_wiki;
 }
@@ -59,13 +59,13 @@
             id reach = [dictionary objectForKey:@"reach"];
             if (reach != nil &&
                 [reach isKindOfClass:NSString.class]) {
-                _reach = [reach unsignedIntegerValue];
+                _reach = [reach integerValue];
             }
                         
             id total = [dictionary objectForKey:@"total"];
             if (total != nil &&
                 [total isKindOfClass:NSString.class]) {
-                _total = [total unsignedIntegerValue];
+                _total = [total integerValue];
             }
                         
             id streamable = [dictionary objectForKey:@"streamable"];
@@ -120,11 +120,11 @@
     return _URL;
 }
 
-- (NSUInteger)reach {
+- (NSInteger)reach {
     return _reach;
 }
 
-- (NSUInteger)total {
+- (NSInteger)total {
     return _total;
 }
 
@@ -134,6 +134,36 @@
 
 - (LFMWiki *)wiki {
     return _wiki;
+}
+
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:_name forKey:NSStringFromSelector(@selector(name))];
+    [coder encodeObject:_URL forKey:NSStringFromSelector(@selector(URL))];
+    [coder encodeBool:_streamable forKey:NSStringFromSelector(@selector(isStreamable))];
+    [coder encodeInteger:_reach forKey:NSStringFromSelector(@selector(reach))];
+    [coder encodeInteger:_total forKey:NSStringFromSelector(@selector(tags))];
+    [coder encodeObject:_wiki forKey:NSStringFromSelector(@selector(wiki))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _name = [decoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
+        _URL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(URL))];
+        _streamable = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isStreamable))];
+        _reach = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(reach))];
+        _total = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(total))];
+        _wiki = [decoder decodeObjectForKey:NSStringFromSelector(@selector(wiki))];
+    }
+    
+    return self;
 }
 
 @end

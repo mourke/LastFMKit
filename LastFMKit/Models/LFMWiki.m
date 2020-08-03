@@ -82,4 +82,28 @@
     return _content;
 }
 
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeObject:_publishedDate forKey:NSStringFromSelector(@selector(publishedDate))];
+    [coder encodeObject:_summary forKey:NSStringFromSelector(@selector(summary))];
+    [coder encodeObject:_content forKey:NSStringFromSelector(@selector(content))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _publishedDate = [decoder decodeObjectForKey:NSStringFromSelector(@selector(publishedDate))];
+        _summary = [decoder decodeObjectForKey:NSStringFromSelector(@selector(summary))];
+        _content = [decoder decodeObjectForKey:NSStringFromSelector(@selector(content))];
+    }
+    
+    return self;
+}
+
 @end

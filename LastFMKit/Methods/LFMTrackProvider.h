@@ -58,7 +58,7 @@ NS_SWIFT_NAME(TrackProvider)
                                     withAlbumArtistNamed:(nullable NSString *)albumArtist
                                            trackDuration:(nullable NSNumber *)duration
                                            musicBrainzId:(nullable NSString *)mbid
-                                                callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(updateNowPlaying(track:by:on:position:albumArtist:duration:mbid:callback:));
+                                                callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(updateNowPlaying(track:by:on:position:albumArtist:duration:mbid:callback:));
 
 /**
  Adds a track-play to a user's profile.
@@ -74,8 +74,8 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)scrobbleTracks:(NSArray <LFMScrobbleTrack *> *)tracks
-                                callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(scrobble(tracks:callback:));
++ (NSURLSessionDataTask *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks
+                                callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(scrobble(tracks:callback:));
 
 /**
  Loves a track for a user profile.
@@ -90,7 +90,7 @@ NS_SWIFT_NAME(TrackProvider)
  */
 + (NSURLSessionDataTask *)loveTrackNamed:(NSString *)trackName
                            byArtistNamed:(NSString *)artistName
-                                callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(love(track:by:callback:));
+                                callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(love(track:by:callback:));
 
 /**
  Un-loves a track for a user profile.
@@ -105,7 +105,7 @@ NS_SWIFT_NAME(TrackProvider)
  */
 + (NSURLSessionDataTask *)unloveTrackNamed:(NSString *)trackName
                              byArtistNamed:(NSString *)artistName
-                                  callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(unlove(track:by:callback:));
+                                  callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(unlove(track:by:callback:));
 
 /**
  Retrieves detailed information on a track using its name and artist or MusicBrainzID.
@@ -124,24 +124,24 @@ NS_SWIFT_NAME(TrackProvider)
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                        forUser:(nullable NSString *)username
-                                     callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block NS_SWIFT_NAME(getInfo(on:by:mbid:autoCorrect:username:callback:));
+                                     callback:(LFMTrackCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for a track by name. Returns track matches sorted by relevance.
  
  @param trackName   The name of the track.
  @param artistName  The track's artist.
- @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
- @param page        The page of results to be fetched. Start page is 1 and is also the default value.
+ @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMSearchQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForTrackNamed:(NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
-                                 itemsPerPage:(NSUInteger)limit
-                                       onPage:(NSUInteger)page
-                                     callback:(void(^)(NSError * _Nullable, NSArray<LFMTrack *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:by:limit:on:callback:));
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                       onPage:(nullable NSNumber *)page
+                                     callback:(LFMTrackSearchCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves tracks similar to a specified track.
@@ -150,7 +150,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the track. Required unless both the trackName and artistName are specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
- @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Defaults to 30.
+ @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if the request succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -159,8 +159,8 @@ NS_SWIFT_NAME(TrackProvider)
                                          byArtistNamed:(nullable NSString *)artistName
                                      withMusicBrainzId:(nullable NSString *)mbid
                                            autoCorrect:(BOOL)autoCorrect
-                                                 limit:(NSUInteger)limit
-                                              callback:(void (^)(NSError * _Nullable, NSArray<LFMTrack *> *))block NS_SWIFT_NAME(getTracksSimilar(to:by:mbid:autoCorrect:limit:callback:));
+                                                 limit:(nullable NSNumber *)limit
+                                              callback:(LFMTracksCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Checks whether the supplied track has a correction to a canonical track.
@@ -173,7 +173,7 @@ NS_SWIFT_NAME(TrackProvider)
  */
 + (NSURLSessionDataTask *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
                                      withMisspelledArtistNamed:(NSString *)artistName
-                                                      callback:(void (^)(NSError * _Nullable, LFMTrack * _Nullable))block NS_SWIFT_NAME(getCorrection(for:by:callback:));
+                                                      callback:(LFMTrackCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Tags a track using a list of user supplied tags.
@@ -187,10 +187,10 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
++ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                      toTrackNamed:(NSString *)trackName
                     byArtistNamed:(NSString *)artistName
-                         callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(add(tags:to:by:callback:));
+                         callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:by:callback:));
 
 /**
  Removes a user's tag from a track.
@@ -207,7 +207,7 @@ NS_SWIFT_NAME(TrackProvider)
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromTrackNamed:(NSString *)trackName
                       byArtistNamed:(NSString *)artistName
-                           callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:by:callback:));
+                           callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:by:callback:));
 
 /**
  Retrieves the tags applied by an individual user to a track on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
@@ -228,7 +228,7 @@ NS_SWIFT_NAME(TrackProvider)
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                        forUser:(nullable NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forTrack:by:mbid:autoCorrect:forUser:callback:));
+                                      callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tags for a track on Last.fm, ordered by popularity.
@@ -245,7 +245,7 @@ NS_SWIFT_NAME(TrackProvider)
                                     byArtistNamed:(nullable NSString *)artistName
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:by:mbid:autoCorrect:callback:));
+                                         callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 

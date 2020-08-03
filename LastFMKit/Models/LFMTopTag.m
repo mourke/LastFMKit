@@ -27,7 +27,7 @@
 #import "LFMKit+Protected.h"
 
 @implementation LFMTopTag {
-    NSUInteger _count;
+    NSInteger _count;
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
@@ -36,7 +36,7 @@
     if (self) {
         id count = [dictionary objectForKey:@"count"];
         if (count != nil && [count isKindOfClass:NSNumber.class]) {
-            _count = [count unsignedIntegerValue];
+            _count = [count integerValue];
             
             return self;
         }
@@ -45,7 +45,7 @@
     return nil;
 }
 
-- (NSUInteger)count {
+- (NSInteger)count {
     return _count;
 }
 
@@ -59,6 +59,23 @@
 + (instancetype)tagWithName:(NSString *)tagName {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
+}
+
+#pragma mark - NSCoding
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [super encodeWithCoder:coder];
+    [coder encodeInteger:_count forKey:NSStringFromSelector(@selector(count))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super initWithCoder:decoder];
+    
+    if (self) {
+        _count = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(count))];
+    }
+    
+    return self;
 }
 
 @end

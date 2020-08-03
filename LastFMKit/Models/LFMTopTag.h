@@ -32,10 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
  This class represents the object obtained when top tags for an artist/album/track are requested from Last.fm tag object.
  */
 NS_SWIFT_NAME(TopTag)
-@interface LFMTopTag : LFMTag
+@interface LFMTopTag : LFMTag <NSSecureCoding>
 
 /** The number of times an artist/album/track is featured in a tag's playlist. */
-@property(nonatomic) NSUInteger count;
+@property(nonatomic) NSInteger count;
 
 - (instancetype)initWithName:(NSString *)tagName __attribute__((unavailable("Top tags should not be created. Please use the `LFMTag` object instead.")));
 

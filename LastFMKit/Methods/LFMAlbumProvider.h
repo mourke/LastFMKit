@@ -47,10 +47,10 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
++ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
                     byArtistNamed:(NSString *)albumArtist
-                         callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(add(tags:to:by:callback:));
+                         callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:by:callback:));
 
 /**
  Removes a user's tag from an album.
@@ -67,7 +67,7 @@ NS_SWIFT_NAME(AlbumProvider)
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
                       byArtistNamed:(NSString *)albumArtist
-                           callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:by:callback:));
+                           callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:by:callback:));
 
 /**
  Retrieves the metadata and tracklist for an album on Last.fm using the album name and album artist or album release MusicBrainzID.
@@ -92,7 +92,7 @@ NS_SWIFT_NAME(AlbumProvider)
                                   autoCorrect:(BOOL)autoCorrect
                                   forUsername:(nullable NSString *)username
                                  languageCode:(nullable NSString *)code
-                                     callback:(void (^)(NSError * _Nullable, LFMAlbum * _Nullable))block NS_REFINED_FOR_SWIFT;
+                                     callback:(LFMAlbumCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the tags applied by an individual user to an album on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
@@ -113,7 +113,7 @@ NS_SWIFT_NAME(AlbumProvider)
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                    forUsername:(nullable NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_REFINED_FOR_SWIFT;
+                                      callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tags for an album on Last.fm, ordered by popularity.
@@ -130,59 +130,22 @@ NS_SWIFT_NAME(AlbumProvider)
                                     byArtistNamed:(nullable NSString *)albumArtist
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_REFINED_FOR_SWIFT;
+                                         callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an album by name. Returns album matches sorted by relevance.
  
  @param albumName   The name of the album.
- @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000.
- @param page        The page of results to be fetched. Start page is 1. Page must be less than 10,000.
+ @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000. Defaults to 30.
+ @param page        The page of results to be fetched. Page must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(NSUInteger)limit
-                                       onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
-
-/**
- Searches for an album by name. Returns the first 30 album matches sorted by relevance.
- 
- @param albumName   The name of the album.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
-
-/**
- Searches for an album by name with a limit of 30 items per page. Returns album matches sorted by relevance.
- 
- @param albumName   The name of the album.
- @param page        The page of results to be fetched. Start page is 1. Page must be less than 10,000.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                       onPage:(NSUInteger)page
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
-
-/**
- Searches for an album by name. Returns album matches sorted by relevance.
- 
- @param albumName   The name of the album.
- @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
-                                 itemsPerPage:(NSUInteger)limit
-                                     callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMSearchQuery * _Nullable))block NS_REFINED_FOR_SWIFT;
+                                 itemsPerPage:(nullable NSNumber *)limit
+                                       onPage:(nullable NSNumber *)page
+                                     callback:(LFMAlbumSearchCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 

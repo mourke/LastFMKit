@@ -27,9 +27,9 @@
 #import "LFMKit+Protected.h"
 
 @implementation LFMQuery {
-    NSUInteger _currentPage;
-    NSUInteger _totalResults;
-    NSUInteger _itemsPerPage;
+    NSInteger _currentPage;
+    NSInteger _totalResults;
+    NSInteger _itemsPerPage;
 }
 
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
@@ -42,18 +42,18 @@
         if (currentPage != nil && [currentPage isKindOfClass:NSString.class] &&
             totalResults != nil && [totalResults isKindOfClass:NSString.class] &&
             itemsPerPage != nil && [itemsPerPage isKindOfClass:NSString.class]) {
-            return [self initWithPage:[currentPage unsignedIntegerValue]
-                         totalResults:[totalResults unsignedIntegerValue]
-                         itemsPerPage:[itemsPerPage unsignedIntegerValue]];
+            return [self initWithPage:[currentPage integerValue]
+                         totalResults:[totalResults integerValue]
+                         itemsPerPage:[itemsPerPage integerValue]];
         }
     }
     
     return nil;
 }
 
-- (instancetype)initWithPage:(NSUInteger)currentPage
-                totalResults:(NSUInteger)totalResults
-                itemsPerPage:(NSUInteger)itemsPerPage {
+- (instancetype)initWithPage:(NSInteger)currentPage
+                totalResults:(NSInteger)totalResults
+                itemsPerPage:(NSInteger)itemsPerPage {
     self = [super init];
     
     if (self) {
@@ -67,16 +67,40 @@
     return nil;
 }
 
-- (NSUInteger)currentPage {
+- (NSInteger)currentPage {
     return _currentPage;
 }
 
-- (NSUInteger)totalResults {
+- (NSInteger)totalResults {
     return _totalResults;
 }
 
-- (NSUInteger)itemsPerPage {
+- (NSInteger)itemsPerPage {
     return _itemsPerPage;
+}
+
+#pragma mark - NSCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+    [coder encodeInteger:_currentPage forKey:NSStringFromSelector(@selector(currentPage))];
+    [coder encodeInteger:_totalResults forKey:NSStringFromSelector(@selector(totalResults))];
+    [coder encodeInteger:_itemsPerPage forKey:NSStringFromSelector(@selector(itemsPerPage))];
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _currentPage = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(currentPage))];
+        _totalResults = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(totalResults))];
+        _itemsPerPage = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(itemsPerPage))];
+    }
+    
+    return self;
 }
 
 @end

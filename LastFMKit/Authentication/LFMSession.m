@@ -77,6 +77,10 @@
 
 #pragma mark - NSCoding
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_username forKey:NSStringFromSelector(@selector(username))];
     [aCoder encodeBool:_userIsSubscriber forKey:NSStringFromSelector(@selector(userIsSubscriber))];

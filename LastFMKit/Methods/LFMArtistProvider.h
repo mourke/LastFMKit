@@ -46,9 +46,9 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray <LFMTag *> *)tags
++ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
                     toArtistNamed:(NSString *)artistName
-                         callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(add(tags:to:callback:));
+                         callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:callback:));
 
 /**
  Removes a user's tag from an artist.
@@ -63,7 +63,7 @@ NS_SWIFT_NAME(ArtistProvider)
  */
 + (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
                     fromArtistNamed:(NSString *)artistName
-                           callback:(void (^_Nullable)(NSError * _Nullable))block NS_SWIFT_NAME(remove(tag:from:callback:));
+                           callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:callback:));
 
 /**
  Retrieves corrections based on common misspellings of artist names.
@@ -74,7 +74,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)getCorrectionForMisspeltArtistName:(NSString *)artistName
-                                                    callback:(void (^)(NSError * _Nullable, LFMArtist * _Nullable))block NS_SWIFT_NAME(getCorrection(for:callback:));
+                                                    callback:(LFMArtistCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves detailed information on an artist using its name or MusicBrainzID.
@@ -93,7 +93,7 @@ NS_SWIFT_NAME(ArtistProvider)
                                    autoCorrect:(BOOL)autoCorrect
                                    forUsername:(nullable NSString *)username
                                   languageCode:(nullable NSString *)code
-                                      callback:(void (^)(NSError * _Nullable, LFMArtist * _Nullable))block NS_SWIFT_NAME(getInfo(on:mbid:autoCorrect:username:languageCode:callback:));
+                                      callback:(LFMArtistCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves artists similar to a specified artist.
@@ -101,7 +101,7 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param limit       The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000.
+ @param limit       The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects if the request succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -109,8 +109,8 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getArtistsSimilarToArtistNamed:(nullable NSString *)artistName
                                        withMusicBrainzId:(nullable NSString *)mbid
                                              autoCorrect:(BOOL)autoCorrect
-                                                   limit:(NSUInteger)limit
-                                                callback:(void (^)(NSError * _Nullable, NSArray<LFMArtist *> *))block NS_SWIFT_NAME(getArtistsSimilar(to:mbid:autoCorrect:limit:callback:));
+                                                   limit:(nullable NSNumber *)limit
+                                                callback:(LFMArtistsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the tags applied by an individual user to an artist on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
@@ -129,7 +129,7 @@ NS_SWIFT_NAME(ArtistProvider)
                               withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                     forUsername:(nullable NSString *)username
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMTag *> *))block NS_SWIFT_NAME(getTags(forArtist:mbid:autoCorrect:forUser:callback:));
+                                      callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top albums for an artist on Last.fm, ordered by popularity.
@@ -137,8 +137,8 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param page        The page of results to be fetched. Must be between 1 and 10,000.
+ @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -146,9 +146,9 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTopAlbumsForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(NSUInteger)limit
-                                              onPage:(NSUInteger)page
-                                            callback:(void (^)(NSError * _Nullable, NSArray <LFMAlbum *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopAlbums(for:mbid:autoCorrect:limit:on:callback:));
+                                        itemsPerPage:(nullable NSNumber *)limit
+                                              onPage:(nullable NSNumber *)page
+                                            callback:(LFMAlbumPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tracks for an artist on Last.fm, ordered by popularity.
@@ -156,8 +156,8 @@ NS_SWIFT_NAME(ArtistProvider)
  @param artistName  The name of the artist. Required, unless mbid is specified.
  @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
- @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param page        The page of results to be fetched. Must be between 1 and 10,000.
+ @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
@@ -165,9 +165,9 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTopTracksForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
-                                        itemsPerPage:(NSUInteger)limit
-                                              onPage:(NSUInteger)page
-                                            callback:(void (^)(NSError * _Nullable, NSArray <LFMTrack *> *, LFMQuery * _Nullable))block NS_SWIFT_NAME(getTopTracks(for:mbid:autoCorrect:limit:on:callback:));
+                                        itemsPerPage:(nullable NSNumber *)limit
+                                              onPage:(nullable NSNumber *)page
+                                            callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves the top tags for an artist on Last.fm, ordered by popularity.
@@ -182,59 +182,22 @@ NS_SWIFT_NAME(ArtistProvider)
 + (NSURLSessionDataTask *)getTopTagsForArtistNamed:(nullable NSString *)artistName
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
-                                         callback:(void (^)(NSError * _Nullable, NSArray <LFMTopTag *> *))block NS_SWIFT_NAME(getTopTags(for:mbid:autoCorrect:callback:));
+                                         callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Searches for an artist by name. Returns artist matches sorted by relevance.
  
  @param artistName  The name of the artist.
- @param limit       The maximum number of artists that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param page        The page of results to be fetched. Must be between 1 and 10,000.
+ @param limit       The maximum number of artists that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+ @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
 + (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                  itemsPerPage:(NSUInteger)limit
-                                        onPage:(NSUInteger)page
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:on:callback:));
-
-/**
- Searches for an artist by name. Returns 30 artist matches sorted by relevance.
- 
- @param artistName  The name of the artist.
- @param page                The page of results to be fetched. Must be between 1 and 10,000.
- @param block              The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                        onPage:(NSUInteger)page
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:on:callback:));
-
-/**
- Searches for an artist by name. Returns artist matches sorted by relevance.
- 
- @param artistName  The name of the artist.
- @param limit       The maximum number of artists that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                  itemsPerPage:(NSUInteger)limit
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:limit:callback:));
-
-/**
- Searches for an artist by name. Returns the first 30 artist matches sorted by relevance.
- 
- @param artistName  The name of the artist.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
- 
- @return   The `NSURLSessionDataTask` object from the web request.
- */
-+ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
-                                      callback:(void (^)(NSError * _Nullable, NSArray <LFMArtist *> *, LFMSearchQuery * _Nullable))block NS_SWIFT_NAME(search(for:callback:));
+                                  itemsPerPage:(nullable NSNumber *)limit
+                                        onPage:(nullable NSNumber *)page
+                                      callback:(LFMArtistSearchCallback)block NS_REFINED_FOR_SWIFT;
 
 @end
 
