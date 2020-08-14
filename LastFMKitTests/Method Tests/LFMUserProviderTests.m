@@ -1,8 +1,8 @@
 //
-//  LFMTopTag.h
-//  LastFMKit
+//  LFMUserProviderTests.m
+//  LastFMKitTests
 //
-//  Copyright © 2020 Mark Bourke.
+//  Copyright (c) 2020 Mark Bourke
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,27 +20,39 @@
 //  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE
+//  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "LFMTag.h"
+#import "LFMTestCase.h"
+#import <LastFMKit/LastFMKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-/**
- This class represents the object obtained when top tags for an artist/album/track are requested from Last.fm tag object.
- */
-NS_SWIFT_NAME(TopTag)
-@interface LFMTopTag : LFMTag <NSSecureCoding>
-
-/** The number of times an artist/album/track is featured in a tag's playlist. */
-@property(nonatomic, readonly) NSInteger count;
-
-- (instancetype)initWithName:(NSString *)tagName __attribute__((unavailable("Top tags should not be created. Please use the `LFMTag` object instead.")));
-
-+ (instancetype)tagWithName:(NSString *)tagName __attribute__((unavailable("Top tags should not be created. Please use the `LFMTag` object instead.")));
+@interface LFMUserProviderTests : LFMTestCase
 
 @end
 
-NS_ASSUME_NONNULL_END
+@implementation LFMUserProviderTests
+
+- (void)setUp {
+    [super setUp];
+}
+
+- (void)tearDown {
+    [super tearDown];
+}
+
+- (void)testGetInfo_ShouldPass_WithAllInfoPresent {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors when all values are present."];
+    
+    [LFMUserProvider getInfoOnUserNamed:self.testUsername
+                               callback:^(LFMUser * _Nullable user,
+                                          NSError * _Nullable error) {
+        XCTAssertNotNil(user);
+        XCTAssertNil(error);
+        
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
+@end

@@ -35,8 +35,8 @@
     NSURL *_URL;
     NSDictionary<LFMImageSize, NSURL *> *_images;
     NSString *_mbid;
-    NSInteger _listeners;
-    NSInteger _playCount;
+    NSNumber *_listeners;
+    NSNumber *_playCount;
     NSArray<LFMTrack *> *_tracks;
     NSArray<LFMTag *> *_tags;
     LFMWiki *_wiki;
@@ -63,12 +63,12 @@
             
             id listeners = [dictionary objectForKey:@"listeners"];
             if ([listeners isKindOfClass:NSString.class]) {
-                _listeners = [listeners integerValue];
+                _listeners = [NSNumber numberWithInt:[listeners intValue]];
             }
             
             id playCount = [dictionary objectForKey:@"playcount"];
             if ([playCount isKindOfClass:NSString.class]) {
-                _playCount = [playCount integerValue];
+                _playCount = [NSNumber numberWithInt:[playCount intValue]];
             }
             
             id tracksDictionary = [dictionary objectForKey:@"tracks"];
@@ -122,6 +122,34 @@
     return nil;
 }
 
+- (instancetype)initWithName:(NSString *)name
+                      artist:(NSString *)artist
+                         URL:(NSURL *)URL
+                      images:(NSDictionary<LFMImageSize, NSURL *> *)images
+               musicBrainzID:(NSString *)mbid
+                   listeners:(NSNumber *)listeners
+                   playCount:(NSNumber *)playCount
+                      tracks:(NSArray<LFMTrack *> *)tracks
+                        tags:(NSArray<LFMTag *> *)tags
+                        wiki:(nullable LFMWiki *)wiki {
+    self = [super init];
+    
+    if (self) {
+        _name = name;
+        _artist = artist;
+        _URL = URL;
+        _images = images;
+        _mbid = mbid;
+        _listeners = listeners;
+        _playCount = playCount;
+        _tracks = tracks;
+        _tags = tags;
+        _wiki = wiki;
+    }
+    
+    return self;
+}
+
 - (instancetype)init {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
@@ -152,11 +180,11 @@
     return _mbid;
 }
 
-- (NSInteger)listeners {
+- (NSNumber *)listeners {
     return _listeners;
 }
 
-- (NSInteger)playCount {
+- (NSNumber *)playCount {
     return _playCount;
 }
 
@@ -184,8 +212,8 @@
     [coder encodeObject:_URL forKey:NSStringFromSelector(@selector(URL))];
     [coder encodeObject:_images forKey:NSStringFromSelector(@selector(images))];
     [coder encodeObject:_mbid forKey:NSStringFromSelector(@selector(mbid))];
-    [coder encodeInteger:_listeners forKey:NSStringFromSelector(@selector(listeners))];
-    [coder encodeInteger:_playCount forKey:NSStringFromSelector(@selector(playCount))];
+    [coder encodeObject:_listeners forKey:NSStringFromSelector(@selector(listeners))];
+    [coder encodeObject:_playCount forKey:NSStringFromSelector(@selector(playCount))];
     [coder encodeObject:_tracks forKey:NSStringFromSelector(@selector(tracks))];
     [coder encodeObject:_tags forKey:NSStringFromSelector(@selector(tags))];
     [coder encodeObject:_wiki forKey:NSStringFromSelector(@selector(wiki))];
@@ -200,8 +228,8 @@
         _URL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(URL))];
         _images = [decoder decodeObjectForKey:NSStringFromSelector(@selector(images))];
         _mbid = [decoder decodeObjectForKey:NSStringFromSelector(@selector(mbid))];
-        _listeners = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(listeners))];
-        _playCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playCount))];
+        _listeners = [decoder decodeObjectForKey:NSStringFromSelector(@selector(listeners))];
+        _playCount = [decoder decodeObjectForKey:NSStringFromSelector(@selector(playCount))];
         _tracks = [decoder decodeObjectForKey:NSStringFromSelector(@selector(tracks))];
         _tags = [decoder decodeObjectForKey:NSStringFromSelector(@selector(tags))];
         _wiki = [decoder decodeObjectForKey:NSStringFromSelector(@selector(wiki))];

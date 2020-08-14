@@ -49,7 +49,7 @@
     
     [[LFMAuth sharedInstance] getSessionWithUsername:@"test_lfmkit_ios"
                                             password:@"Eethu3po5wia&!"
-                                            callback:^(NSError * _Nullable error, LFMSession * _Nullable session) {
+                                            callback:^(LFMSession * _Nullable session, NSError * _Nullable error) {
         XCTAssertNil(error);
         XCTAssertNotNil(session);
         XCTAssertNotNil(session.sessionKey);

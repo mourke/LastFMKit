@@ -69,7 +69,7 @@
             country != nil && [country isKindOfClass:NSString.class] &&
             age != nil && [age isKindOfClass:NSString.class] &&
             gender != nil && [gender isKindOfClass:NSString.class] &&
-            subscriber != nil && [subscriber isKindOfClass:NSNumber.class] &&
+            subscriber != nil && [subscriber isKindOfClass:NSString.class] &&
             playCount != nil && [playCount isKindOfClass:NSString.class] &&
             playlistCount != nil && [playlistCount isKindOfClass:NSString.class] &&
             registeredTime != nil && [username isKindOfClass:NSString.class])
@@ -80,11 +80,19 @@
             _URL = [NSURL URLWithString:URL];
             _country = country;
             _age = [age integerValue];
-            _gender = gender;
             _subscriber = [subscriber boolValue];
             _playCount = [playCount integerValue];
             _playlistCount = [playlistCount integerValue];
             _dateRegistered = [NSDate dateWithTimeIntervalSince1970:[registeredTime integerValue]];
+            
+            if ([gender isEqualToString:LFMUserGenderMale]) {
+                _gender = LFMUserGenderMale;
+            } else if ([gender isEqualToString:LFMUserGenderFemale]) {
+                _gender = LFMUserGenderFemale;
+            } else {
+                _gender = LFMUserGenderOther;
+            }
+            
             
             return self;
         }

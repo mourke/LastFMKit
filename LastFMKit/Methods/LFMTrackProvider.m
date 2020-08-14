@@ -226,14 +226,15 @@
     [tracks enumerateObjectsUsingBlock:^(LFMScrobbleTrack * _Nonnull track, NSUInteger idx, BOOL * _Nonnull stop) {
         NSURLQueryItem *artistItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"artist[%tu]", idx] value:track.artist.name];
         NSURLQueryItem *trackItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"track[%tu]", idx] value:track.name];
+        NSURLQueryItem *albumArtistItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"albumArtist[%tu", idx] value:track.album.artist];
         NSURLQueryItem *timestampItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"timestamp[%tu]", idx] value: [NSString stringWithFormat:@"%f", track.timestamp.timeIntervalSinceReferenceDate]];
         NSURLQueryItem *albumItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"album[%tu]", idx] value:track.album.name];
         NSURLQueryItem *chosenByUserItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"chosenByUser[%tu]", idx] value:[NSString stringWithFormat:@"%d", track.wasChosenByUser]];
-        NSURLQueryItem *positionInAlbumItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"trackNumber[%tu]", idx] value:[NSString stringWithFormat:@"%tu", track.positionInAlbum]];
+        NSURLQueryItem *positionInAlbumItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"trackNumber[%tu]", idx] value:track.positionInAlbum.stringValue];
         NSURLQueryItem *mbidItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"mbid[%tu]", idx] value:track.mbid];
-        NSURLQueryItem *durationItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"duration[%tu]", idx] value:[NSString stringWithFormat:@"%tu", track.duration]];
+        NSURLQueryItem *durationItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"duration[%tu]", idx] value:track.duration.stringValue];
         
-        [queryItems addObjectsFromArray:@[artistItem, trackItem, timestampItem, albumItem, chosenByUserItem, positionInAlbumItem, mbidItem, durationItem]];
+        [queryItems addObjectsFromArray:@[artistItem, trackItem, albumArtistItem, timestampItem, albumItem, chosenByUserItem, positionInAlbumItem, mbidItem, durationItem]];
     }];
     
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];

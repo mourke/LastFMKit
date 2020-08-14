@@ -130,8 +130,8 @@
     XCTAssertTrue([[album.images objectForKey:LFMImageSizeMega].absoluteString isEqualToString:@"https://lastfm.freetls.fastly.net/i/u/300x300/ae14e61c8523c955cc3482dac6f56973.png"]);
     
     XCTAssertTrue([album.mbid isEqualToString:@"92402a00-7be5-4c40-ac27-cf91622e2e5a"]);
-    XCTAssertEqual(album.listeners, 191285);
-    XCTAssertEqual(album.playCount, 4990556);
+    XCTAssertEqual(album.listeners.intValue, 191285);
+    XCTAssertEqual(album.playCount.intValue, 4990556);
     
     XCTAssertEqual(album.tracks.count, 1);
     
@@ -139,8 +139,8 @@
     
     XCTAssertTrue([track.name isEqualToString:@"Intro"]);
     XCTAssertTrue([track.URL.absoluteString isEqualToString:@"https://www.last.fm/music/Ariana+Grande/_/Intro"]);
-    XCTAssertEqual(track.duration, 80);
-    XCTAssertEqual(track.positionInAlbum, 1);
+    XCTAssertEqual(track.duration.intValue, 80);
+    XCTAssertEqual(track.positionInAlbum.intValue, 1);
     XCTAssertEqual(track.streamable, YES);
     
     XCTAssertNotNil(artist);
@@ -1051,7 +1051,7 @@
     LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:dictionary];
     
     XCTAssertNotNil(album);
-    XCTAssertEqual(album.listeners, 0);
+    XCTAssertEqual(album.listeners.intValue, 0);
 }
 
 - (void)testInitNullListeners_ShouldSucceed_WithZeroListeners {
@@ -1134,7 +1134,7 @@
     LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:dictionary];
     
     XCTAssertNotNil(album);
-    XCTAssertEqual(album.listeners, 0);
+    XCTAssertEqual(album.listeners.intValue, 0);
 }
 
 - (void)testInitNoPlayCount_ShouldSucceed_WithZeroPlayCount {
@@ -1216,7 +1216,7 @@
     LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:dictionary];
     
     XCTAssertNotNil(album);
-    XCTAssertEqual(album.playCount, 0);
+    XCTAssertEqual(album.playCount.intValue, 0);
 }
 
 - (void)testInitNullPlayCount_ShouldSucceed_WithZeroPlayCount {
@@ -1299,7 +1299,7 @@
     LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:dictionary];
     
     XCTAssertNotNil(album);
-    XCTAssertEqual(album.playCount, 0);
+    XCTAssertEqual(album.playCount.intValue, 0);
 }
 
 - (void)testInitNoTracks_ShouldSucceed_WithEmptyTracks {
@@ -1672,8 +1672,8 @@
     
     XCTAssertTrue([track.name isEqualToString:@"Intro"]);
     XCTAssertTrue([track.URL.absoluteString isEqualToString:@"https://www.last.fm/music/Ariana+Grande/_/Intro"]);
-    XCTAssertEqual(track.duration, 80);
-    XCTAssertEqual(track.positionInAlbum, 1);
+    XCTAssertEqual(track.duration.intValue, 80);
+    XCTAssertEqual(track.positionInAlbum.intValue, 1);
     XCTAssertEqual(track.streamable, YES);
     
     XCTAssertNil(artist);
@@ -1761,8 +1761,8 @@
     
     XCTAssertTrue([track.name isEqualToString:@"Intro"]);
     XCTAssertTrue([track.URL.absoluteString isEqualToString:@"https://www.last.fm/music/Ariana+Grande/_/Intro"]);
-    XCTAssertEqual(track.duration, 80);
-    XCTAssertEqual(track.positionInAlbum, 1);
+    XCTAssertEqual(track.duration.intValue, 80);
+    XCTAssertEqual(track.positionInAlbum.intValue, 1);
     XCTAssertEqual(track.streamable, NO);
     
     XCTAssertNotNil(artist);
@@ -1853,10 +1853,10 @@
     
     XCTAssertNotNil(track);
     
-    XCTAssertEqual(track.positionInAlbum, 0);
+    XCTAssertEqual(track.positionInAlbum.intValue, 0);
     XCTAssertTrue([track.name isEqualToString:@"Intro"]);
     XCTAssertTrue([track.URL.absoluteString isEqualToString:@"https://www.last.fm/music/Ariana+Grande/_/Intro"]);
-    XCTAssertEqual(track.duration, 80);
+    XCTAssertEqual(track.duration.intValue, 80);
     XCTAssertEqual(track.streamable, YES);
     
     XCTAssertNotNil(artist);

@@ -24,6 +24,7 @@
 //
 
 #import "LFMScrobbleTrack.h"
+#import "LFMKit+Protected.h"
 
 @implementation LFMScrobbleTrack {
     NSDate *_timestamp;
@@ -31,31 +32,49 @@
 }
 
 - (instancetype)initWithName:(NSString *)trackName
-                      artist:(nullable LFMArtist *)artist
-               musicBrainzID:(NSString *)mbid
-                       album:(nullable LFMAlbum *)album
-             positionInAlbum:(NSInteger)position
-                         URL:(NSURL *)URL
-                    duration:(NSInteger)duration
-                  streamable:(BOOL)streamable
-                        tags:(NSArray<LFMTag *> *)tags
-                        wiki:(nullable LFMWiki *)wiki
-                   listeners:(NSInteger)listeners
-                   playCount:(NSInteger)playCount
+                  artistName:(nullable NSString *)artistName
+                   albumName:(nullable NSString *)albumName
+                 albumArtist:(nullable NSString *)albumArtist
+             positionInAlbum:(nullable NSNumber *)position
+                    duration:(nullable NSNumber *)duration
                    timestamp:(NSDate *)timestamp
                 chosenByUser:(BOOL)chosenByUser {
+    NSURL *URL = [NSURL URLWithString:@"https://www.last.fm"];
+    LFMArtist *artist = [[LFMArtist alloc] initWithName:artistName
+                                          musicBrainzID:@""
+                                                    URL:URL
+                                                 images:@{}
+                                             streamable:NO
+                                                 onTour:NO
+                                              listeners:0
+                                              playCount:0
+                                         similarArtists:@[]
+                                                   tags:@[]
+                                                   wiki:nil];
+    LFMAlbum *album = [[LFMAlbum alloc] initWithName:albumName
+                                              artist:albumArtist
+                                                 URL:URL
+                                              images:@{}
+                                       musicBrainzID:@""
+                                           listeners:0
+                                           playCount:0
+                                              tracks:@[]
+                                                tags:@[]
+                                                wiki:nil];
     self = [super initWithName:trackName
                         artist:artist
-                 musicBrainzID:mbid
+                 musicBrainzID:@""
                          album:album
                positionInAlbum:position
                            URL:URL
                       duration:duration
-                    streamable:streamable
-                          tags:tags
-                          wiki:wiki
-                     listeners:listeners
-                     playCount:playCount];
+                    streamable:NO
+                          tags:@[]
+                          wiki:nil
+                     listeners:0
+                     playCount:0];
+    
+    NSParameterAssert(timestamp);
     
     if (self) {
         _timestamp = timestamp;
@@ -67,22 +86,16 @@
 
 - (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser {
     return [self initWithName:track.name
-                       artist:track.artist
-                musicBrainzID:track.mbid
-                        album:track.album
+                   artistName:track.artist.name
+                    albumName:track.album.name
+                  albumArtist:track.album.artist
               positionInAlbum:track.positionInAlbum
-                          URL:track.URL
                      duration:track.duration
-                   streamable:track.isStreamable
-                         tags:track.tags
-                         wiki:track.wiki
-                    listeners:track.listeners
-                    playCount:track.playCount
                     timestamp:timestamp
                  chosenByUser:chosenByUser];
 }
 
-- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(NSInteger)position URL:(NSURL *)URL duration:(NSInteger)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(NSInteger)listeners playCount:(NSInteger)playCount {
+- (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(nullable NSNumber *)position URL:(NSURL *)URL duration:(nullable NSNumber *)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(nullable NSNumber *)listeners playCount:(nullable NSNumber *)playCount {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
 }

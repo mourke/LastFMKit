@@ -52,10 +52,10 @@ NS_SWIFT_NAME(Album)
 @property(strong, nonatomic, readonly) NSString *mbid;
 
 /** The amount of listeners the album has. */
-@property(nonatomic, readonly) NSInteger listeners;
+@property(strong, nonatomic, nullable, readonly) NSNumber *listeners;
 
-/** The amount of "scrobbles" the track has. */
-@property(nonatomic, readonly) NSInteger playCount;
+/** The amount of "scrobbles" the album has. */
+@property(strong, nonatomic, nullable, readonly) NSNumber *playCount;
 
 /** An array of all the album's tracks. */
 @property(strong, nonatomic, readonly) NSArray<LFMTrack *> *tracks;

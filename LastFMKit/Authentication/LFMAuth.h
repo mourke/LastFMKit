@@ -49,7 +49,7 @@ typedef void (^LFMAuthCallback)(LFMSession * _Nullable session, NSError * _Nulla
 /**
  Shared singleton instance of the `LFMAuth` class. A separate instance is not necessary and is not to be created.
  */
-+ (LFMAuth *)sharedInstance NS_SWIFT_NAME(shared());
+@property(class, strong, readonly) LFMAuth *sharedInstance NS_SWIFT_NAME(shared);
 
 /**
  Starts a mobile service session for a user. Session keys have an infinite lifetime by default so this method need only be called once at the very start of your application, unless the user revokes privileges for your application on their Last.fm settings screen. Upon success, the `LFMSession` object passed into the `block` parameter will also be stored in the user's keychain and set as the `session` property on this class as well as the shared singleton instance on the `LFMSession` class itself. For any subsiquent app launches, this method need not be called as the session object will automatically be loaded from the user's keychain.
@@ -62,7 +62,7 @@ typedef void (^LFMAuthCallback)(LFMSession * _Nullable session, NSError * _Nulla
  */
 - (NSURLSessionDataTask *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password
-                                        callback:(LFMAuthCallback)block NS_SWIFT_NAME(getSession(username:password:callback:));
+                                        callback:(LFMAuthCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Locally removes a user's mobile session.

@@ -38,11 +38,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LFMAlbum()
 
+- (instancetype)initWithName:(NSString *)name
+                      artist:(NSString *)artist
+                         URL:(NSURL *)URL
+                      images:(NSDictionary<LFMImageSize, NSURL *> *)images
+               musicBrainzID:(NSString *)mbid
+                   listeners:(nullable NSNumber *)listeners
+                   playCount:(nullable NSNumber *)playCount
+                      tracks:(NSArray<LFMTrack *> *)tracks
+                        tags:(NSArray<LFMTag *> *)tags
+                        wiki:(nullable LFMWiki *)wiki;
+
 - (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
 
 @end
 
 @interface LFMArtist()
+
+- (instancetype)initWithName:(NSString *)name
+               musicBrainzID:(NSString *)mbid
+                         URL:(NSURL *)URL
+                      images:(NSDictionary<LFMImageSize, NSURL *> *)images
+                  streamable:(BOOL)streamable
+                      onTour:(BOOL)onTour
+                   listeners:(nullable NSNumber *)listeners
+                   playCount:(nullable NSNumber *)playCount
+              similarArtists:(NSArray<LFMArtist *> *)similarArtists
+                        tags:(NSArray<LFMTag *> *)tags
+                        wiki:(nullable LFMWiki *)wiki;
 
 - (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
 

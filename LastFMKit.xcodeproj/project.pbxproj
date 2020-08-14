@@ -161,6 +161,14 @@
 		4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A21F9680B80013355C /* LFMGeoProvider.m */; };
 		4D1685A71F9687EB0013355C /* LFMLibraryProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D1685A81F9687EB0013355C /* LFMLibraryProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */; };
+		4D283DD924E5420000ABC470 /* Auth+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DD824E5420000ABC470 /* Auth+Swift.swift */; };
+		4D283DDA24E5420000ABC470 /* Auth+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DD824E5420000ABC470 /* Auth+Swift.swift */; };
+		4D283DDB24E5420000ABC470 /* Auth+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DD824E5420000ABC470 /* Auth+Swift.swift */; };
+		4D283DDC24E5420000ABC470 /* Auth+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DD824E5420000ABC470 /* Auth+Swift.swift */; };
+		4D283DDE24E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */; };
+		4D283DDF24E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */; };
+		4D283DE024E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */; };
+		4D283DE124E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */; };
 		4D389F161F950F8D0030EAD5 /* LFMArtistProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */; };
 		4D389F1A1F9630180030EAD5 /* LFMTopTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D389F181F9630180030EAD5 /* LFMTopTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -235,6 +243,12 @@
 		4D9FFB661F9143100062279A /* LFMUserGender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9FFB651F9143100062279A /* LFMUserGender.m */; };
 		4DC84A081FA4B671002F6D6A /* LFMScrobbleTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DC84A091FA4B671002F6D6A /* LFMScrobbleTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */; };
+		4DCA59EA24E55A98006F16C7 /* LFMUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59E924E55A98006F16C7 /* LFMUserTests.m */; };
+		4DCA59EB24E55A98006F16C7 /* LFMUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59E924E55A98006F16C7 /* LFMUserTests.m */; };
+		4DCA59EC24E55A98006F16C7 /* LFMUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59E924E55A98006F16C7 /* LFMUserTests.m */; };
+		4DCA59EE24E56201006F16C7 /* LFMUserProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59ED24E56201006F16C7 /* LFMUserProviderTests.m */; };
+		4DCA59EF24E56201006F16C7 /* LFMUserProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59ED24E56201006F16C7 /* LFMUserProviderTests.m */; };
+		4DCA59F024E56201006F16C7 /* LFMUserProviderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCA59ED24E56201006F16C7 /* LFMUserProviderTests.m */; };
 		4DDC523B1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DDC523C1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DDC523D1FA65A4C00B728EB /* LFMTaggingType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -303,6 +317,8 @@
 		4D1685A21F9680B80013355C /* LFMGeoProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMGeoProvider.m; sourceTree = "<group>"; };
 		4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMLibraryProvider.h; sourceTree = "<group>"; };
 		4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMLibraryProvider.m; sourceTree = "<group>"; };
+		4D283DD824E5420000ABC470 /* Auth+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Auth+Swift.swift"; sourceTree = "<group>"; };
+		4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrobbleTrack+Swift.swift"; sourceTree = "<group>"; };
 		4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMArtistProvider.h; sourceTree = "<group>"; };
 		4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMArtistProvider.m; sourceTree = "<group>"; };
 		4D389F181F9630180030EAD5 /* LFMTopTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTopTag.h; sourceTree = "<group>"; };
@@ -358,6 +374,8 @@
 		4D9FFB651F9143100062279A /* LFMUserGender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMUserGender.m; sourceTree = "<group>"; };
 		4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMScrobbleTrack.h; sourceTree = "<group>"; };
 		4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMScrobbleTrack.m; sourceTree = "<group>"; };
+		4DCA59E924E55A98006F16C7 /* LFMUserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMUserTests.m; sourceTree = "<group>"; };
+		4DCA59ED24E56201006F16C7 /* LFMUserProviderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMUserProviderTests.m; sourceTree = "<group>"; };
 		4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTaggingType.h; sourceTree = "<group>"; };
 		4DDC523A1FA65A4C00B728EB /* LFMTaggingType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTaggingType.m; sourceTree = "<group>"; };
 		4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserProvider+Swift.swift"; sourceTree = "<group>"; };
@@ -473,6 +491,7 @@
 				4D9DCF531F923ECA005D8EED /* LFMSession.m */,
 				4D9DCF561F923ED9005D8EED /* LFMAuth.h */,
 				4D9DCF571F923ED9005D8EED /* LFMAuth.m */,
+				4D283DD824E5420000ABC470 /* Auth+Swift.swift */,
 			);
 			name = Authentication;
 			path = LastFMKit/Authentication;
@@ -491,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				4D9DE56324CC775C004C38CA /* LFMAlbumProviderTests.m */,
+				4DCA59ED24E56201006F16C7 /* LFMUserProviderTests.m */,
 			);
 			path = "Method Tests";
 			sourceTree = "<group>";
@@ -499,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				4D9DE57424CF2159004C38CA /* LFMAlbumTests.m */,
+				4DCA59E924E55A98006F16C7 /* LFMUserTests.m */,
 			);
 			path = "Model Tests";
 			sourceTree = "<group>";
@@ -568,6 +589,7 @@
 				4D9FFB5A1F8E95300062279A /* LFMUser.m */,
 				4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */,
 				4DC84A071FA4B671002F6D6A /* LFMScrobbleTrack.m */,
+				4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */,
 				4D9FFB4C1F8E82670062279A /* LFMTrack.h */,
 				4D9FFB4D1F8E82670062279A /* LFMTrack.m */,
 				4D9FFB501F8E82710062279A /* LFMTag.h */,
@@ -1016,6 +1038,7 @@
 				4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */,
 				4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */,
+				4D283DDF24E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */,
 				4D04DFC31FA5F9A2004675CA /* LFMAuth.m in Sources */,
 				4D04DFE91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
 				4DDC524F1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
@@ -1031,6 +1054,7 @@
 				4D04E0391FA5F9D7004675CA /* LFMQuery.m in Sources */,
 				4D04E03B1FA5F9D7004675CA /* LFMSearchQuery.m in Sources */,
 				4D04E02B1FA5F9D7004675CA /* LFMUser.m in Sources */,
+				4D283DDA24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFE71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
 				4D04E0351FA5F9D7004675CA /* LFMWiki.m in Sources */,
 			);
@@ -1053,6 +1077,7 @@
 				4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */,
+				4D283DE124E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */,
 				4D04DFBB1FA5F9A0004675CA /* LFMAuth.m in Sources */,
 				4D04DFC91FA5F9B9004675CA /* LFMChartProvider.m in Sources */,
 				4DDC52511FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
@@ -1068,6 +1093,7 @@
 				4D04E0091FA5F9D6004675CA /* LFMQuery.m in Sources */,
 				4D04E00B1FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
 				4D04DFFB1FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D283DDC24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFC71FA5F9B9004675CA /* LFMArtistProvider.m in Sources */,
 				4D04E0051FA5F9D6004675CA /* LFMWiki.m in Sources */,
 			);
@@ -1078,7 +1104,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D04E03D1FA5F9EE004675CA /* LFMTestCase.m in Sources */,
+				4DCA59F024E56201006F16C7 /* LFMUserProviderTests.m in Sources */,
 				4D9DE56B24CC8E59004C38CA /* LFMAuthTests.m in Sources */,
+				4DCA59EC24E55A98006F16C7 /* LFMUserTests.m in Sources */,
 				4D9DE57724CF2159004C38CA /* LFMAlbumTests.m in Sources */,
 				4D9DE57324CEDD00004C38CA /* LFMSessionTests.m in Sources */,
 				4D9DE56624CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
@@ -1102,6 +1130,7 @@
 				4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */,
+				4D283DE024E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */,
 				4D04DFBF1FA5F9A1004675CA /* LFMAuth.m in Sources */,
 				4D04DFD91FA5F9BA004675CA /* LFMChartProvider.m in Sources */,
 				4DDC52501FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
@@ -1117,6 +1146,7 @@
 				4D04E0211FA5F9D6004675CA /* LFMQuery.m in Sources */,
 				4D04E0231FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
 				4D04E0131FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D283DDB24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFD71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
 				4D04E01D1FA5F9D6004675CA /* LFMWiki.m in Sources */,
 			);
@@ -1127,7 +1157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D04E03C1FA5F9ED004675CA /* LFMTestCase.m in Sources */,
+				4DCA59EF24E56201006F16C7 /* LFMUserProviderTests.m in Sources */,
 				4D9DE56A24CC8E59004C38CA /* LFMAuthTests.m in Sources */,
+				4DCA59EB24E55A98006F16C7 /* LFMUserTests.m in Sources */,
 				4D9DE57624CF2159004C38CA /* LFMAlbumTests.m in Sources */,
 				4D9DE57224CEDD00004C38CA /* LFMSessionTests.m in Sources */,
 				4D9DE56524CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
@@ -1151,6 +1183,7 @@
 				4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D6A23C41F9411E000F377E2 /* LFMError.m in Sources */,
 				4D9FFB621F912A430062279A /* LFMImageSize.m in Sources */,
+				4D283DDE24E5537C00ABC470 /* ScrobbleTrack+Swift.swift in Sources */,
 				4D9FFB471F8E7FC00062279A /* LFMArtist.m in Sources */,
 				4DC84A091FA4B671002F6D6A /* LFMScrobbleTrack.m in Sources */,
 				4DDC524E1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
@@ -1166,6 +1199,7 @@
 				4D04DF651FA5F2AA004675CA /* LFMUserProvider.m in Sources */,
 				4DDDA8AB1FA0D00F00E16078 /* LFMTrackProvider.m in Sources */,
 				4D9DCF591F923ED9005D8EED /* LFMAuth.m in Sources */,
+				4D283DD924E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D9FFB5C1F8E95300062279A /* LFMUser.m in Sources */,
 				4D9FFB571F8E827B0062279A /* LFMWiki.m in Sources */,
 			);
@@ -1176,7 +1210,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D9FFB391F8E7E780062279A /* LFMTestCase.m in Sources */,
+				4DCA59EE24E56201006F16C7 /* LFMUserProviderTests.m in Sources */,
 				4D9DE56924CC8E59004C38CA /* LFMAuthTests.m in Sources */,
+				4DCA59EA24E55A98006F16C7 /* LFMUserTests.m in Sources */,
 				4D9DE57524CF2159004C38CA /* LFMAlbumTests.m in Sources */,
 				4D9DE57124CEDD00004C38CA /* LFMSessionTests.m in Sources */,
 				4D9DE56424CC775C004C38CA /* LFMAlbumProviderTests.m in Sources */,
