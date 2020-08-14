@@ -160,6 +160,7 @@
     NSDateComponents *dateComponents = [NSDateComponents new];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
+    [dateComponents setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     [dateComponents setYear:2014];
     [dateComponents setMonth:7];
     [dateComponents setDay:10];
