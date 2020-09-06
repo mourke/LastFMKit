@@ -206,6 +206,10 @@
 		4D915917250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
 		4D915918250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
 		4D915919250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
+		4D91591B2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
+		4D91591C2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
+		4D91591D2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
+		4D91591E2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
 		4D95DB8C1F9BBAF100C1C553 /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D95DB8D1F9BBAF100C1C553 /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
 		4D9DCF4E1F923E97005D8EED /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -349,6 +353,7 @@
 		4D9159062504019500AC646F /* ArtistProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtistProvider+Swift.swift"; sourceTree = "<group>"; };
 		4D915910250403F700AC646F /* LFMURLOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMURLOperation.h; sourceTree = "<group>"; };
 		4D915911250403F700AC646F /* LFMURLOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMURLOperation.m; sourceTree = "<group>"; };
+		4D91591A2504F37200AC646F /* LFMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMError.swift; sourceTree = "<group>"; };
 		4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTagProvider.h; sourceTree = "<group>"; };
 		4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTagProvider.m; sourceTree = "<group>"; };
 		4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMAlbumProvider.h; sourceTree = "<group>"; };
@@ -466,6 +471,7 @@
 				4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */,
 				4D6A23C11F9411E000F377E2 /* LFMError.h */,
 				4D6A23C21F9411E000F377E2 /* LFMError.m */,
+				4D91591A2504F37200AC646F /* LFMError.swift */,
 			);
 			name = Private;
 			path = LastFMKit/Private;
@@ -1080,6 +1086,7 @@
 				4D04E02B1FA5F9D7004675CA /* LFMUser.m in Sources */,
 				4D283DDA24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFE71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
+				4D91591C2504F37200AC646F /* LFMError.swift in Sources */,
 				4D04E0351FA5F9D7004675CA /* LFMWiki.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1121,6 +1128,7 @@
 				4D04DFFB1FA5F9D6004675CA /* LFMUser.m in Sources */,
 				4D283DDC24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFC71FA5F9B9004675CA /* LFMArtistProvider.m in Sources */,
+				4D91591E2504F37200AC646F /* LFMError.swift in Sources */,
 				4D04E0051FA5F9D6004675CA /* LFMWiki.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1176,6 +1184,7 @@
 				4D04E0131FA5F9D6004675CA /* LFMUser.m in Sources */,
 				4D283DDB24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFD71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
+				4D91591D2504F37200AC646F /* LFMError.swift in Sources */,
 				4D04E01D1FA5F9D6004675CA /* LFMWiki.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1231,6 +1240,7 @@
 				4D9DCF591F923ED9005D8EED /* LFMAuth.m in Sources */,
 				4D283DD924E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D9FFB5C1F8E95300062279A /* LFMUser.m in Sources */,
+				4D91591B2504F37200AC646F /* LFMError.swift in Sources */,
 				4D9FFB571F8E827B0062279A /* LFMWiki.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

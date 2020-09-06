@@ -45,7 +45,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
                 toAlbumNamed:(NSString *)albumName
@@ -62,7 +62,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param albumArtist The name of the album's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
@@ -84,7 +84,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @note  It is @b very important that you use the album release id and not the album release group id. The album release group contains information about the album release - i.e. the releases for each country, whether a delux cd was released, the digital version etc. The album release is a specific one of these group items. If you provide an album release group id you will get an error code @b 6 saying the album was not found.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getInfoOnAlbumNamed:(nullable NSString *)albumName
                                 byArtistNamed:(nullable NSString *)albumArtist
@@ -106,7 +106,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param username    The name of any Last.fm user from which to obtain album tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTagsForAlbumNamed:(nullable NSString *)albumName
                                  byArtistNamed:(nullable NSString *)albumArtist
@@ -124,7 +124,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTagsForAlbumNamed:(nullable NSString *)albumName
                                     byArtistNamed:(nullable NSString *)albumArtist
@@ -140,7 +140,7 @@ NS_SWIFT_NAME(AlbumProvider)
  @param page        The page of results to be fetched. Page must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMSearchQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(nullable NSNumber *)limit

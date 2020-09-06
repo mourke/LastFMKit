@@ -34,19 +34,21 @@ public extension Auth {
      - Parameter password:    The password in plaintext.
      - Parameter callback:    The block called upon completion indicating success or failure.
      
-     - Returns: The `URLSessionDataTask` object from the web request.
+     - Returns: The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     func getSession(username: String,
                     password: String,
-                    callback: @escaping (Result<Session, Error>) -> Void) -> LFMURLOperation {
+                    callback: @escaping (Result<Session, LFMError>) -> Void) -> LFMURLOperation {
         return __getSessionWithUsername(username, password: password) { (session, error) in
-            let result: Result<Session, Error>
+            let result: Result<Session, LFMError>
 
             if let session = session {
                 result = .success(session)
+            } else if let error = error {
+                result = .failure(LFMError.underlyingError(error as NSError))
             } else {
-                result = .failure(error ?? NSError() as Error)
+                fatalError("Unhandled error occurred")
             }
             
             callback(result)

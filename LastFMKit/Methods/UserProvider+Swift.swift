@@ -32,19 +32,21 @@ public extension UserProvider {
      Retrieves information about a user's profile.
      
      - Parameter username:    The user to fetch info for.
-     - Parameter callback:    The callback block containing an optional `Error` if the request fails and a `User` object if it succeeds.
+     - Parameter callback:    The callback block containing an `LFMError` if the request fails and a `User` object if it succeeds.
      
-     - Returns:  The `URLSessionDataTask` object from the web request.
+     - Returns:  The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
-    class func getInfo(on user: String, callback: @escaping (Result<User, Error>) -> Void) -> LFMURLOperation {
+    class func getInfo(on user: String, callback: @escaping (Result<User, LFMError>) -> Void) -> LFMURLOperation {
         return __getInfoOnUserNamed(user) { (user, error) in
-            let result: Result<User, Error>
+            let result: Result<User, LFMError>
             
             if let user = user {
                 result = .success(user)
+            } else if let error = error {
+                result = .failure(LFMError.underlyingError(error as NSError))
             } else {
-                result = .failure(error ?? NSError() as Error)
+                fatalError("Unhandled error occurred")
             }
             
             callback(result)
@@ -59,16 +61,16 @@ public extension UserProvider {
      - Parameter type:  The type of the item. This MUST be either `Track`, `Album` or `Artist` or an exception will be raised.
      - Parameter limit: The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
      - Parameter page:  The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
-     - Parameter block: The callback block containing an optional `Error` if the request fails and an array of the specified type (`Aritst`s, `Track`s, `Album`s) and a `Query` object if it succeeds.
+     - Parameter block: The callback block containing an `LFMError` if the request fails and an array of the specified type (`Aritst`s, `Track`s, `Album`s) and a `Query` object if it succeeds.
      
-     - Returns: The `URLSessionDataTask` object from the web request.
+     - Returns: The `LFMURLOperation` object to be resumed.
      */
     class func getItemsTagged<T: NSObject>(by user: String,
                                            for tag: String,
                                            type: T.Type,
                                            limit: Int = 30,
                                            on page: Int = 1,
-                                           callback: @escaping (Result<([T], Query), Error>) -> Void) -> LFMURLOperation {
+                                           callback: @escaping (Result<([T], Query), LFMError>) -> Void) -> LFMURLOperation {
         let taggingType: TaggingType
         
         switch type {
@@ -87,13 +89,15 @@ public extension UserProvider {
                                 itemType: taggingType,
                                 itemsPerPage: NSNumber(value: limit),
                                 onPage: NSNumber(value: page)) { (items, query, error) in
-            let result: Result<([T], Query), Error>
+            let result: Result<([T], Query), LFMError>
             
             if let query = query,
                 let items = items as? [T] {
                 result = .success((items, query))
+            } else if let error = error {
+                result = .failure(LFMError.underlyingError(error as NSError))
             } else {
-                result = .failure(error ?? NSError() as Error)
+                fatalError("Unhandled error occurred")
             }
             
             callback(result)

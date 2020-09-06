@@ -43,7 +43,7 @@ NS_SWIFT_NAME(UserProvider)
  @param username    The user to fetch info for.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMUser` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getInfoOnUserNamed:(NSString *)username
                                     callback:(LFMUserCallback)block NS_REFINED_FOR_SWIFT;
@@ -57,7 +57,7 @@ NS_SWIFT_NAME(UserProvider)
  @param page            The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block           The callback block containing an optional `NSError` if the request fails and an array of `LFMUser` objects and an `LFMQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
@@ -75,7 +75,7 @@ NS_SWIFT_NAME(UserProvider)
  @param endDate     The latest date from which to fetch scrobbles.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
@@ -92,7 +92,7 @@ NS_SWIFT_NAME(UserProvider)
  @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTracksLovedByUserNamed:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
@@ -109,7 +109,7 @@ NS_SWIFT_NAME(UserProvider)
  @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of the specified type (`LFMAritst`s, `LFMTrack`s, `LFMAlbum`s) and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
@@ -128,7 +128,7 @@ NS_SWIFT_NAME(UserProvider)
  @param endDate     The latest date from which to fetch tracks.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getRecentTracksForUsername:(NSString *)username
                                          itemsPerPage:(nullable NSNumber *)limit
@@ -146,7 +146,7 @@ NS_SWIFT_NAME(UserProvider)
  @param period      The time period over which to retrieve top albums.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopAlbumsForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
@@ -163,7 +163,7 @@ NS_SWIFT_NAME(UserProvider)
  @param period      The time period over which to retrieve top artists.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopArtistsForUsername:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
@@ -180,7 +180,7 @@ NS_SWIFT_NAME(UserProvider)
  @param period      The time period over which to retrieve top tracks.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTracksForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
@@ -195,7 +195,7 @@ NS_SWIFT_NAME(UserProvider)
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag` objects and an `LFMQuery` object if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTagsForUsername:(NSString *)username
                                            limit:(nullable NSNumber *)limit
@@ -209,7 +209,7 @@ NS_SWIFT_NAME(UserProvider)
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum` objects if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
@@ -224,7 +224,7 @@ NS_SWIFT_NAME(UserProvider)
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(nullable NSDate *)startDate
@@ -239,7 +239,7 @@ NS_SWIFT_NAME(UserProvider)
  @param endDate     The date on which the chart should end.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
@@ -252,7 +252,7 @@ NS_SWIFT_NAME(UserProvider)
  @param username    The user for whom to fetch chart lists.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMChart` objects if it succeeds.
  
- @return    The `NSURLSessionDataTask` object from the web request.
+ @return    The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getWeeklyChartListForUsername:(NSString *)username
                                                 callback:(LFMChartsCallback)block NS_REFINED_FOR_SWIFT;

@@ -64,7 +64,7 @@
             if (error != nil) {
                 NSMutableDictionary *userInfo = [error.userInfo mutableCopy];
                 userInfo[NSLocalizedRecoverySuggestionErrorKey] = @"Click 'Retry' to try again.";
-                userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"OK", @"Retry"];
+                userInfo[NSLocalizedRecoveryOptionsErrorKey] = @[@"Retry"];
                 userInfo[NSRecoveryAttempterErrorKey] = weakSelf; // we only want our operation to last as long as it's being retained, not for as long as this error object is retained.
                 error = [NSError errorWithDomain:error.domain code:error.code userInfo:userInfo];
             }
@@ -81,26 +81,25 @@
 }
 
 - (BOOL)attemptRecoveryFromError:(NSError *)error optionIndex:(NSUInteger)recoveryOptionIndex {
-    if (recoveryOptionIndex == 1) {
-        [self retry];
-        return YES;
-    }
-    
-    return NO;
+    [self restart];
+    return YES;
 }
 
 - (void)attemptRecoveryFromError:(NSError *)error optionIndex:(NSUInteger)recoveryOptionIndex delegate:(id)delegate didRecoverSelector:(SEL)didRecoverSelector contextInfo:(void *)contextInfo {
     BOOL didRecover = [self attemptRecoveryFromError:error optionIndex:recoveryOptionIndex];
     
     if ([delegate respondsToSelector:didRecoverSelector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [delegate performSelector:didRecoverSelector withObject:@(didRecover) withObject:(__bridge id)(contextInfo)];
-#pragma clang diagnostic pop
+        NSMethodSignature *signature = [[delegate class] instanceMethodSignatureForSelector:didRecoverSelector];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setTarget:delegate];
+        [invocation setSelector:didRecoverSelector];
+        [invocation setArgument:&didRecover atIndex:2];
+        [invocation setArgument:&contextInfo atIndex:3];
+        [invocation invoke];
     }
 }
 
-- (void)retry {
+- (void)restart {
     [_task cancel];
     _task = nil;
     [self resume];

@@ -68,8 +68,12 @@ typedef void (^OperationCallback)(NSDictionary * _Nullable responseDictionary, N
 /** Cancel the underlying  NSURLSessionDataTask. */
 - (void)cancel;
 
-/** Retry the  NSURLSessionDataTask. If the task has not yet completed, it will be cancelled and destroyed. */
-- (void)retry;
+/**
+ Restart the  NSURLSessionDataTask. If the task has not yet completed, it will be cancelled and destroyed. If the task doesn't exist, this is identical to calling `resume`
+ 
+ @note  This will work even when the NSURLSessionDataTask has finished (either completed, cancelled or failed).
+ */
+- (void)restart;
 
 /** Temporarily suspend the underlying  NSURLSessionDataTask. */
 - (void)suspend;

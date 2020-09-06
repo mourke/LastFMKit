@@ -49,7 +49,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param mbid        The MusicBrainzID for the track.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)updateNowPlayingWithTrackNamed:(NSString *)trackName
                                            byArtistNamed:(NSString *)artistName
@@ -72,7 +72,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param tracks  The array of tracks to be scrobbled. The maximum amount of tracks that can be scrobbled at a time is 50. An exception will be raised if this limit is passed.
  @param block   The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks
                                 callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(scrobble(tracks:callback:));
@@ -86,7 +86,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the track's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)loveTrackNamed:(NSString *)trackName
                            byArtistNamed:(NSString *)artistName
@@ -101,7 +101,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the track's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)unloveTrackNamed:(NSString *)trackName
                              byArtistNamed:(NSString *)artistName
@@ -117,7 +117,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param username    The username for the context of the request. If supplied, the user's playcount for this track is included in the response.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTrack` object if the request succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getInfoOnTrackNamed:(nullable NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
@@ -135,7 +135,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMSearchQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)searchForTrackNamed:(NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
@@ -153,7 +153,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if the request succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTracksSimilarToTrackNamed:(nullable NSString *)trackName
                                          byArtistNamed:(nullable NSString *)artistName
@@ -169,7 +169,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the artist.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTrack` object if the request succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
                                      withMisspelledArtistNamed:(NSString *)artistName
@@ -185,7 +185,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the track's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
                      toTrackNamed:(NSString *)trackName
@@ -202,7 +202,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param artistName  The name of the track's artist.
  @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)removeTag:(LFMTag *)tag
                      fromTrackNamed:(NSString *)trackName
@@ -221,7 +221,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param username    The name of any Last.fm user from which to obtain track tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTagsForTrackNamed:(nullable NSString *)trackName
                                  byArtistNamed:(nullable NSString *)artistName
@@ -239,7 +239,7 @@ NS_SWIFT_NAME(TrackProvider)
  @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
  @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTagsForTrackNamed:(nullable NSString *)trackName
                                     byArtistNamed:(nullable NSString *)artistName

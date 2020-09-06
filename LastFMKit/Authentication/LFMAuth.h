@@ -58,7 +58,7 @@ typedef void (^LFMAuthCallback)(LFMSession * _Nullable session, NSError * _Nulla
  @param password    The password in plaintext.
  @param block       The block called upon completion indicating success or failure.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 - (LFMURLOperation *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password

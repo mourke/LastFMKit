@@ -42,7 +42,7 @@ NS_SWIFT_NAME(TagProvider)
  @param language    The language in which to return the wiki, expressed as an ISO 639 alpha-2 code.
  @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTag` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getInfoOnTagNamed:(NSString *)tagName
                                    language:(nullable NSString *)language
@@ -53,7 +53,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTagsWithCallback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -63,7 +63,7 @@ NS_SWIFT_NAME(TagProvider)
  @param tagName The name of the tag.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag` objects if the request succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTagsSimilarToTagNamed:(NSString *)tagName
                                           callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
@@ -76,7 +76,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(nullable NSNumber *)limit
@@ -91,7 +91,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
                                            itemsPerPage:(nullable NSNumber *)limit
@@ -106,7 +106,7 @@ NS_SWIFT_NAME(TagProvider)
  @param limit   The maximum number of albums to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
  @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
  
- @return   The `NSURLSessionDataTask` object from the web request.
+ @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)getTopTracksTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(nullable NSNumber *)limit
