@@ -24,6 +24,7 @@
 //
 
 #import "LFMChartProvider.h"
+#import "LFMURLOperation.h"
 #import "LFMArtist.h"
 #import "LFMAuth.h"
 #import "LFMQuery.h"
@@ -32,7 +33,7 @@
 
 @implementation LFMChartProvider
 
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopArtistsOnPage:(nullable NSNumber *)page
                                  itemsPerPage:(nullable NSNumber *)limit
                                      callback:(LFMArtistPaginatedCallback)block {
     NSParameterAssert(block);
@@ -48,8 +49,6 @@
         limit = @30;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -61,15 +60,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
         
         id artistsDictionary = [responseDictionary objectForKey:@"artists"];
         if (artistsDictionary != nil &&
@@ -89,13 +84,9 @@
             block(artists, nil, error);
         }
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopTagsOnPage:(nullable NSNumber *)page
                               itemsPerPage:(nullable NSNumber *)limit
                                   callback:(LFMTagPaginatedCallback)block {
     NSParameterAssert(block);
@@ -111,8 +102,6 @@
         limit = @30;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -124,15 +113,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
         
         id tagsDictionary = [responseDictionary objectForKey:@"tags"];
         if (tagsDictionary != nil &&
@@ -152,13 +137,9 @@
             block(tags, nil, error);
         }
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopTracksOnPage:(nullable NSNumber *)page
                                 itemsPerPage:(nullable NSNumber *)limit
                                     callback:(LFMTrackPaginatedCallback)block {
     NSParameterAssert(block);
@@ -174,8 +155,6 @@
         limit = @30;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"chart.getTopTracks"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -187,15 +166,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
         
         id tracksDictionary = [responseDictionary objectForKey:@"tracks"];
         if (tracksDictionary != nil &&
@@ -215,10 +190,6 @@
             block(tracks, nil, error);
         }
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
 @end

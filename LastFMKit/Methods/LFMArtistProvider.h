@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMTag, LFMTopTag, LFMArtist, LFMAlbum, LFMQuery, LFMSearchQuery, LFMTrack;
+@class LFMURLOperation, LFMTag, LFMTopTag, LFMArtist, LFMAlbum, LFMQuery, LFMSearchQuery, LFMTrack;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +46,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
++ (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
                     toArtistNamed:(NSString *)artistName
                          callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:callback:));
 
@@ -61,7 +61,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
++ (LFMURLOperation *)removeTag:(LFMTag *)tag
                     fromArtistNamed:(NSString *)artistName
                            callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:callback:));
 
@@ -73,7 +73,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getCorrectionForMisspeltArtistName:(NSString *)artistName
++ (LFMURLOperation *)getCorrectionForMisspeltArtistName:(NSString *)artistName
                                                     callback:(LFMArtistCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
@@ -88,7 +88,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getInfoOnArtistNamed:(nullable NSString *)artistName
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                    forUsername:(nullable NSString *)username
@@ -106,7 +106,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getArtistsSimilarToArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getArtistsSimilarToArtistNamed:(nullable NSString *)artistName
                                        withMusicBrainzId:(nullable NSString *)mbid
                                              autoCorrect:(BOOL)autoCorrect
                                                    limit:(nullable NSNumber *)limit
@@ -125,7 +125,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTagsForArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getTagsForArtistNamed:(nullable NSString *)artistName
                               withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
                                     forUsername:(nullable NSString *)username
@@ -143,7 +143,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopAlbumsForArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getTopAlbumsForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
                                         itemsPerPage:(nullable NSNumber *)limit
@@ -162,7 +162,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksForArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getTopTracksForArtistNamed:(nullable NSString *)artistName
                                    withMusicBrainzId:(nullable NSString *)mbid
                                          autoCorrect:(BOOL)autoCorrect
                                         itemsPerPage:(nullable NSNumber *)limit
@@ -179,7 +179,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsForArtistNamed:(nullable NSString *)artistName
++ (LFMURLOperation *)getTopTagsForArtistNamed:(nullable NSString *)artistName
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
                                          callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
@@ -194,7 +194,7 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)searchForArtistNamed:(NSString *)artistName
++ (LFMURLOperation *)searchForArtistNamed:(NSString *)artistName
                                   itemsPerPage:(nullable NSNumber *)limit
                                         onPage:(nullable NSNumber *)page
                                       callback:(LFMArtistSearchCallback)block NS_REFINED_FOR_SWIFT;

@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMArtist, LFMSearchQuery, LFMTag, LFMTrack;
+@class LFMURLOperation, LFMArtist, LFMSearchQuery, LFMTag, LFMTrack;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +46,7 @@ NS_SWIFT_NAME(ChartProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopArtistsOnPage:(nullable NSNumber *)page
                                  itemsPerPage:(nullable NSNumber *)limit
                                      callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -59,7 +59,7 @@ NS_SWIFT_NAME(ChartProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopTagsOnPage:(nullable NSNumber *)page
                               itemsPerPage:(nullable NSNumber *)limit
                                   callback:(LFMTagPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -72,7 +72,7 @@ NS_SWIFT_NAME(ChartProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksOnPage:(nullable NSNumber *)page
++ (LFMURLOperation *)getTopTracksOnPage:(nullable NSNumber *)page
                                 itemsPerPage:(nullable NSNumber *)limit
                                     callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
 

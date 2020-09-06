@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMArtist, LFMQuery;
+@class LFMURLOperation, LFMArtist, LFMQuery;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,7 +45,7 @@ NS_SWIFT_NAME(LibraryProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getArtistsForUsername:(NSString *)username
++ (LFMURLOperation *)getArtistsForUsername:(NSString *)username
                                     itemsPerPage:(nullable NSNumber *)limit
                                           onPage:(nullable NSNumber *)page
                                         callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;

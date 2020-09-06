@@ -37,7 +37,7 @@ public extension UserProvider {
      - Returns:  The `URLSessionDataTask` object from the web request.
      */
     @discardableResult
-    class func getInfo(on user: String, callback: @escaping (Result<User, Error>) -> Void) -> URLSessionDataTask {
+    class func getInfo(on user: String, callback: @escaping (Result<User, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnUserNamed(user) { (user, error) in
             let result: Result<User, Error>
             
@@ -68,7 +68,7 @@ public extension UserProvider {
                                            type: T.Type,
                                            limit: Int = 30,
                                            on page: Int = 1,
-                                           callback: @escaping (Result<([T], Query), Error>) -> Void) -> URLSessionDataTask {
+                                           callback: @escaping (Result<([T], Query), Error>) -> Void) -> LFMURLOperation {
         let taggingType: TaggingType
         
         switch type {

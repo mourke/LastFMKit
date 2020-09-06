@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMTrack, LFMSearchQuery, LFMScrobbleTrack, LFMTag, LFMTopTag;
+@class LFMURLOperation, LFMTrack, LFMSearchQuery, LFMScrobbleTrack, LFMTag, LFMTopTag;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,7 +51,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)updateNowPlayingWithTrackNamed:(NSString *)trackName
++ (LFMURLOperation *)updateNowPlayingWithTrackNamed:(NSString *)trackName
                                            byArtistNamed:(NSString *)artistName
                                             onAlbumNamed:(nullable NSString *)albumName
                                          positionInAlbum:(nullable NSNumber *)trackNumber
@@ -74,7 +74,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks
++ (LFMURLOperation *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks
                                 callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(scrobble(tracks:callback:));
 
 /**
@@ -88,7 +88,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)loveTrackNamed:(NSString *)trackName
++ (LFMURLOperation *)loveTrackNamed:(NSString *)trackName
                            byArtistNamed:(NSString *)artistName
                                 callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(love(track:by:callback:));
 
@@ -103,7 +103,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)unloveTrackNamed:(NSString *)trackName
++ (LFMURLOperation *)unloveTrackNamed:(NSString *)trackName
                              byArtistNamed:(NSString *)artistName
                                   callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(unlove(track:by:callback:));
 
@@ -119,7 +119,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnTrackNamed:(nullable NSString *)trackName
++ (LFMURLOperation *)getInfoOnTrackNamed:(nullable NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
@@ -137,7 +137,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)searchForTrackNamed:(NSString *)trackName
++ (LFMURLOperation *)searchForTrackNamed:(NSString *)trackName
                                 byArtistNamed:(nullable NSString *)artistName
                                  itemsPerPage:(nullable NSNumber *)limit
                                        onPage:(nullable NSNumber *)page
@@ -155,7 +155,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTracksSimilarToTrackNamed:(nullable NSString *)trackName
++ (LFMURLOperation *)getTracksSimilarToTrackNamed:(nullable NSString *)trackName
                                          byArtistNamed:(nullable NSString *)artistName
                                      withMusicBrainzId:(nullable NSString *)mbid
                                            autoCorrect:(BOOL)autoCorrect
@@ -171,7 +171,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
++ (LFMURLOperation *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
                                      withMisspelledArtistNamed:(NSString *)artistName
                                                       callback:(LFMTrackCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -187,7 +187,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
++ (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
                      toTrackNamed:(NSString *)trackName
                     byArtistNamed:(NSString *)artistName
                          callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:by:callback:));
@@ -204,7 +204,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
++ (LFMURLOperation *)removeTag:(LFMTag *)tag
                      fromTrackNamed:(NSString *)trackName
                       byArtistNamed:(NSString *)artistName
                            callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:by:callback:));
@@ -223,7 +223,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTagsForTrackNamed:(nullable NSString *)trackName
++ (LFMURLOperation *)getTagsForTrackNamed:(nullable NSString *)trackName
                                  byArtistNamed:(nullable NSString *)artistName
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
@@ -241,7 +241,7 @@ NS_SWIFT_NAME(TrackProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsForTrackNamed:(nullable NSString *)trackName
++ (LFMURLOperation *)getTopTagsForTrackNamed:(nullable NSString *)trackName
                                     byArtistNamed:(nullable NSString *)artistName
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect

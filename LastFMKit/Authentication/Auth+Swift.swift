@@ -39,7 +39,7 @@ public extension Auth {
     @discardableResult
     func getSession(username: String,
                     password: String,
-                    callback: @escaping (Result<Session, Error>) -> Void) -> URLSessionDataTask {
+                    callback: @escaping (Result<Session, Error>) -> Void) -> LFMURLOperation {
         return __getSessionWithUsername(username, password: password) { (session, error) in
             let result: Result<Session, Error>
 

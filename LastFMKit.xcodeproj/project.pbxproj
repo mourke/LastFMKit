@@ -194,6 +194,18 @@
 		4D6A23C81F94BF7100F377E2 /* LFMSearchQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */; };
 		4D6A23CA1F94D13B00F377E2 /* LastFMKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9FFB2D1F8E7E780062279A /* LastFMKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D9159072504019500AC646F /* ArtistProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159062504019500AC646F /* ArtistProvider+Swift.swift */; };
+		4D9159082504019500AC646F /* ArtistProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159062504019500AC646F /* ArtistProvider+Swift.swift */; };
+		4D9159092504019500AC646F /* ArtistProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159062504019500AC646F /* ArtistProvider+Swift.swift */; };
+		4D91590A2504019500AC646F /* ArtistProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159062504019500AC646F /* ArtistProvider+Swift.swift */; };
+		4D915912250403F700AC646F /* LFMURLOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D915910250403F700AC646F /* LFMURLOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D915913250403F700AC646F /* LFMURLOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D915910250403F700AC646F /* LFMURLOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D915914250403F700AC646F /* LFMURLOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D915910250403F700AC646F /* LFMURLOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D915915250403F700AC646F /* LFMURLOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D915910250403F700AC646F /* LFMURLOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D915916250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
+		4D915917250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
+		4D915918250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
+		4D915919250403F700AC646F /* LFMURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D915911250403F700AC646F /* LFMURLOperation.m */; };
 		4D95DB8C1F9BBAF100C1C553 /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D95DB8D1F9BBAF100C1C553 /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
 		4D9DCF4E1F923E97005D8EED /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -334,6 +346,9 @@
 		4D6A23C21F9411E000F377E2 /* LFMError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMError.m; sourceTree = "<group>"; };
 		4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMSearchQuery.h; sourceTree = "<group>"; };
 		4D6A23C71F94BF7100F377E2 /* LFMSearchQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMSearchQuery.m; sourceTree = "<group>"; };
+		4D9159062504019500AC646F /* ArtistProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtistProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D915910250403F700AC646F /* LFMURLOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMURLOperation.h; sourceTree = "<group>"; };
+		4D915911250403F700AC646F /* LFMURLOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMURLOperation.m; sourceTree = "<group>"; };
 		4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTagProvider.h; sourceTree = "<group>"; };
 		4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTagProvider.m; sourceTree = "<group>"; };
 		4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMAlbumProvider.h; sourceTree = "<group>"; };
@@ -466,6 +481,7 @@
 				4D3FF2A624D1DFE000B19651 /* AlbumProvider+Swift.swift */,
 				4D389F141F950F8D0030EAD5 /* LFMArtistProvider.h */,
 				4D389F151F950F8D0030EAD5 /* LFMArtistProvider.m */,
+				4D9159062504019500AC646F /* ArtistProvider+Swift.swift */,
 				4D389F1C1F9638890030EAD5 /* LFMChartProvider.h */,
 				4D389F1D1F9638890030EAD5 /* LFMChartProvider.m */,
 				4D1685A11F9680B80013355C /* LFMGeoProvider.h */,
@@ -575,6 +591,8 @@
 		4D9FFB581F8E93830062279A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D915910250403F700AC646F /* LFMURLOperation.h */,
+				4D915911250403F700AC646F /* LFMURLOperation.m */,
 				4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */,
 				4DDC52491FA74D7C00B728EB /* LFMTimePeriod.m */,
 				4DDC52391FA65A4C00B728EB /* LFMTaggingType.h */,
@@ -645,6 +663,7 @@
 				4D04DFE81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
 				4DDC524B1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04E02A1FA5F9D7004675CA /* LFMUser.h in Headers */,
+				4D915913250403F700AC646F /* LFMURLOperation.h in Headers */,
 				4D04E0341FA5F9D7004675CA /* LFMWiki.h in Headers */,
 				4DDC52551FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAE1FA5F969004675CA /* LastFMKit.h in Headers */,
@@ -682,6 +701,7 @@
 				4D04DFC81FA5F9B9004675CA /* LFMChartProvider.h in Headers */,
 				4DDC524D1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04DFFA1FA5F9D6004675CA /* LFMUser.h in Headers */,
+				4D915915250403F700AC646F /* LFMURLOperation.h in Headers */,
 				4D04E0041FA5F9D6004675CA /* LFMWiki.h in Headers */,
 				4DDC52571FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAB1FA5F967004675CA /* LastFMKit.h in Headers */,
@@ -719,6 +739,7 @@
 				4D04DFD81FA5F9BA004675CA /* LFMChartProvider.h in Headers */,
 				4DDC524C1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D04E0121FA5F9D6004675CA /* LFMUser.h in Headers */,
+				4D915914250403F700AC646F /* LFMURLOperation.h in Headers */,
 				4D04E01C1FA5F9D6004675CA /* LFMWiki.h in Headers */,
 				4DDC52561FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D04DFAC1FA5F968004675CA /* LastFMKit.h in Headers */,
@@ -756,6 +777,7 @@
 				4D389F1A1F9630180030EAD5 /* LFMTopTag.h in Headers */,
 				4DDC524A1FA74D7C00B728EB /* LFMTimePeriod.h in Headers */,
 				4D9FFB5B1F8E95300062279A /* LFMUser.h in Headers */,
+				4D915912250403F700AC646F /* LFMURLOperation.h in Headers */,
 				4D9FFB521F8E82710062279A /* LFMTag.h in Headers */,
 				4DDC52541FA75D7C00B728EB /* LFMChart.h in Headers */,
 				4D389F161F950F8D0030EAD5 /* LFMArtistProvider.h in Headers */,
@@ -1030,11 +1052,13 @@
 				4DDC52401FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0311FA5F9D7004675CA /* LFMTag.m in Sources */,
 				4D04DFF31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
+				4D915917250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */,
 				4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */,
 				4D9DE57F24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D9159082504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E0271FA5F9D7004675CA /* LFMImageSize.m in Sources */,
 				4D04DFC11FA5F9A2004675CA /* LFMSession.m in Sources */,
@@ -1069,11 +1093,13 @@
 				4DDC52421FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0011FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFD31FA5F9B9004675CA /* LFMUserProvider.m in Sources */,
+				4D915919250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */,
 				4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */,
 				4D9DE58124CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D91590A2504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04DFF71FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFB91FA5F9A0004675CA /* LFMSession.m in Sources */,
@@ -1122,11 +1148,13 @@
 				4DDC52411FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D04E0191FA5F9D6004675CA /* LFMTag.m in Sources */,
 				4D04DFE31FA5F9BA004675CA /* LFMUserProvider.m in Sources */,
+				4D915918250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */,
 				4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
 				4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */,
 				4D9DE58024CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D9159092504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D04E00F1FA5F9D6004675CA /* LFMImageSize.m in Sources */,
 				4D04DFBD1FA5F9A1004675CA /* LFMSession.m in Sources */,
@@ -1175,11 +1203,13 @@
 				4DDC523F1FA65A4C00B728EB /* LFMTaggingType.m in Sources */,
 				4D389F231F964A160030EAD5 /* LFMQuery.m in Sources */,
 				4D1685A41F9680B80013355C /* LFMGeoProvider.m in Sources */,
+				4D915916250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D389F1B1F9630180030EAD5 /* LFMTopTag.m in Sources */,
 				4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */,
 				4D9DCF4F1F923E97005D8EED /* LFMAlbumProvider.m in Sources */,
 				4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */,
 				4D9DE57E24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
+				4D9159072504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */,
 				4D6A23C41F9411E000F377E2 /* LFMError.m in Sources */,
 				4D9FFB621F912A430062279A /* LFMImageSize.m in Sources */,

@@ -27,7 +27,7 @@
 #import "LFMTaggingType.h"
 #import "LFMTimePeriod.h"
 
-@class LFMUser, LFMQuery, LFMTrack, LFMAlbum, LFMArtist, LFMTopTag, LFMChart;
+@class LFMURLOperation, LFMUser, LFMQuery, LFMTrack, LFMAlbum, LFMArtist, LFMTopTag, LFMChart;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,7 +45,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)username
++ (LFMURLOperation *)getInfoOnUserNamed:(NSString *)username
                                     callback:(LFMUserCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
@@ -59,7 +59,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)username
++ (LFMURLOperation *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
                                    itemsPerPage:(nullable NSNumber *)limit
                                          onPage:(nullable NSNumber *)page
@@ -77,7 +77,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)username
++ (LFMURLOperation *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
                                                  onPage:(nullable NSNumber *)page
                                           fromStartDate:(nullable NSDate *)startDate
@@ -94,7 +94,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)username
++ (LFMURLOperation *)getTracksLovedByUserNamed:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
                                              onPage:(nullable NSNumber *)page
                                            callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;
@@ -111,7 +111,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)username
++ (LFMURLOperation *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
                                            itemType:(LFMTaggingType)type
                                        itemsPerPage:(nullable NSNumber *)limit
@@ -130,7 +130,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getRecentTracksForUsername:(NSString *)username
++ (LFMURLOperation *)getRecentTracksForUsername:(NSString *)username
                                          itemsPerPage:(nullable NSNumber *)limit
                                                onPage:(nullable NSNumber *)page
                                         fromStartDate:(nullable NSDate *)startDate
@@ -148,7 +148,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopAlbumsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopAlbumsForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
                                             onPage:(nullable NSNumber *)page
                                         overPeriod:(nullable LFMTimePeriod)period
@@ -165,7 +165,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopArtistsForUsername:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
                                              onPage:(nullable NSNumber *)page
                                          overPeriod:(nullable LFMTimePeriod)period
@@ -182,7 +182,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksForUsername:(NSString *)username
++ (LFMURLOperation *)getTopTracksForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
                                             onPage:(nullable NSNumber *)page
                                         overPeriod:(nullable LFMTimePeriod)period
@@ -197,7 +197,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopTagsForUsername:(NSString *)username
                                            limit:(nullable NSNumber *)limit
                                         callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -211,7 +211,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyAlbumChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
                                                 toEndDate:(nullable NSDate *)endDate
                                                  callback:(LFMAlbumsCallback)block NS_REFINED_FOR_SWIFT;
@@ -226,7 +226,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyArtistChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(nullable NSDate *)startDate
                                                  toEndDate:(nullable NSDate *)endDate
                                                   callback:(LFMArtistsCallback)block NS_REFINED_FOR_SWIFT;
@@ -241,7 +241,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyTrackChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(nullable NSDate *)startDate
                                                 toEndDate:(nullable NSDate *)endDate
                                                  callback:(LFMTracksCallback)block NS_REFINED_FOR_SWIFT;
@@ -254,7 +254,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @return    The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getWeeklyChartListForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyChartListForUsername:(NSString *)username
                                                 callback:(LFMChartsCallback)block NS_REFINED_FOR_SWIFT;
 
 @end

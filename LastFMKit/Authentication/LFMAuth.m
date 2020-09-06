@@ -24,6 +24,7 @@
 //
 
 #import "LFMAuth.h"
+#import "LFMURLOperation.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "LFMSession.h"
 #import "LFMKit+Protected.h"
@@ -81,11 +82,9 @@ NSString* md5(NSString *string);
     return _session != nil;
 }
 
-- (NSURLSessionDataTask *)getSessionWithUsername:(NSString *)username
+- (LFMURLOperation *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password
                                         callback:(LFMAuthCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -101,25 +100,15 @@ NSString* md5(NSString *string);
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     
-    __weak __typeof__(self) weakSelf = self;
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         LFMSession *session = [[LFMSession alloc] initFromDictionary:[responseDictionary objectForKey:@"session"]];
-        [weakSelf setSession:session];
+        [self setSession:session];
         
         block(session, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
 - (NSURLQueryItem *)signatureItemForQueryItems:(NSArray<NSURLQueryItem *> *)queryItems {

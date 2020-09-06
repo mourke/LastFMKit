@@ -48,7 +48,7 @@ public extension AlbumProvider {
                        autoCorrectArtist autoCorrect: Bool = true,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Album, Error>) -> Void) -> URLSessionDataTask {
+                       callback: @escaping (Result<Album, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnAlbumNamed(album,
                                      byArtistNamed: artist,
                                      albumMBID: nil,
@@ -87,7 +87,7 @@ public extension AlbumProvider {
     class func getInfo(on mid: String,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Album, Error>) -> Void) -> URLSessionDataTask {
+                       callback: @escaping (Result<Album, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnAlbumNamed(nil,
                                      byArtistNamed: nil,
                                      albumMBID: mid,
@@ -124,7 +124,7 @@ public extension AlbumProvider {
                        by artist: String,
                        autoCorrectArtist autoCorrect: Bool = true,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], Error>) -> Void) -> URLSessionDataTask {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForAlbumNamed(album,
                                      byArtistNamed: artist,
                                      withMusicBrainzId: nil,
@@ -158,7 +158,7 @@ public extension AlbumProvider {
     @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], Error>) -> Void) -> URLSessionDataTask {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForAlbumNamed(nil,
                                      byArtistNamed: nil,
                                      withMusicBrainzId: mbid,
@@ -190,7 +190,7 @@ public extension AlbumProvider {
     class func getTopTags(for album: String,
                           by artist: String,
                           autoCorrectArtist autoCorrect: Bool = true,
-                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> URLSessionDataTask {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forAlbumNamed: album,
                             byArtistNamed: artist,
                             withMusicBrainzId: nil,
@@ -219,7 +219,7 @@ public extension AlbumProvider {
     */
     @discardableResult
     class func getTopTags(for mbid: String,
-                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> URLSessionDataTask {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forAlbumNamed: nil,
                             byArtistNamed: nil,
                             withMusicBrainzId: mbid,
@@ -250,7 +250,7 @@ public extension AlbumProvider {
     class func search(for query: String,
                       limit: Int = 30,
                       page: Int = 1,
-                      callback: @escaping (Result<([Album], SearchQuery), Error>) -> Void) -> URLSessionDataTask {
+                      callback: @escaping (Result<([Album], SearchQuery), Error>) -> Void) -> LFMURLOperation {
         return __search(forAlbumNamed: query,
                         itemsPerPage: NSNumber(value: limit),
                         onPage: NSNumber(value: page)) { (albums, searchQuery, error) in

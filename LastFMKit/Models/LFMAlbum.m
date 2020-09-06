@@ -74,7 +74,7 @@
             id tracksDictionary = [dictionary objectForKey:@"tracks"];
             if (tracksDictionary != nil &&
                 [tracksDictionary isKindOfClass:NSDictionary.class]) {
-                NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
+                NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
                 
                 id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
                 if (tracksArray != nil &&
@@ -93,7 +93,7 @@
             id tagsDictionary = [dictionary objectForKey:@"tags"];
             if (tagsDictionary != nil &&
                 [tagsDictionary isKindOfClass:NSDictionary.class]) {
-                NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
+                NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
                 
                 id tagsArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
                 if (tagsArray != nil &&

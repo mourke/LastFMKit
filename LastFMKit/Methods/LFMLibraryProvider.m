@@ -24,6 +24,7 @@
 //
 
 #import "LFMLibraryProvider.h"
+#import "LFMURLOperation.h"
 #import "LFMArtist.h"
 #import "LFMError.h"
 #import "LFMQuery.h"
@@ -32,7 +33,7 @@
 
 @implementation LFMLibraryProvider
 
-+ (NSURLSessionDataTask *)getArtistsForUsername:(NSString *)username
++ (LFMURLOperation *)getArtistsForUsername:(NSString *)username
                                     itemsPerPage:(nullable NSNumber *)limit
                                           onPage:(nullable NSNumber *)page
                                         callback:(LFMArtistPaginatedCallback)block {
@@ -49,8 +50,6 @@
         limit = @30;
     }
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"library.getArtists"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -63,33 +62,31 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        
+        id artistsDictionary = [responseDictionary objectForKey:@"artists"];
+        if (artistsDictionary != nil &&
+            [artistsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
+            
+            id artistArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
+            if (artistArray != nil &&
+                [artistArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *artistDictionary in artistArray) {
+                    LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
+                    if (artist) [artists addObject:artist];
+                }
+            }
+            
+            block(artists, query, error);
+        } else {
+            block(artists, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"artists"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
-        
-        for (NSDictionary *artistDictionary in [responseDictionary objectForKey:@"artist"]) {
-            LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            if (artist) [artists addObject:artist];
-        }
-        
-        block(artists, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
 @end

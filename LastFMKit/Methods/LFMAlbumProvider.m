@@ -32,10 +32,11 @@
 #import "LFMKit+Protected.h"
 #import "LFMTopTag.h"
 #import "LFMSearchQuery.h"
+#import "LFMURLOperation.h"
 
 @implementation LFMAlbumProvider
 
-+ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
++ (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
                      toAlbumNamed:(NSString *)albumName
                     byArtistNamed:(NSString *)albumArtist
                          callback:(nullable LFMErrorCallback)block {
@@ -49,8 +50,6 @@
     [tags enumerateObjectsUsingBlock:^(LFMTag * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [tagString appendFormat:@"%@%@", (idx == 0 ? @"" : @","), obj.name];
     }];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
@@ -69,24 +68,17 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) {
-            block(error);
-            return;
-        }
-        
-        lfm_error_validate(data, &error);
         
         block(error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
++ (LFMURLOperation *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
                       byArtistNamed:(NSString *)albumArtist
                            callback:(nullable LFMErrorCallback)block {
@@ -94,8 +86,6 @@
     NSParameterAssert(albumName);
     NSParameterAssert(albumArtist);
     NSAssert([LFMSession sharedSession].sessionKey != nil, @"This method requires user authentication");
-    
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
@@ -114,34 +104,25 @@
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         if (block == nil) return;
-        if (error != nil || data == nil) {
-            block(error);
-            return;
-        }
-        
-        lfm_error_validate(data, &error);
         
         block(error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getInfoOnAlbumNamed:(NSString *)albumName
-                                byArtistNamed:(NSString *)albumArtist
-                                    albumMBID:(NSString *)mbid
-                                  autoCorrect:(BOOL)autoCorrect
-                                  forUsername:(NSString *)username
-                                 languageCode:(NSString *)code
-                                     callback:(LFMAlbumCallback)block {
++ (LFMURLOperation *)getInfoOnAlbumNamed:(NSString *)albumName
+                           byArtistNamed:(NSString *)albumArtist
+                               albumMBID:(NSString *)mbid
+                             autoCorrect:(BOOL)autoCorrect
+                             forUsername:(NSString *)username
+                            languageCode:(NSString *)code
+                                callback:(LFMAlbumCallback)block {
     NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
-    
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableArray *queryItems = [NSMutableArray arrayWithArray:@[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getInfo"],
@@ -159,25 +140,17 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:[responseDictionary objectForKey:@"album"]];
         
         block(album, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTagsForAlbumNamed:(NSString *)albumName
++ (LFMURLOperation *)getTagsForAlbumNamed:(NSString *)albumName
                                  byArtistNamed:(NSString *)albumArtist
                              withMusicBrainzId:(NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
@@ -186,8 +159,6 @@
     NSAssert([LFMSession sharedSession].sessionKey != nil || username != nil, @"The user either: must be authenticated, or the `username` parameter must be set.");
     NSParameterAssert(block);
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
-    
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableArray *queryItems = [NSMutableArray arrayWithArray:@[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getTags"],
@@ -209,14 +180,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
         
         id tagsDictionary = [responseDictionary objectForKey:@"tags"];
         if (tagsDictionary != nil && [tagsDictionary isKindOfClass:NSDictionary.class]) {
@@ -231,21 +199,15 @@
         
         block(tags, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsForAlbumNamed:(NSString *)albumName
++ (LFMURLOperation *)getTopTagsForAlbumNamed:(NSString *)albumName
                                     byArtistNamed:(NSString *)albumArtist
                                 withMusicBrainzId:(NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
                                          callback:(LFMTopTagsCallback)block {
     NSAssert((albumName != nil && albumArtist != nil) || (mbid != nil), @"Either the albumName and the albumArtist or the mbid parameter must be set.");
     NSParameterAssert(block);
-    
-    NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.getTopTags"],
@@ -260,15 +222,11 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTopTag *> *tags = [NSMutableArray array];
         
         id topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
         if (topTagsDictionary != nil &&
@@ -284,13 +242,9 @@
         
         block(tags, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
++ (LFMURLOperation *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(nullable NSNumber *)limit
                                        onPage:(nullable NSNumber *)page
                                      callback:(LFMAlbumSearchCallback)block {
@@ -309,8 +263,6 @@
     NSParameterAssert(albumName);
     NSParameterAssert(block);
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"album.search"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -323,20 +275,16 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         id resultsDictionary = [responseDictionary objectForKey:@"results"];
         if (resultsDictionary != nil &&
             [resultsDictionary isKindOfClass:NSDictionary.class]) {
             LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
             
-            NSMutableArray <LFMAlbum *> *albums = [NSMutableArray array];
+            NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
             
             id albumMatchDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"albummatches"];
             if (albumMatchDictionary != nil &&
@@ -356,10 +304,6 @@
             block(@[], nil, error);
         }
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
 @end

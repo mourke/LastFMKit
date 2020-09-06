@@ -24,6 +24,7 @@
 //
 
 #import "LFMUserProvider.h"
+#import "LFMURLOperation.h"
 #import "LFMAuth.h"
 #import "LFMSession.h"
 #import "LFMUser.h"
@@ -37,10 +38,8 @@
 
 @implementation LFMUserProvider
 
-+ (NSURLSessionDataTask *)getInfoOnUserNamed:(NSString *)username
++ (LFMURLOperation *)getInfoOnUserNamed:(NSString *)username
                                     callback:(LFMUserCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getInfo"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
@@ -51,31 +50,21 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         LFMUser *user = [[LFMUser alloc] initFromDictionary:[responseDictionary objectForKey:@"user"]];
         
         block(user, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getFriendsOfUserNamed:(NSString *)username
++ (LFMURLOperation *)getFriendsOfUserNamed:(NSString *)username
                          includeRecentScrobbles:(BOOL)includeRecents
                                    itemsPerPage:(nullable NSNumber *)limit
                                          onPage:(nullable NSNumber *)page
                                        callback:(LFMUserPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getFriends"],
                             [NSURLQueryItem queryItemWithName:@"recenttracks" value:[NSString stringWithFormat:@"%d", includeRecents]],
@@ -89,43 +78,38 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMUser *> *users = [NSMutableArray array];
+        
+        id friendsDictionary = [responseDictionary objectForKey:@"friends"];
+        if (friendsDictionary != nil &&
+            [friendsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)friendsDictionary objectForKey:@"@attr"]];
+            
+            id userArray = [(NSDictionary *)friendsDictionary objectForKey:@"user"];
+            if (userArray != nil && [userArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *userDictionary in userArray) {
+                    LFMUser *user = [[LFMUser alloc] initFromDictionary:userDictionary];
+                    if (user) [users addObject:user];
+                }
+            }
+            
+            block(users, query, error);
+        } else {
+            block(users, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"friends"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMUser *> *users = [NSMutableArray array];
-        
-        for (NSDictionary *userDictionary in [responseDictionary objectForKey:@"user"]) {
-            LFMUser *user = [[LFMUser alloc] initFromDictionary:userDictionary];
-            if (user) [users addObject:user];
-        }
-        
-        block(users, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTracksScrobbledByUserNamed:(NSString *)username
++ (LFMURLOperation *)getTracksScrobbledByUserNamed:(NSString *)username
                                           byArtistNamed:(NSString *)artistName
                                                  onPage:(nullable NSNumber *)page
                                           fromStartDate:(NSDate *)startDate
                                               toEndDate:(NSDate *)endDate
                                                callback:(LFMTrackPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getArtistTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -140,41 +124,36 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        
+        id tracksDictionary = [responseDictionary objectForKey:@"artisttracks"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            
+            id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (tracksArray != nil && [tracksArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in tracksArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(tracks, query, error);
+        } else {
+            block(tracks, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"artisttracks"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
-        }
-        
-        block(tracks, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTracksLovedByUserNamed:(NSString *)username
++ (LFMURLOperation *)getTracksLovedByUserNamed:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
                                              onPage:(nullable NSNumber *)page
                                            callback:(LFMTrackPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getLovedTracks"],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
@@ -187,43 +166,38 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        
+        id tracksDictionary = [responseDictionary objectForKey:@"lovedtracks"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            
+            id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (tracksArray != nil && [tracksArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in tracksArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(tracks, query, error);
+        } else {
+            block(tracks, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"lovedtracks"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
-        }
-        
-        block(tracks, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getItemsTaggedByUserNamed:(NSString *)username
++ (LFMURLOperation *)getItemsTaggedByUserNamed:(NSString *)username
                                         forTagNamed:(NSString *)tagName
                                            itemType:(LFMTaggingType)type
                                        itemsPerPage:(nullable NSNumber *)limit
                                              onPage:(nullable NSNumber *)page
                                            callback:(LFMGenericPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getPersonalTags"],
                             [NSURLQueryItem queryItemWithName:@"tag" value:tagName],
@@ -238,57 +212,55 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
-        }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"taggings"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
         NSMutableArray *items = [NSMutableArray array];
         
-        NSDictionary *itemsDictionary = [responseDictionary objectForKey:[NSString stringWithFormat:@"%@s", type]];
-        
-        for (NSDictionary *itemDictionary in [itemsDictionary objectForKey:type]) {
-            NSObject *item = nil;
+        id taggingsDictionary = [responseDictionary objectForKey:@"taggings"];
+        if (taggingsDictionary != nil &&
+            [taggingsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)taggingsDictionary objectForKey:@"@attr"]];
             
-            if ([type isEqualToString:LFMTaggingTypeTrack]) {
-                item = [[LFMTrack alloc] initFromDictionary:itemDictionary];
-            } else if ([type isEqualToString:LFMTaggingTypeAlbum]) {
-                item = [[LFMAlbum alloc] initFromDictionary:itemDictionary];
-            } else if ([type isEqualToString:LFMTaggingTypeArtist]) {
-                item = [[LFMArtist alloc] initFromDictionary:itemDictionary];
-            } else {
-                NSAssert(false, @"Unknown `type` parameter. Type must be either: `LFMTaggingTypeTrack`, `LFMTaggingTypeAlbum` or `LFMTaggingTypeArtist`");
-                return;
+            id itemsDictionary = [(NSDictionary *)taggingsDictionary objectForKey:[NSString stringWithFormat:@"%@s", type]];
+            if (itemsDictionary != nil &&
+                [itemsDictionary isKindOfClass:NSDictionary.class]) {
+                id itemsArray = [(NSDictionary *)itemsDictionary objectForKey:type];
+                if (itemsArray != nil &&
+                    [itemsArray isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *itemDictionary in itemsArray) {
+                        NSObject *item = nil;
+                        
+                        if ([type isEqualToString:LFMTaggingTypeTrack]) {
+                            item = [[LFMTrack alloc] initFromDictionary:itemDictionary];
+                        } else if ([type isEqualToString:LFMTaggingTypeAlbum]) {
+                            item = [[LFMAlbum alloc] initFromDictionary:itemDictionary];
+                        } else if ([type isEqualToString:LFMTaggingTypeArtist]) {
+                            item = [[LFMArtist alloc] initFromDictionary:itemDictionary];
+                        } else {
+                            NSAssert(false, @"Unknown `type` parameter. Type must be either: `LFMTaggingTypeTrack`, `LFMTaggingTypeAlbum` or `LFMTaggingTypeArtist`");
+                            return;
+                        }
+                        
+                        if (item) [items addObject:item];
+                    }
+                }
             }
             
-            if (item) [items addObject:item];
+            block(items, query, error);
+        } else {
+            block(items, nil, error);
         }
-        
-        block(items, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getRecentTracksForUsername:(NSString *)username
++ (LFMURLOperation *)getRecentTracksForUsername:(NSString *)username
                                          itemsPerPage:(nullable NSNumber *)limit
                                                onPage:(nullable NSNumber *)page
                                         fromStartDate:(NSDate *)startDate
                                             toEndDate:(NSDate *)endDate
                                              callback:(LFMTrackPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getRecentTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -304,42 +276,37 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        
+        id tracksDictionary = [responseDictionary objectForKey:@"recenttracks"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            
+            id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (tracksArray != nil && [tracksArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in tracksArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(tracks, query, error);
+        } else {
+            block(tracks, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"recenttracks"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
-        }
-        
-        block(tracks, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopAlbumsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopAlbumsForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
                                             onPage:(nullable NSNumber *)page
                                         overPeriod:(LFMTimePeriod)period
                                           callback:(LFMAlbumPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopAlbums"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -353,42 +320,37 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
+        
+        id topAlbumsDictionary = [responseDictionary objectForKey:@"topalbums"];
+        if (topAlbumsDictionary != nil &&
+            [topAlbumsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topAlbumsDictionary objectForKey:@"@attr"]];
+            
+            id albumsArray = [(NSDictionary *)topAlbumsDictionary objectForKey:@"album"];
+            if (albumsArray != nil && [albumsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *albumDictionary in albumsArray) {
+                    LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+                    if (album) [albums addObject:album];
+                }
+            }
+            
+            block(albums, query, error);
+        } else {
+            block(albums, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"topalbums"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMAlbum *> *albums = [NSMutableArray array];
-        
-        for (NSDictionary *albumDictionary in [responseDictionary objectForKey:@"album"]) {
-            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
-            if (album) [albums addObject:album];
-        }
-        
-        block(albums, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopArtistsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopArtistsForUsername:(NSString *)username
                                        itemsPerPage:(nullable NSNumber *)limit
                                              onPage:(nullable NSNumber *)page
                                          overPeriod:(LFMTimePeriod)period
                                            callback:(LFMArtistPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopArtists"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -402,42 +364,38 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        
+        id artistsDictionary = [responseDictionary objectForKey:@"topartists"];
+        if (artistsDictionary != nil &&
+            [artistsDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
+            
+            
+            id artistsArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
+            if (artistsArray != nil && [artistsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *artistDictionary in artistsArray) {
+                    LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
+                    if (artist) [artists addObject:artist];
+                }
+            }
+            
+            block(artists, query, error);
+        } else {
+            block(artists, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"topartists"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
-        
-        for (NSDictionary *artistDictionary in [responseDictionary objectForKey:@"artist"]) {
-            LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            if (artist) [artists addObject:artist];
-        }
-        
-        block(artists, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTracksForUsername:(NSString *)username
++ (LFMURLOperation *)getTopTracksForUsername:(NSString *)username
                                       itemsPerPage:(nullable NSNumber *)limit
                                             onPage:(nullable NSNumber *)page
                                         overPeriod:(LFMTimePeriod)period
                                           callback:(LFMTrackPaginatedCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTracks"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -451,40 +409,35 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], nil, error);
-            return;
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        
+        id tracksDictionary = [responseDictionary objectForKey:@"toptracks"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            
+            id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (tracksArray != nil && [tracksArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in tracksArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
+            
+            block(tracks, query, error);
+        } else {
+            block(tracks, nil, error);
         }
-        
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"toptracks"];
-        }
-        
-        LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[responseDictionary objectForKey:@"@attr"]];
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
-        }
-        
-        block(tracks, query, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getTopTagsForUsername:(NSString *)username
++ (LFMURLOperation *)getTopTagsForUsername:(NSString *)username
                                            limit:(nullable NSNumber *)limit
                                         callback:(LFMTopTagsCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getTopTags"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -496,39 +449,32 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTopTag *> *tags = [NSMutableArray array];
         
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"toptags"];
-        }
-        
-        NSMutableArray <LFMTopTag *> *tags = [NSMutableArray array];
-        
-        for (NSDictionary *tagDictionary in [responseDictionary objectForKey:@"tag"]) {
-            LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
-            if (tag) [tags addObject:tag];
+        id topTagsDictionary = [responseDictionary objectForKey:@"toptags"];
+        if (topTagsDictionary != nil &&
+            [topTagsDictionary isKindOfClass:NSDictionary.class]) {
+            id tagsArray = [(NSDictionary *)topTagsDictionary objectForKey:@"tag"];
+            if (tagsArray != nil && [tagsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *tagDictionary in tagsArray) {
+                    LFMTopTag *tag = [[LFMTopTag alloc] initFromDictionary:tagDictionary];
+                    if (tag) [tags addObject:tag];
+                }
+            }
         }
         
         block(tags, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyAlbumChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyAlbumChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
                                                  callback:(LFMAlbumsCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyAlbumChart"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -541,39 +487,32 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
         
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"weeklyalbumchart"];
-        }
-        
-        NSMutableArray <LFMAlbum *> *albums = [NSMutableArray array];
-        
-        for (NSDictionary *albumDictionary in [responseDictionary objectForKey:@"album"]) {
-            LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
-            if (album) [albums addObject:album];
+        id weeklyAlbumsDictionary = [responseDictionary objectForKey:@"weeklyalbumchart"];
+        if (weeklyAlbumsDictionary != nil &&
+            [weeklyAlbumsDictionary isKindOfClass:NSDictionary.class]) {
+            id albumsArray = [(NSDictionary *)weeklyAlbumsDictionary objectForKey:@"album"];
+            if (albumsArray != nil && [albumsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *albumDictionary in albumsArray) {
+                    LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:albumDictionary];
+                    if (album) [albums addObject:album];
+                }
+            }
         }
         
         block(albums, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyArtistChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyArtistChartForUsername:(NSString *)username
                                              fromStartDate:(NSDate *)startDate
                                                  toEndDate:(NSDate *)endDate
                                                   callback:(LFMArtistsCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyArtistChart"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -586,39 +525,32 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
         
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"weeklyartistchart"];
-        }
-        
-        NSMutableArray <LFMArtist *> *artists = [NSMutableArray array];
-        
-        for (NSDictionary *artistDictionary in [responseDictionary objectForKey:@"artist"]) {
-            LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
-            if (artist) [artists addObject:artist];
+        id artistsDictionary = [responseDictionary objectForKey:@"weeklyartistchart"];
+        if (artistsDictionary != nil &&
+            [artistsDictionary isKindOfClass:NSDictionary.class]) {
+            id artistsArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
+            if (artistsArray != nil && [artistsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *artistDictionary in artistsArray) {
+                    LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:artistDictionary];
+                    if (artist) [artists addObject:artist];
+                }
+            }
         }
         
         block(artists, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyTrackChartForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyTrackChartForUsername:(NSString *)username
                                             fromStartDate:(NSDate *)startDate
                                                 toEndDate:(NSDate *)endDate
                                                  callback:(LFMTracksCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyTrackChart"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -631,37 +563,30 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
         
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"weeklytrackchart"];
-        }
-        
-        NSMutableArray <LFMTrack *> *tracks = [NSMutableArray array];
-        
-        for (NSDictionary *trackDictionary in [responseDictionary objectForKey:@"track"]) {
-            LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
-            if (track) [tracks addObject:track];
+        id tracksDictionary = [responseDictionary objectForKey:@"weeklytrackchart"];
+        if (tracksDictionary != nil &&
+            [tracksDictionary isKindOfClass:NSDictionary.class]) {
+            id tracksArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
+            if (tracksArray != nil && [tracksArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *trackDictionary in tracksArray) {
+                    LFMTrack *track = [[LFMTrack alloc] initFromDictionary:trackDictionary];
+                    if (track) [tracks addObject:track];
+                }
+            }
         }
         
         block(tracks, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
-+ (NSURLSessionDataTask *)getWeeklyChartListForUsername:(NSString *)username
++ (LFMURLOperation *)getWeeklyChartListForUsername:(NSString *)username
                                                 callback:(LFMChartsCallback)block {
-    NSURLSession *session = [NSURLSession sharedSession];
-    
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"user.getWeeklyChartList"],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
@@ -672,31 +597,26 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (error != nil || !lfm_error_validate(data, &error) || !http_error_validate(response, &error)) {
-            block(@[], error);
-            return;
-        }
+    return [LFMURLOperation operationWithSession:[NSURLSession sharedSession]
+                                         request:request
+                                        callback:^(NSDictionary *responseDictionary,
+                                                   NSError *error) {
+        NSMutableArray<LFMChart *> *charts = [NSMutableArray array];
         
-        NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
-        if (responseDictionary) {
-            responseDictionary = [responseDictionary objectForKey:@"weeklychartlist"];
-        }
-        
-        NSMutableArray <LFMChart *> *charts = [NSMutableArray array];
-        
-        for (NSDictionary *chartDictionary in [responseDictionary objectForKey:@"chart"]) {
-            LFMChart *chart = [[LFMChart alloc] initFromDictionary:chartDictionary];
-            if (chart) [charts addObject:chart];
+        id chartsDictionary = [responseDictionary objectForKey:@"weeklychartlist"];
+        if (chartsDictionary != nil &&
+            [chartsDictionary isKindOfClass:NSDictionary.class]) {
+            id chartsArray = [(NSDictionary *)chartsDictionary objectForKey:@"chart"];
+            if (chartsArray != nil && [chartsArray isKindOfClass:NSArray.class]) {
+                for (NSDictionary *chartDictionary in chartsArray) {
+                    LFMChart *chart = [[LFMChart alloc] initFromDictionary:chartDictionary];
+                    if (chart) [charts addObject:chart];
+                }
+            }
         }
         
         block(charts, error);
     }];
-    
-    [dataTask resume];
-    
-    return dataTask;
 }
 
 @end

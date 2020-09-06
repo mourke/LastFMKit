@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class LFMSession;
+@class LFMURLOperation, LFMSession;
 
 /**
  This class provides helper methods for authenticating users against the Last.fm
@@ -60,7 +60,7 @@ typedef void (^LFMAuthCallback)(LFMSession * _Nullable session, NSError * _Nulla
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-- (NSURLSessionDataTask *)getSessionWithUsername:(NSString *)username
+- (LFMURLOperation *)getSessionWithUsername:(NSString *)username
                                         password:(NSString *)password
                                         callback:(LFMAuthCallback)block NS_REFINED_FOR_SWIFT;
 

@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMTag, LFMAlbum, LFMQuery, LFMArtist, LFMTrack;
+@class LFMURLOperation, LFMTag, LFMAlbum, LFMQuery, LFMArtist, LFMTrack;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +44,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnTagNamed:(NSString *)tagName
++ (LFMURLOperation *)getInfoOnTagNamed:(NSString *)tagName
                                    language:(nullable NSString *)language
                                    callback:(LFMTagCallback)block NS_REFINED_FOR_SWIFT;
 
@@ -55,7 +55,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsWithCallback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
++ (LFMURLOperation *)getTopTagsWithCallback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves tags similar to a specified tag. Returns tags ranked by similarity, based on listening data.
@@ -65,7 +65,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTagsSimilarToTagNamed:(NSString *)tagName
++ (LFMURLOperation *)getTagsSimilarToTagNamed:(NSString *)tagName
                                           callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
@@ -78,7 +78,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
++ (LFMURLOperation *)getTopAlbumsTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(nullable NSNumber *)limit
                                                 onPage:(nullable NSNumber *)page
                                               callback:(LFMAlbumPaginatedCallback)block NS_REFINED_FOR_SWIFT;
@@ -93,7 +93,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
++ (LFMURLOperation *)getTopArtistsTaggedByTagNamed:(NSString *)tagName
                                            itemsPerPage:(nullable NSNumber *)limit
                                                  onPage:(nullable NSNumber *)page
                                                callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
@@ -108,7 +108,7 @@ NS_SWIFT_NAME(TagProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksTaggedByTagNamed:(NSString *)tagName
++ (LFMURLOperation *)getTopTracksTaggedByTagNamed:(NSString *)tagName
                                           itemsPerPage:(nullable NSNumber *)limit
                                                 onPage:(nullable NSNumber *)page
                                               callback:(LFMTrackPaginatedCallback)block NS_REFINED_FOR_SWIFT;

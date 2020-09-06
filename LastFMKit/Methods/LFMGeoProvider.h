@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMArtist, LFMQuery, LFMTrack;
+@class LFMURLOperation, LFMArtist, LFMQuery, LFMTrack;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,7 +45,7 @@ NS_SWIFT_NAME(GeoProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopArtistsInCountry:(NSString *)country
++ (LFMURLOperation *)getTopArtistsInCountry:(NSString *)country
                                     itemsPerPage:(nullable NSNumber *)limit
                                           onPage:(nullable NSNumber *)page
                                         callback:(LFMArtistPaginatedCallback)block NS_REFINED_FOR_SWIFT;
@@ -61,7 +61,7 @@ NS_SWIFT_NAME(GeoProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTracksInCountry:(NSString *)country
++ (LFMURLOperation *)getTopTracksInCountry:(NSString *)country
                                  withinProvince:(nullable NSString *)province
                                    itemsPerPage:(nullable NSNumber *)limit
                                          onPage:(nullable NSNumber *)page

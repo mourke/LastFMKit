@@ -25,7 +25,7 @@
 
 #import "LFMProvider.h"
 
-@class LFMTag, LFMTopTag, LFMAlbum, LFMSearchQuery;
+@class LFMURLOperation, LFMTag, LFMTopTag, LFMAlbum, LFMSearchQuery;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,10 +47,10 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)addTags:(NSArray<LFMTag *> *)tags
-                     toAlbumNamed:(NSString *)albumName
-                    byArtistNamed:(NSString *)albumArtist
-                         callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:by:callback:));
++ (LFMURLOperation *)addTags:(NSArray<LFMTag *> *)tags
+                toAlbumNamed:(NSString *)albumName
+               byArtistNamed:(NSString *)albumArtist
+                    callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(add(tags:to:by:callback:));
 
 /**
  Removes a user's tag from an album.
@@ -64,7 +64,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)removeTag:(LFMTag *)tag
++ (LFMURLOperation *)removeTag:(LFMTag *)tag
                      fromAlbumNamed:(NSString *)albumName
                       byArtistNamed:(NSString *)albumArtist
                            callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(remove(tag:from:by:callback:));
@@ -86,7 +86,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getInfoOnAlbumNamed:(nullable NSString *)albumName
++ (LFMURLOperation *)getInfoOnAlbumNamed:(nullable NSString *)albumName
                                 byArtistNamed:(nullable NSString *)albumArtist
                                     albumMBID:(nullable NSString *)mbid
                                   autoCorrect:(BOOL)autoCorrect
@@ -108,7 +108,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTagsForAlbumNamed:(nullable NSString *)albumName
++ (LFMURLOperation *)getTagsForAlbumNamed:(nullable NSString *)albumName
                                  byArtistNamed:(nullable NSString *)albumArtist
                              withMusicBrainzId:(nullable NSString *)mbid
                                    autoCorrect:(BOOL)autoCorrect
@@ -126,7 +126,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)getTopTagsForAlbumNamed:(nullable NSString *)albumName
++ (LFMURLOperation *)getTopTagsForAlbumNamed:(nullable NSString *)albumName
                                     byArtistNamed:(nullable NSString *)albumArtist
                                 withMusicBrainzId:(nullable NSString *)mbid
                                       autoCorrect:(BOOL)autoCorrect
@@ -142,7 +142,7 @@ NS_SWIFT_NAME(AlbumProvider)
  
  @return   The `NSURLSessionDataTask` object from the web request.
  */
-+ (NSURLSessionDataTask *)searchForAlbumNamed:(NSString *)albumName
++ (LFMURLOperation *)searchForAlbumNamed:(NSString *)albumName
                                  itemsPerPage:(nullable NSNumber *)limit
                                        onPage:(nullable NSNumber *)page
                                      callback:(LFMAlbumSearchCallback)block NS_REFINED_FOR_SWIFT;
@@ -150,3 +150,4 @@ NS_SWIFT_NAME(AlbumProvider)
 @end
 
 NS_ASSUME_NONNULL_END
+

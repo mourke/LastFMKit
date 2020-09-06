@@ -30,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
 
 #pragma mark - Models
 
+#import <LastFMKit/LFMURLOperation.h>
 #import <LastFMKit/LFMTimePeriod.h>
 #import <LastFMKit/LFMTaggingType.h>
 #import <LastFMKit/LFMUserGender.h>

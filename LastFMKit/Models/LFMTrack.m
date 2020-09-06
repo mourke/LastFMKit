@@ -117,7 +117,7 @@
                 }
             }
             
-            NSMutableArray <LFMTag *> *tags = [NSMutableArray array];
+            NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
             id topTagsDictionary = [dictionary objectForKey:@"toptags"];
             if (topTagsDictionary != nil &&
                 [topTagsDictionary isKindOfClass:NSDictionary.class]) {
