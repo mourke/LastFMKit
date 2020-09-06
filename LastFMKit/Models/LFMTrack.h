@@ -45,13 +45,13 @@ NS_SWIFT_NAME(Track)
 @property(strong, nonatomic, readonly) NSURL *URL NS_SWIFT_NAME(url);
 
 /** The approximate length (in seconds) of the song. */
-@property(strong, nonatomic, readonly, nullable) NSNumber *duration;
+@property(strong, nonatomic, readonly, nullable) NSNumber *duration NS_REFINED_FOR_SWIFT;
 
 /** A boolean value indicating whether or not the track is streamable. */
 @property(nonatomic, readonly, getter=isStreamable) BOOL streamable;
 
 /** The track's position in its album (if any).  */
-@property(strong, nonatomic, readonly, nullable) NSNumber *positionInAlbum;
+@property(strong, nonatomic, readonly, nullable) NSNumber *positionInAlbum NS_REFINED_FOR_SWIFT;
 
 /** An array of tags that most accurately describe the track. */
 @property(strong, nonatomic) NSArray<LFMTag *> *tags;
@@ -66,10 +66,10 @@ NS_SWIFT_NAME(Track)
 @property(strong, nonatomic, nullable) LFMAlbum *album;
 
 /** The amount of listeners the track has. */
-@property(strong, nonatomic, readonly, nullable) NSNumber *listeners;
+@property(strong, nonatomic, readonly, nullable) NSNumber *listeners NS_REFINED_FOR_SWIFT;
 
 /** The amount of "scrobbles" the track has. */
-@property(strong, nonatomic, readonly, nullable) NSNumber *playCount;
+@property(strong, nonatomic, readonly, nullable) NSNumber *playCount NS_REFINED_FOR_SWIFT;
 
 /**
  Initialises a new `LFMTrack` object.
@@ -100,7 +100,7 @@ NS_SWIFT_NAME(Track)
                         tags:(NSArray<LFMTag *> *)tags
                         wiki:(nullable LFMWiki *)wiki
                    listeners:(nullable NSNumber *)listeners
-                   playCount:(nullable NSNumber *)playCount NS_SWIFT_NAME(init(name:artist:mbid:album:position:url:duration:streamable:tags:wiki:listeners:playCount:)) NS_DESIGNATED_INITIALIZER;
+                   playCount:(nullable NSNumber *)playCount NS_REFINED_FOR_SWIFT NS_DESIGNATED_INITIALIZER;
 
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;

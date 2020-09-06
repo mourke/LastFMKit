@@ -1,5 +1,5 @@
 //
-//  Auth+Swift.swift
+//  LibraryProvider+Swift.swift
 //  LastFMKit
 //
 //  Copyright © 2020 Mark Bourke.
@@ -25,26 +25,29 @@
 
 import Foundation
 
-public extension Auth {
-    
+public extension LibraryProvider {
     /**
-     Starts a mobile service session for a user. Session keys have an infinite lifetime by default so this method need only be called once at the very start of your application, unless the user revokes privileges for your application on their Last.fm settings screen. Upon success, the `Session` object passed into the `block` parameter will also be stored in the user's keychain and set as the `session` property on this class as well as the shared singleton instance on the `Session` class itself. For any subsiquent app launches, this method need not be called as the session object will automatically be loaded from the user's keychain.
+     Retrieves a list of all the artists in a user's library, with play counts and tag counts.
      
-     - Parameter username:    The last.fm username or email address.
-     - Parameter password:    The password in plaintext.
-     - Parameter callback:    The block called upon completion indicating success or failure.
+     - Parameter username:    The user whose library is to be fetched.
+     - Parameter page:        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter limit:       The maximum number of artists to be returned by each page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Artist`s and an `Query` object if it succeeds.
      
-     - Returns: The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
-    func getSession(username: String,
-                    password: String,
-                    callback: @escaping (Result<Session, Error>) -> Void) -> LFMURLOperation {
-        return __getSessionWithUsername(username, password: password) { (session, error) in
-            let result: Result<Session, Error>
-
-            if let session = session {
-                result = .success(session)
+    class func getArtists(for username: String,
+                          limit: Int = 30,
+                          on page: Int = 30,
+                          callback: @escaping (Result<([Artist], Query), Error>) -> Void) -> LFMURLOperation {
+        return __getArtistsForUsername(username,
+                                       itemsPerPage: limit as NSNumber,
+                                       onPage: page as NSNumber) { (artists, query, error) in
+            let result: Result<([Artist], Query), Error>
+            
+            if let query = query {
+                result = .success((artists, query))
             } else if let error = error {
                 result = .failure(error)
             } else {

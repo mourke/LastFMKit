@@ -51,7 +51,7 @@ NS_SWIFT_NAME(TagProvider)
 /**
  Retrieves the top global tags on Last.fm, sorted by popularity (number of times used).
  
- @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
+ @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
  
  @return   The `LFMURLOperation` object to be resumed.
  */

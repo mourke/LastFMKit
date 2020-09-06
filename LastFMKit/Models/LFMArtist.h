@@ -55,10 +55,10 @@ NS_SWIFT_NAME(Artist)
 @property(nonatomic, readonly, getter=isOnTour) BOOL onTour;
 
 /** The amount of listeners the artist has. */
-@property(strong, nonatomic, nullable, readonly) NSNumber *listeners;
+@property(strong, nonatomic, nullable, readonly) NSNumber *listeners NS_REFINED_FOR_SWIFT;
 
 /** The amount of "scrobbles" the artist has. */
-@property(strong, nonatomic, nullable, readonly) NSNumber *playCount;
+@property(strong, nonatomic, nullable, readonly) NSNumber *playCount NS_REFINED_FOR_SWIFT;
 
 /** An array of artists similar to the artist. */
 @property(strong, nonatomic, readonly) NSArray<LFMArtist *> *similarArtists NS_SWIFT_NAME(similar);

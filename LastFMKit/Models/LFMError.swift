@@ -25,9 +25,7 @@
 
 import Foundation
 
-public enum LFMError: Error {
-    case underlyingError(RecoverableError & LocalizedError)
-}
+public typealias LFMError = RecoverableError & LocalizedError
 
 private final class Action: NSObject {
 
@@ -38,7 +36,7 @@ private final class Action: NSObject {
         super.init()
     }
 
-    @objc func action(didRecover: Bool, contextInfo: UnsafeMutableRawPointer?) {
+    @objc func didPresentError(withRecovery didRecover: Bool, contextInfo: UnsafeMutableRawPointer?) {
         _action(didRecover)
     }
 }
@@ -51,7 +49,7 @@ public extension RecoverableError {
 
     func attemptRecovery(optionIndex recoveryOptionIndex: Int, resultHandler handler: @escaping (Bool) -> Void) {
         let action = Action(handler)
-        ((self as NSError).recoveryAttempter as? NSObject)?.attemptRecovery(fromError: self, optionIndex: recoveryOptionIndex, delegate: action, didRecoverSelector: #selector(action.action(didRecover:contextInfo:)), contextInfo: nil)
+        ((self as NSError).recoveryAttempter as? NSObject)?.attemptRecovery(fromError: self, optionIndex: recoveryOptionIndex, delegate: action, didRecoverSelector: #selector(action.didPresentError(withRecovery:contextInfo:)), contextInfo: nil)
     }
 
     func attemptRecovery(optionIndex recoveryOptionIndex: Int) -> Bool {
@@ -77,5 +75,4 @@ public extension LocalizedError {
     }
 }
 
-extension NSError: RecoverableError {}
-extension NSError: LocalizedError {}
+extension NSError: LFMError {}

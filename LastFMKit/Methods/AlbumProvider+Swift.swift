@@ -48,19 +48,19 @@ public extension AlbumProvider {
                        autoCorrectArtist autoCorrect: Bool = true,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Album, LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<Album, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnAlbumNamed(album,
                                      byArtistNamed: artist,
                                      albumMBID: nil,
                                      autoCorrect: autoCorrect,
                                      forUsername: username,
                                      languageCode: language) { (album, error) in
-            let result: Result<Album, LFMError>
+            let result: Result<Album, Error>
             
             if let album = album {
                 result = .success(album)
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -89,19 +89,19 @@ public extension AlbumProvider {
     class func getInfo(on mid: String,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Album, LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<Album, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnAlbumNamed(nil,
                                      byArtistNamed: nil,
                                      albumMBID: mid,
                                      autoCorrect: false,
                                      forUsername: username,
                                      languageCode: language) { (album, error) in
-            let result: Result<Album, LFMError>
+            let result: Result<Album, Error>
             
             if let album = album {
                 result = .success(album)
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -128,16 +128,16 @@ public extension AlbumProvider {
                        by artist: String,
                        autoCorrectArtist autoCorrect: Bool = true,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForAlbumNamed(album,
                                      byArtistNamed: artist,
                                      withMusicBrainzId: nil,
                                      autoCorrect: autoCorrect,
                                      forUsername: username) { (tags, error) in
-            let result: Result<[Tag], LFMError>
+            let result: Result<[Tag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -162,16 +162,16 @@ public extension AlbumProvider {
     @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForAlbumNamed(nil,
                                      byArtistNamed: nil,
                                      withMusicBrainzId: mbid,
                                      autoCorrect: false,
                                      forUsername: username) { (tags, error) in
-            let result: Result<[Tag], LFMError>
+            let result: Result<[Tag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -194,15 +194,15 @@ public extension AlbumProvider {
     class func getTopTags(for album: String,
                           by artist: String,
                           autoCorrectArtist autoCorrect: Bool = true,
-                          callback: @escaping (Result<[TopTag], LFMError>) -> Void) -> LFMURLOperation {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forAlbumNamed: album,
                             byArtistNamed: artist,
                             withMusicBrainzId: nil,
                             autoCorrect: autoCorrect) { (tags, error) in
-            let result: Result<[TopTag], LFMError>
+            let result: Result<[TopTag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -223,15 +223,15 @@ public extension AlbumProvider {
     */
     @discardableResult
     class func getTopTags(for mbid: String,
-                          callback: @escaping (Result<[TopTag], LFMError>) -> Void) -> LFMURLOperation {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forAlbumNamed: nil,
                             byArtistNamed: nil,
                             withMusicBrainzId: mbid,
                             autoCorrect: false) { (tags, error) in
-            let result: Result<[TopTag], LFMError>
+            let result: Result<[TopTag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -254,16 +254,16 @@ public extension AlbumProvider {
     class func search(for query: String,
                       limit: Int = 30,
                       page: Int = 1,
-                      callback: @escaping (Result<([Album], SearchQuery), LFMError>) -> Void) -> LFMURLOperation {
+                      callback: @escaping (Result<([Album], SearchQuery), Error>) -> Void) -> LFMURLOperation {
         return __search(forAlbumNamed: query,
                         itemsPerPage: NSNumber(value: limit),
                         onPage: NSNumber(value: page)) { (albums, searchQuery, error) in
-            let result: Result<([Album], SearchQuery), LFMError>
+            let result: Result<([Album], SearchQuery), Error>
             
             if let searchQuery = searchQuery, !albums.isEmpty {
                 result = .success((albums, searchQuery))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }

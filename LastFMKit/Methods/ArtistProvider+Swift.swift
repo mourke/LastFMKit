@@ -25,26 +25,26 @@
 
 import Foundation
 
-extension ArtistProvider {
+public extension ArtistProvider {
 
     /**
      Retrieves corrections based on common misspellings of artist names.
+     
+     - Parameter artist:    The misspelt/misconcatinated name of an artist.
+     - Parameter callback:  The callback block containing a `LFMError` if the request fails and a matching `Artist` if one is found.
 
-     @param artistName  The misspelt/misconcatinated name of an artist.
-     @param block       The callback block containing an optional `NSError` if the request fails and a matching artist if one is found.
-
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getCorrection(forMisspelt artist: String,
-                             callback: @escaping (Result<Artist, LFMError>) -> Void) -> LFMURLOperation {
+                             callback: @escaping (Result<Artist, Error>) -> Void) -> LFMURLOperation {
         return __getCorrectionForMisspeltArtistName(artist) { (artist, error) in
-            let result: Result<Artist, LFMError>
+            let result: Result<Artist, Error>
             
             if let artist = artist {
                 result = .success(artist)
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -53,23 +53,36 @@ extension ArtistProvider {
         }
     }
     
+    /**
+    Retrieves detailed information on an artist using their name.
+     
+     - Note:  🔒: Authentication Optional.
+
+     - Parameter artist:         The name of the artist
+     - Parameter autoCorrect:    A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+     - Parameter username:       The username for the context of the request. If supplied, the user's playcount for this artist is included in the response.  If not supplied, the playcount for the authenticated user (if any) will be returned.
+     - Parameter language:       The language to return the biography in, expressed as an ISO 639 alpha-2 code.
+     - Parameter callback:       The callback block containing an `LFMError` if the request fails and an `Artist` object if the request succeeds.
+
+     - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getInfo(on artist: String,
                        autoCorrect: Bool = true,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Artist, LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<Artist, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnArtistNamed(artist,
                                       withMusicBrainzId: nil,
                                       autoCorrect: autoCorrect,
                                       forUsername: username,
                                       languageCode: language) { (artist, error) in
-            let result: Result<Artist, LFMError>
+            let result: Result<Artist, Error>
             
             if let artist = artist {
                 result = .success(artist)
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -79,33 +92,33 @@ extension ArtistProvider {
     }
 
     /**
-     Retrieves detailed information on an artist using its name or MusicBrainzID.
+     Retrieves detailed information on an artist using their MusicBrainzID.
+     
+     - Note:  🔒: Authentication Optional.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param username    The username for the context of the request. If supplied, the user's playcount for this artist is included in the response.
-     @param code        The language to return the biography in, expressed as an ISO 639 alpha-2 code.
-     @param block       The callback block containing an optional `NSError` if the request fails and an `LFMArtist` object if the request succeeds.
+     - Parameter mbid:           The MusicBrainzID for the artist.
+     - Parameter username:       The username for the context of the request. If supplied, the user's playcount for this artist is included in the response.  If not supplied, the playcount for the authenticated user (if any) will be returned.
+     - Parameter language:       The language to return the biography in, expressed as an ISO 639 alpha-2 code.
+     - Parameter callback:       The callback block containing an `LFMError` if the request fails and an `Artist` object if the request succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getInfo(on mid: String,
                        username: String? = nil,
                        language: String? = nil,
-                       callback: @escaping (Result<Artist, LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<Artist, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnArtistNamed(nil,
                                       withMusicBrainzId: mid,
                                       autoCorrect: false,
                                       forUsername: username,
                                       languageCode: language) { (artist, error) in
-            let result: Result<Artist, LFMError>
+            let result: Result<Artist, Error>
             
             if let artist = artist {
                 result = .success(artist)
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -117,27 +130,26 @@ extension ArtistProvider {
     /**
      Retrieves artists similar to a specified artist.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param limit       The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000. Defaults to 30.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist` objects if the request succeeds.
+     - Parameter artist:        The name of the artist.
+     - Parameter autoCorrect:   A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+     - Parameter limit:         The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000. Defaults to 30.
+     - Parameter callback:    The callback block containing an `LFMError` if the request fails and an array of `LFMArtist` objects if the request succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getSimilarArtists(to artist: String,
                                  autoCorrect: Bool = true,
                                  limit: Int = 30,
-                                 callback: @escaping (Result<[Artist], LFMError>) -> Void) -> LFMURLOperation {
+                                 callback: @escaping (Result<[Artist], Error>) -> Void) -> LFMURLOperation {
         return __getArtistsSimilar(toArtistNamed: artist,
                                    withMusicBrainzId: nil,
                                    autoCorrect: autoCorrect,
                                    limit: limit as NSNumber) { (artists, error) in
-            let result: Result<[Artist], LFMError>
+            let result: Result<[Artist], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(artists)
             }
@@ -146,18 +158,27 @@ extension ArtistProvider {
         }
     }
     
+    /**
+    Retrieves artists similar to a specified artist.
+
+     - Parameter mbid:      The MusicBrainzID for the artist.
+     - Parameter limit:     The maximum number of similar artists to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Limit must be between 1 and 10,000. Defaults to 30.
+     - Parameter callback:  The callback block containing an `LFMError` if the request fails and an array of `LFMArtist` objects if the request succeeds.
+
+     - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getSimilarArtists(to mbid: String,
                                  limit: Int = 30,
-                                 callback: @escaping (Result<[Artist], LFMError>) -> Void) -> LFMURLOperation {
+                                 callback: @escaping (Result<[Artist], Error>) -> Void) -> LFMURLOperation {
         return __getArtistsSimilar(toArtistNamed: nil,
                                    withMusicBrainzId: mbid,
                                    autoCorrect: false,
                                    limit: limit as NSNumber) { (artists, error) in
-            let result: Result<[Artist], LFMError>
+            let result: Result<[Artist], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(artists)
             }
@@ -166,19 +187,31 @@ extension ArtistProvider {
         }
     }
     
+    /**
+    Retrieves the tags applied by an individual user to an artist on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
+
+    - Note:🔒: Authentication Optional.
+
+    - Parameter artist:     The name of the artist.
+    - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+    - Parameter username:   The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter **must** be set otherwise an exception will be raised.
+    - Parameter callback: The callback block containing an `LFMError` if the request fails and an array of `Tag`s if it succeeds.
+
+    - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getTags(for artist: String,
                        autoCorrect: Bool = true,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForArtistNamed(artist,
                                        withMusicBrainzId: nil,
                                        autoCorrect: autoCorrect,
                                        forUsername: username) { (tags, error) in
-            let result: Result<[Tag], LFMError>
+            let result: Result<[Tag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -190,28 +223,26 @@ extension ArtistProvider {
     /**
      Retrieves the tags applied by an individual user to an artist on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
 
-     @note  🔒: Authentication Optional.
+     - Note:🔒: Authentication Optional.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param username    The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter @b must be set otherwise an exception will be raised.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
+     - Parameter mbid:        The MusicBrainzID for the artist.
+     - Parameter username:    The name of any Last.fm user on which to obtain artist tags from. If this method is called and the user has not been signed in, this parameter **must** be set otherwise an exception will be raised.
+     - Parameter callback:  The callback block containing an `LFMError` if the request fails and an array of `Tag`s if it succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
-                       callback: @escaping (Result<[Tag], LFMError>) -> Void) -> LFMURLOperation {
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsForArtistNamed(nil,
                                        withMusicBrainzId: mbid,
                                        autoCorrect: false,
                                        forUsername: username) { (tags, error) in
-            let result: Result<[Tag], LFMError>
+            let result: Result<[Tag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -220,23 +251,34 @@ extension ArtistProvider {
         }
     }
     
+    /**
+    Retrieves the top albums for an artist on Last.fm, ordered by popularity.
+
+    - Parameter artist:         The name of the artist.
+    - Parameter autoCorrect:    A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+    - Parameter limit:          The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+    - Parameter page:           The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+    - Parameter callback:     The callback block containing an `LFMError` if the request fails and an array of `Album`s and an `Query` object if it succeeds.
+
+    - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getTopAlbums(for artist: String,
                             autoCorrect: Bool = true,
                             limit: Int = 30,
                             page: Int = 1,
-                            callback: @escaping (Result<([Album], Query), LFMError>) -> Void) -> LFMURLOperation {
+                            callback: @escaping (Result<([Album], Query), Error>) -> Void) -> LFMURLOperation {
         return __getTopAlbums(forArtistNamed: artist,
                               withMusicBrainzId: nil,
                               autoCorrect: autoCorrect,
                               itemsPerPage: limit as NSNumber,
                               onPage: page as NSNumber) { (albums, query, error) in
-            let result: Result<([Album], Query), LFMError>
+            let result: Result<([Album], Query), Error>
             
             if let query = query {
                 result = .success((albums, query))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -248,31 +290,29 @@ extension ArtistProvider {
     /**
      Retrieves the top albums for an artist on Last.fm, ordered by popularity.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
-     @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMAlbum`s and an `LFMQuery` object if it succeeds.
+     - Parameter mbid:          The MusicBrainzID for the artist.
+     - Parameter limit:         The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter page:          The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+     - Parameter callback:    The callback block containing an `LFMError` if the request fails and an array of `Album`s and an `Query` object if it succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getTopAlbums(for mbid: String,
                             limit: Int = 30,
                             page: Int = 1,
-                            callback: @escaping (Result<([Album], Query), LFMError>) -> Void) -> LFMURLOperation {
+                            callback: @escaping (Result<([Album], Query), Error>) -> Void) -> LFMURLOperation {
         return __getTopAlbums(forArtistNamed: nil,
                               withMusicBrainzId: mbid,
                               autoCorrect: false,
                               itemsPerPage: limit as NSNumber,
                               onPage: page as NSNumber) { (albums, query, error) in
-            let result: Result<([Album], Query), LFMError>
+            let result: Result<([Album], Query), Error>
             
             if let query = query {
                 result = .success((albums, query))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -281,22 +321,32 @@ extension ArtistProvider {
         }
     }
 
+    /**
+    Retrieves the top tracks for an artist on Last.fm, ordered by popularity.
+
+    - Parameter mbid:        The MusicBrainzID for the artist.
+    - Parameter limit:       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+    - Parameter page:        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+    - Parameter callback:  The callback block containing an `LFMError` if the request fails and an array of `Track`s and an `Query` object if it succeeds.
+
+    - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getTopTracks(for mbid: String,
                             limit: Int = 30,
                             page: Int = 1,
-                            callback: @escaping (Result<([Track], Query), LFMError>) -> Void) -> LFMURLOperation {
+                            callback: @escaping (Result<([Track], Query), Error>) -> Void) -> LFMURLOperation {
         return __getTopTracks(forArtistNamed: nil,
                               withMusicBrainzId: mbid,
                               autoCorrect: false,
                               itemsPerPage: limit as NSNumber,
                               onPage: page as NSNumber) { (tracks, query, error) in
-            let result: Result<([Track], Query), LFMError>
+            let result: Result<([Track], Query), Error>
             
             if let query = query {
                 result = .success((tracks, query))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -308,32 +358,31 @@ extension ArtistProvider {
     /**
      Retrieves the top tracks for an artist on Last.fm, ordered by popularity.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param limit       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
-     @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMQuery` object if it succeeds.
+     - Parameter artist:      The name of the artist.
+     - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+     - Parameter limit:       The maximum number of albums that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter page:        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+     - Parameter callback:  The callback block containing an `LFMError` if the request fails and an array of `Track`s and an `Query` object if it succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getTopTracks(for artist: String,
                             autoCorrect: Bool = true,
                             limit: Int = 30,
                             page: Int = 1,
-                            callback: @escaping (Result<([Track], Query), LFMError>) -> Void) -> LFMURLOperation {
+                            callback: @escaping (Result<([Track], Query), Error>) -> Void) -> LFMURLOperation {
         return __getTopTracks(forArtistNamed: artist,
                               withMusicBrainzId: nil,
                               autoCorrect: autoCorrect,
                               itemsPerPage: limit as NSNumber,
                               onPage: page as NSNumber) { (tracks, query, error) in
-            let result: Result<([Track], Query), LFMError>
+            let result: Result<([Track], Query), Error>
             
             if let query = query {
                 result = .success((tracks, query))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }
@@ -342,17 +391,26 @@ extension ArtistProvider {
         }
     }
     
+    /**
+     Retrieves the top tags for an artist on Last.fm, ordered by popularity.
+
+     - Parameter artist:         The name of the artist.
+     - Parameter autoCorrect:    A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+     - Parameter callback:      The callback block containing an `LFMError` if the request fails and an array of `TopTag`s if it succeeds.
+
+     - Returns:   The `LFMURLOperation` object to be resumed.
+    */
     @discardableResult
     class func getTopTags(for artist: String,
                           autoCorrect: Bool = true,
-                          callback: @escaping (Result<[TopTag], LFMError>) -> Void) -> LFMURLOperation {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forArtistNamed: artist,
                             withMusicBrainzId: nil,
                             autoCorrect: autoCorrect) { (tags, error) in
-            let result: Result<[TopTag], LFMError>
+            let result: Result<[TopTag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -364,23 +422,21 @@ extension ArtistProvider {
     /**
      Retrieves the top tags for an artist on Last.fm, ordered by popularity.
 
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the artist. Required unless artistName is specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
+     - Parameter mbid:          The MusicBrainzID for the artist. misspelled artist names into correct artist names. The corrected artist name will be returned in the response.
+     - Parameter callback:    The callback block containing an `LFMError` if the request fails and an array of `TopTag`s if it succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func getTopTags(for mbid: String,
-                          callback: @escaping (Result<[TopTag], LFMError>) -> Void) -> LFMURLOperation {
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forArtistNamed: nil,
                             withMusicBrainzId: mbid,
                             autoCorrect: false) { (tags, error) in
-            let result: Result<[TopTag], LFMError>
+            let result: Result<[TopTag], Error>
             
             if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 result = .success(tags)
             }
@@ -392,27 +448,27 @@ extension ArtistProvider {
     /**
      Searches for an artist by name. Returns artist matches sorted by relevance.
 
-     @param artistName  The name of the artist.
-     @param limit       The maximum number of artists that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
-     @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMArtist`s and an `LFMSearchQuery` object if it succeeds.
+     - Parameter query:         The name of the artist.
+     - Parameter limit:         The maximum number of artists that will be returned per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter page :         The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+     - Parameter callback:    The callback block containing an `LFMError` if the request fails and an array of `Artist`s and an `SearchQuery` object if it succeeds.
 
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
     class func search(for query: String,
                       limit: Int = 30,
                       page: Int = 1,
-                      callback: @escaping (Result<([Artist], SearchQuery), LFMError>) -> Void) -> LFMURLOperation {
+                      callback: @escaping (Result<([Artist], SearchQuery), Error>) -> Void) -> LFMURLOperation {
         return __search(forArtistNamed: query,
                         itemsPerPage: limit as NSNumber,
                         onPage: page as NSNumber) { (artists, query, error) in
-            let result: Result<([Artist], SearchQuery), LFMError>
+            let result: Result<([Artist], SearchQuery), Error>
             
             if let query = query {
                 result = .success((artists, query))
             } else if let error = error {
-                result = .failure(LFMError.underlyingError(error as NSError))
+                result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
             }

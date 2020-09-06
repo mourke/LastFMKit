@@ -30,8 +30,8 @@
 @implementation LFMTag {
     NSString *_name;
     NSURL *_URL;
-    NSNumber *_reach;
-    NSNumber *_total;
+    NSNumber *_monthlyReach;
+    NSNumber *_totalReach;
     BOOL _streamable;
     LFMWiki *_wiki;
 }
@@ -59,13 +59,13 @@
             id reach = [dictionary objectForKey:@"reach"];
             if (reach != nil &&
                 [reach isKindOfClass:NSString.class]) {
-                _reach = [NSNumber numberWithInt:[reach intValue]];
+                _monthlyReach = [NSNumber numberWithInt:[reach intValue]];
             }
                         
             id total = [dictionary objectForKey:@"total"];
             if (total != nil &&
                 [total isKindOfClass:NSString.class]) {
-                _total = [NSNumber numberWithInt:[total intValue]];
+                _totalReach = [NSNumber numberWithInt:[total intValue]];
             }
                         
             id streamable = [dictionary objectForKey:@"streamable"];
@@ -120,12 +120,12 @@
     return _URL;
 }
 
-- (NSNumber *)reach {
-    return _reach;
+- (NSNumber *)monthlyReach {
+    return _monthlyReach;
 }
 
-- (NSNumber *)total {
-    return _total;
+- (NSNumber *)totalReach {
+    return _totalReach;
 }
 
 - (BOOL)isStreamable {
@@ -146,8 +146,8 @@
     [coder encodeObject:_name forKey:NSStringFromSelector(@selector(name))];
     [coder encodeObject:_URL forKey:NSStringFromSelector(@selector(URL))];
     [coder encodeBool:_streamable forKey:NSStringFromSelector(@selector(isStreamable))];
-    [coder encodeObject:_reach forKey:NSStringFromSelector(@selector(reach))];
-    [coder encodeObject:_total forKey:NSStringFromSelector(@selector(tags))];
+    [coder encodeObject:_monthlyReach forKey:NSStringFromSelector(@selector(monthlyReach))];
+    [coder encodeObject:_totalReach forKey:NSStringFromSelector(@selector(totalReach))];
     [coder encodeObject:_wiki forKey:NSStringFromSelector(@selector(wiki))];
 }
 
@@ -158,8 +158,8 @@
         _name = [decoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
         _URL = [decoder decodeObjectForKey:NSStringFromSelector(@selector(URL))];
         _streamable = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isStreamable))];
-        _reach = [decoder decodeObjectForKey:NSStringFromSelector(@selector(reach))];
-        _total = [decoder decodeObjectForKey:NSStringFromSelector(@selector(total))];
+        _monthlyReach = [decoder decodeObjectForKey:NSStringFromSelector(@selector(monthlyReach))];
+        _totalReach = [decoder decodeObjectForKey:NSStringFromSelector(@selector(totalReach))];
         _wiki = [decoder decodeObjectForKey:NSStringFromSelector(@selector(wiki))];
     }
     

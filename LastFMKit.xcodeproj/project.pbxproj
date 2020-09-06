@@ -210,6 +210,42 @@
 		4D91591C2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
 		4D91591D2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
 		4D91591E2504F37200AC646F /* LFMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591A2504F37200AC646F /* LFMError.swift */; };
+		4D91592025053AF000AC646F /* ChartProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */; };
+		4D91592125053AF000AC646F /* ChartProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */; };
+		4D91592225053AF000AC646F /* ChartProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */; };
+		4D91592325053AF000AC646F /* ChartProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */; };
+		4D91592525053D9C00AC646F /* GeoProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */; };
+		4D91592625053D9C00AC646F /* GeoProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */; };
+		4D91592725053D9C00AC646F /* GeoProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */; };
+		4D91592825053D9C00AC646F /* GeoProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */; };
+		4D91592A25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */; };
+		4D91592B25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */; };
+		4D91592C25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */; };
+		4D91592D25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */; };
+		4D91592F2505409C00AC646F /* TagProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592E2505409C00AC646F /* TagProvider+Swift.swift */; };
+		4D9159302505409C00AC646F /* TagProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592E2505409C00AC646F /* TagProvider+Swift.swift */; };
+		4D9159312505409C00AC646F /* TagProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592E2505409C00AC646F /* TagProvider+Swift.swift */; };
+		4D9159322505409C00AC646F /* TagProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91592E2505409C00AC646F /* TagProvider+Swift.swift */; };
+		4D9159342505453700AC646F /* TrackProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159332505453700AC646F /* TrackProvider+Swift.swift */; };
+		4D9159352505453700AC646F /* TrackProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159332505453700AC646F /* TrackProvider+Swift.swift */; };
+		4D9159362505453700AC646F /* TrackProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159332505453700AC646F /* TrackProvider+Swift.swift */; };
+		4D9159372505453700AC646F /* TrackProvider+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159332505453700AC646F /* TrackProvider+Swift.swift */; };
+		4D9159392505489300AC646F /* Artist+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159382505489300AC646F /* Artist+Swift.swift */; };
+		4D91593A2505489300AC646F /* Artist+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159382505489300AC646F /* Artist+Swift.swift */; };
+		4D91593B2505489300AC646F /* Artist+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159382505489300AC646F /* Artist+Swift.swift */; };
+		4D91593C2505489300AC646F /* Artist+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9159382505489300AC646F /* Artist+Swift.swift */; };
+		4D91593E2505496D00AC646F /* Track+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91593D2505496D00AC646F /* Track+Swift.swift */; };
+		4D91593F2505496D00AC646F /* Track+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91593D2505496D00AC646F /* Track+Swift.swift */; };
+		4D9159402505496D00AC646F /* Track+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91593D2505496D00AC646F /* Track+Swift.swift */; };
+		4D9159412505496D00AC646F /* Track+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91593D2505496D00AC646F /* Track+Swift.swift */; };
+		4D91594325054C8C00AC646F /* Tag+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594225054C8C00AC646F /* Tag+Swift.swift */; };
+		4D91594425054C8C00AC646F /* Tag+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594225054C8C00AC646F /* Tag+Swift.swift */; };
+		4D91594525054C8C00AC646F /* Tag+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594225054C8C00AC646F /* Tag+Swift.swift */; };
+		4D91594625054C8C00AC646F /* Tag+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594225054C8C00AC646F /* Tag+Swift.swift */; };
+		4D91594825054D9900AC646F /* Album+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594725054D9900AC646F /* Album+Swift.swift */; };
+		4D91594925054D9900AC646F /* Album+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594725054D9900AC646F /* Album+Swift.swift */; };
+		4D91594A25054D9900AC646F /* Album+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594725054D9900AC646F /* Album+Swift.swift */; };
+		4D91594B25054D9900AC646F /* Album+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D91594725054D9900AC646F /* Album+Swift.swift */; };
 		4D95DB8C1F9BBAF100C1C553 /* LFMTagProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D95DB8D1F9BBAF100C1C553 /* LFMTagProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */; };
 		4D9DCF4E1F923E97005D8EED /* LFMAlbumProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -354,6 +390,15 @@
 		4D915910250403F700AC646F /* LFMURLOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMURLOperation.h; sourceTree = "<group>"; };
 		4D915911250403F700AC646F /* LFMURLOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMURLOperation.m; sourceTree = "<group>"; };
 		4D91591A2504F37200AC646F /* LFMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFMError.swift; sourceTree = "<group>"; };
+		4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GeoProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D91592E2505409C00AC646F /* TagProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TagProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D9159332505453700AC646F /* TrackProvider+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TrackProvider+Swift.swift"; sourceTree = "<group>"; };
+		4D9159382505489300AC646F /* Artist+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Artist+Swift.swift"; sourceTree = "<group>"; };
+		4D91593D2505496D00AC646F /* Track+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Track+Swift.swift"; sourceTree = "<group>"; };
+		4D91594225054C8C00AC646F /* Tag+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+Swift.swift"; sourceTree = "<group>"; };
+		4D91594725054D9900AC646F /* Album+Swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Album+Swift.swift"; sourceTree = "<group>"; };
 		4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMTagProvider.h; sourceTree = "<group>"; };
 		4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LFMTagProvider.m; sourceTree = "<group>"; };
 		4D9DCF4C1F923E97005D8EED /* LFMAlbumProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LFMAlbumProvider.h; sourceTree = "<group>"; };
@@ -471,7 +516,6 @@
 				4D9FFB5E1F9122AF0062279A /* LFMKit+Protected.h */,
 				4D6A23C11F9411E000F377E2 /* LFMError.h */,
 				4D6A23C21F9411E000F377E2 /* LFMError.m */,
-				4D91591A2504F37200AC646F /* LFMError.swift */,
 			);
 			name = Private;
 			path = LastFMKit/Private;
@@ -490,14 +534,19 @@
 				4D9159062504019500AC646F /* ArtistProvider+Swift.swift */,
 				4D389F1C1F9638890030EAD5 /* LFMChartProvider.h */,
 				4D389F1D1F9638890030EAD5 /* LFMChartProvider.m */,
+				4D91591F25053AF000AC646F /* ChartProvider+Swift.swift */,
 				4D1685A11F9680B80013355C /* LFMGeoProvider.h */,
 				4D1685A21F9680B80013355C /* LFMGeoProvider.m */,
+				4D91592425053D9C00AC646F /* GeoProvider+Swift.swift */,
 				4D1685A51F9687EB0013355C /* LFMLibraryProvider.h */,
 				4D1685A61F9687EB0013355C /* LFMLibraryProvider.m */,
+				4D91592925053F8900AC646F /* LibraryProvider+Swift.swift */,
 				4D95DB8A1F9BBAF100C1C553 /* LFMTagProvider.h */,
 				4D95DB8B1F9BBAF100C1C553 /* LFMTagProvider.m */,
+				4D91592E2505409C00AC646F /* TagProvider+Swift.swift */,
 				4DDDA8A81FA0D00F00E16078 /* LFMTrackProvider.h */,
 				4DDDA8A91FA0D00F00E16078 /* LFMTrackProvider.m */,
+				4D9159332505453700AC646F /* TrackProvider+Swift.swift */,
 				4D04DF621FA5F2AA004675CA /* LFMUserProvider.h */,
 				4D04DF631FA5F2AA004675CA /* LFMUserProvider.m */,
 				4DDC52431FA65D2200B728EB /* UserProvider+Swift.swift */,
@@ -597,6 +646,7 @@
 		4D9FFB581F8E93830062279A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D91591A2504F37200AC646F /* LFMError.swift */,
 				4D915910250403F700AC646F /* LFMURLOperation.h */,
 				4D915911250403F700AC646F /* LFMURLOperation.m */,
 				4DDC52481FA74D7C00B728EB /* LFMTimePeriod.h */,
@@ -609,6 +659,7 @@
 				4D9FFB611F912A430062279A /* LFMImageSize.m */,
 				4D9FFB441F8E7FC00062279A /* LFMArtist.h */,
 				4D9FFB451F8E7FC00062279A /* LFMArtist.m */,
+				4D9159382505489300AC646F /* Artist+Swift.swift */,
 				4D9FFB591F8E95300062279A /* LFMUser.h */,
 				4D9FFB5A1F8E95300062279A /* LFMUser.m */,
 				4DC84A061FA4B671002F6D6A /* LFMScrobbleTrack.h */,
@@ -616,14 +667,17 @@
 				4D283DDD24E5537C00ABC470 /* ScrobbleTrack+Swift.swift */,
 				4D9FFB4C1F8E82670062279A /* LFMTrack.h */,
 				4D9FFB4D1F8E82670062279A /* LFMTrack.m */,
+				4D91593D2505496D00AC646F /* Track+Swift.swift */,
 				4D9FFB501F8E82710062279A /* LFMTag.h */,
 				4D9FFB511F8E82710062279A /* LFMTag.m */,
+				4D91594225054C8C00AC646F /* Tag+Swift.swift */,
 				4D389F181F9630180030EAD5 /* LFMTopTag.h */,
 				4D389F191F9630180030EAD5 /* LFMTopTag.m */,
 				4D9FFB541F8E827B0062279A /* LFMWiki.h */,
 				4D9FFB551F8E827B0062279A /* LFMWiki.m */,
 				4D9FFB481F8E80200062279A /* LFMAlbum.h */,
 				4D9FFB491F8E80200062279A /* LFMAlbum.m */,
+				4D91594725054D9900AC646F /* Album+Swift.swift */,
 				4D389F201F964A160030EAD5 /* LFMQuery.h */,
 				4D389F211F964A160030EAD5 /* LFMQuery.m */,
 				4D6A23C61F94BF7100F377E2 /* LFMSearchQuery.h */,
@@ -1061,8 +1115,10 @@
 				4D915917250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04E02F1FA5F9D7004675CA /* LFMTrack.m in Sources */,
 				4D04DFF11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
+				4D91594425054C8C00AC646F /* Tag+Swift.swift in Sources */,
 				4D04DFE51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E0251FA5F9D7004675CA /* LFMUserGender.m in Sources */,
+				4D91592B25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */,
 				4D9DE57F24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D9159082504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC52591FA75D7C00B728EB /* LFMChart.m in Sources */,
@@ -1074,20 +1130,27 @@
 				4DDC524F1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E0331FA5F9D7004675CA /* LFMTopTag.m in Sources */,
 				4D04E0291FA5F9D7004675CA /* LFMArtist.m in Sources */,
+				4D91592125053AF000AC646F /* ChartProvider+Swift.swift in Sources */,
 				4D3FF2A824D1DFE000B19651 /* AlbumProvider+Swift.swift in Sources */,
 				4D04E0371FA5F9D7004675CA /* LFMAlbum.m in Sources */,
+				4D91593F2505496D00AC646F /* Track+Swift.swift in Sources */,
+				4D9159302505409C00AC646F /* TagProvider+Swift.swift in Sources */,
 				4DDC52451FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB71FA5F99A004675CA /* LFMError.m in Sources */,
+				4D9159352505453700AC646F /* TrackProvider+Swift.swift in Sources */,
 				4D04DFED1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04E02D1FA5F9D7004675CA /* LFMScrobbleTrack.m in Sources */,
 				4D3FF2B424D1F51300B19651 /* LFMProvider.m in Sources */,
 				4D04E0391FA5F9D7004675CA /* LFMQuery.m in Sources */,
 				4D04E03B1FA5F9D7004675CA /* LFMSearchQuery.m in Sources */,
 				4D04E02B1FA5F9D7004675CA /* LFMUser.m in Sources */,
+				4D91593A2505489300AC646F /* Artist+Swift.swift in Sources */,
 				4D283DDA24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFE71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
 				4D91591C2504F37200AC646F /* LFMError.swift in Sources */,
+				4D91594925054D9900AC646F /* Album+Swift.swift in Sources */,
 				4D04E0351FA5F9D7004675CA /* LFMWiki.m in Sources */,
+				4D91592625053D9C00AC646F /* GeoProvider+Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1103,8 +1166,10 @@
 				4D915919250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04DFFF1FA5F9D6004675CA /* LFMTrack.m in Sources */,
 				4D04DFD11FA5F9B9004675CA /* LFMTrackProvider.m in Sources */,
+				4D91594625054C8C00AC646F /* Tag+Swift.swift in Sources */,
 				4D04DFC51FA5F9B9004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04DFF51FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D91592D25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */,
 				4D9DE58124CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D91590A2504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC525B1FA75D7C00B728EB /* LFMChart.m in Sources */,
@@ -1116,20 +1181,27 @@
 				4DDC52511FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E0031FA5F9D6004675CA /* LFMTopTag.m in Sources */,
 				4D04DFF91FA5F9D6004675CA /* LFMArtist.m in Sources */,
+				4D91592325053AF000AC646F /* ChartProvider+Swift.swift in Sources */,
 				4D3FF2AA24D1DFE000B19651 /* AlbumProvider+Swift.swift in Sources */,
 				4D04E0071FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4D9159412505496D00AC646F /* Track+Swift.swift in Sources */,
+				4D9159322505409C00AC646F /* TagProvider+Swift.swift in Sources */,
 				4DDC52471FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB51FA5F999004675CA /* LFMError.m in Sources */,
+				4D9159372505453700AC646F /* TrackProvider+Swift.swift in Sources */,
 				4D04DFCD1FA5F9B9004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04DFFD1FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
 				4D3FF2B624D1F51300B19651 /* LFMProvider.m in Sources */,
 				4D04E0091FA5F9D6004675CA /* LFMQuery.m in Sources */,
 				4D04E00B1FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
 				4D04DFFB1FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D91593C2505489300AC646F /* Artist+Swift.swift in Sources */,
 				4D283DDC24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFC71FA5F9B9004675CA /* LFMArtistProvider.m in Sources */,
 				4D91591E2504F37200AC646F /* LFMError.swift in Sources */,
+				4D91594B25054D9900AC646F /* Album+Swift.swift in Sources */,
 				4D04E0051FA5F9D6004675CA /* LFMWiki.m in Sources */,
+				4D91592825053D9C00AC646F /* GeoProvider+Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,8 +1231,10 @@
 				4D915918250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D04E0171FA5F9D6004675CA /* LFMTrack.m in Sources */,
 				4D04DFE11FA5F9BA004675CA /* LFMTrackProvider.m in Sources */,
+				4D91594525054C8C00AC646F /* Tag+Swift.swift in Sources */,
 				4D04DFD51FA5F9BA004675CA /* LFMAlbumProvider.m in Sources */,
 				4D04E00D1FA5F9D6004675CA /* LFMUserGender.m in Sources */,
+				4D91592C25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */,
 				4D9DE58024CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D9159092504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC525A1FA75D7C00B728EB /* LFMChart.m in Sources */,
@@ -1172,20 +1246,27 @@
 				4DDC52501FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D04E01B1FA5F9D6004675CA /* LFMTopTag.m in Sources */,
 				4D04E0111FA5F9D6004675CA /* LFMArtist.m in Sources */,
+				4D91592225053AF000AC646F /* ChartProvider+Swift.swift in Sources */,
 				4D3FF2A924D1DFE000B19651 /* AlbumProvider+Swift.swift in Sources */,
 				4D04E01F1FA5F9D6004675CA /* LFMAlbum.m in Sources */,
+				4D9159402505496D00AC646F /* Track+Swift.swift in Sources */,
+				4D9159312505409C00AC646F /* TagProvider+Swift.swift in Sources */,
 				4DDC52461FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D04DFB61FA5F99A004675CA /* LFMError.m in Sources */,
+				4D9159362505453700AC646F /* TrackProvider+Swift.swift in Sources */,
 				4D04DFDD1FA5F9BA004675CA /* LFMLibraryProvider.m in Sources */,
 				4D04E0151FA5F9D6004675CA /* LFMScrobbleTrack.m in Sources */,
 				4D3FF2B524D1F51300B19651 /* LFMProvider.m in Sources */,
 				4D04E0211FA5F9D6004675CA /* LFMQuery.m in Sources */,
 				4D04E0231FA5F9D6004675CA /* LFMSearchQuery.m in Sources */,
 				4D04E0131FA5F9D6004675CA /* LFMUser.m in Sources */,
+				4D91593B2505489300AC646F /* Artist+Swift.swift in Sources */,
 				4D283DDB24E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D04DFD71FA5F9BA004675CA /* LFMArtistProvider.m in Sources */,
 				4D91591D2504F37200AC646F /* LFMError.swift in Sources */,
+				4D91594A25054D9900AC646F /* Album+Swift.swift in Sources */,
 				4D04E01D1FA5F9D6004675CA /* LFMWiki.m in Sources */,
+				4D91592725053D9C00AC646F /* GeoProvider+Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1215,8 +1296,10 @@
 				4D915916250403F700AC646F /* LFMURLOperation.m in Sources */,
 				4D389F1B1F9630180030EAD5 /* LFMTopTag.m in Sources */,
 				4D6A23C91F94BF7100F377E2 /* LFMSearchQuery.m in Sources */,
+				4D91594325054C8C00AC646F /* Tag+Swift.swift in Sources */,
 				4D9DCF4F1F923E97005D8EED /* LFMAlbumProvider.m in Sources */,
 				4D389F171F950F8D0030EAD5 /* LFMArtistProvider.m in Sources */,
+				4D91592A25053F8900AC646F /* LibraryProvider+Swift.swift in Sources */,
 				4D9DE57E24CF4CDF004C38CA /* NSString+UnsignedIntegerValue.m in Sources */,
 				4D9159072504019500AC646F /* ArtistProvider+Swift.swift in Sources */,
 				4DDC52581FA75D7C00B728EB /* LFMChart.m in Sources */,
@@ -1228,20 +1311,27 @@
 				4DDC524E1FA74D7C00B728EB /* LFMTimePeriod.m in Sources */,
 				4D9FFB4F1F8E82670062279A /* LFMTrack.m in Sources */,
 				4D389F1F1F9638890030EAD5 /* LFMChartProvider.m in Sources */,
+				4D91592025053AF000AC646F /* ChartProvider+Swift.swift in Sources */,
 				4D3FF2A724D1DFE000B19651 /* AlbumProvider+Swift.swift in Sources */,
 				4D9FFB531F8E82710062279A /* LFMTag.m in Sources */,
+				4D91593E2505496D00AC646F /* Track+Swift.swift in Sources */,
+				4D91592F2505409C00AC646F /* TagProvider+Swift.swift in Sources */,
 				4DDC52441FA65D2200B728EB /* UserProvider+Swift.swift in Sources */,
 				4D9FFB4B1F8E80200062279A /* LFMAlbum.m in Sources */,
+				4D9159342505453700AC646F /* TrackProvider+Swift.swift in Sources */,
 				4D9FFB661F9143100062279A /* LFMUserGender.m in Sources */,
 				4D1685A81F9687EB0013355C /* LFMLibraryProvider.m in Sources */,
 				4D3FF2B324D1F51300B19651 /* LFMProvider.m in Sources */,
 				4D04DF651FA5F2AA004675CA /* LFMUserProvider.m in Sources */,
 				4DDDA8AB1FA0D00F00E16078 /* LFMTrackProvider.m in Sources */,
 				4D9DCF591F923ED9005D8EED /* LFMAuth.m in Sources */,
+				4D9159392505489300AC646F /* Artist+Swift.swift in Sources */,
 				4D283DD924E5420000ABC470 /* Auth+Swift.swift in Sources */,
 				4D9FFB5C1F8E95300062279A /* LFMUser.m in Sources */,
 				4D91591B2504F37200AC646F /* LFMError.swift in Sources */,
+				4D91594825054D9900AC646F /* Album+Swift.swift in Sources */,
 				4D9FFB571F8E827B0062279A /* LFMWiki.m in Sources */,
+				4D91592525053D9C00AC646F /* GeoProvider+Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

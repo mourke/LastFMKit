@@ -105,7 +105,9 @@ NSString* md5(NSString *string);
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         LFMSession *session = [[LFMSession alloc] initFromDictionary:[responseDictionary objectForKey:@"session"]];
-        [self setSession:session];
+        if (session) {
+            [self setSession:session];
+        }
         
         block(session, error);
     }];
