@@ -38,8 +38,6 @@
                        callback:(OperationCallback)callback {
     self = [super init];
     
-    NSOperation
-    
     if (self) {
         _request = request;
         _callback = callback;
