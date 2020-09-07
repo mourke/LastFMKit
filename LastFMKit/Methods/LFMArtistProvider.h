@@ -73,8 +73,8 @@ NS_SWIFT_NAME(ArtistProvider)
  
  @return   The `LFMURLOperation` object to be resumed.
  */
-+ (LFMURLOperation *)getCorrectionForMisspeltArtistName:(NSString *)artistName
-                                                    callback:(LFMArtistCallback)block NS_REFINED_FOR_SWIFT;
++ (LFMURLOperation *)getCorrectionForMisspelledArtistName:(NSString *)artistName
+                                                 callback:(LFMArtistCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Retrieves detailed information on an artist using its name or MusicBrainzID.

@@ -108,8 +108,8 @@
     }];
 }
 
-+ (LFMURLOperation *)getCorrectionForMisspeltArtistName:(NSString *)artistName
-                                                    callback:(LFMArtistCallback)block {
++ (LFMURLOperation *)getCorrectionForMisspelledArtistName:(NSString *)artistName
+                                                 callback:(LFMArtistCallback)block {
     NSParameterAssert(artistName);
     NSParameterAssert(block);
     

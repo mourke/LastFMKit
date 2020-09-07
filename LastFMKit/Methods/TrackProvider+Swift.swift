@@ -30,107 +30,322 @@ extension TrackProvider {
     /**
      Retrieves detailed information on a track using its name and artist or MusicBrainzID.
      
-     @param trackName   The name of the track. Required, unless mbid is specified.
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the track. Required unless the trackName and artistName are specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
-     @param username    The username for the context of the request. If supplied, the user's playcount for this track is included in the response.
-     @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTrack` object if the request succeeds.
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The name of the artist.
+     - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+     - Parameter username:    The username for the context of the request. If supplied, the user's playcount for this track is included in the response.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and a `Track` object if the request succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)getInfoOnTrackNamed:(nullable NSString *)trackName
-                                    byArtistNamed:(nullable NSString *)artistName
-                                 withMusicBrainzId:(nullable NSString *)mbid
-                                       autoCorrect:(BOOL)autoCorrect
-                                           forUser:(nullable NSString *)username
-                                         callback:(LFMTrackCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func getInfo(on track: String,
+                       by artist: String,
+                       autoCorrect: Bool = true,
+                       username: String? = nil,
+                       callback: @escaping (Result<Track, Error>) -> Void) -> LFMURLOperation {
+        return __getInfoOnTrackNamed(track,
+                                     byArtistNamed: artist,
+                                     withMusicBrainzId: nil,
+                                     autoCorrect: autoCorrect,
+                                     forUser: username) { (track, error) in
+            let result: Result<Track, Error>
+            
+            if let track = track {
+                result = .success(track)
+            } else if let error = error {
+                result = .failure(error)
+            } else {
+                fatalError("Unhandled error occurred")
+            }
+            
+            callback(result)
+        }
+    }
+    
+    /**
+     Retrieves detailed information on a track using its name and artist or MusicBrainzID.
+     
+     - Parameter mbid:        The MusicBrainzID for the track.
+     - Parameter username:    The username for the context of the request. If supplied, the user's playcount for this track is included in the response.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and a `Track` object if the request succeeds.
+     
+     - Returns:   The `LFMURLOperation` object to be resumed.
+     */
+    @discardableResult
+    class func getInfo(mbid: String,
+                       username: String? = nil,
+                       callback: @escaping (Result<Track, Error>) -> Void) -> LFMURLOperation {
+        return __getInfoOnTrackNamed(nil,
+                                     byArtistNamed: nil,
+                                     withMusicBrainzId: mbid,
+                                     autoCorrect: false,
+                                     forUser: username) { (track, error) in
+            let result: Result<Track, Error>
+            
+            if let track = track {
+                result = .success(track)
+            } else if let error = error {
+                result = .failure(error)
+            } else {
+                fatalError("Unhandled error occurred")
+            }
+            
+            callback(result)
+        }
+    }
 
     /**
      Searches for a track by name. Returns track matches sorted by relevance.
      
-     @param trackName   The name of the track.
-     @param artistName  The track's artist.
-     @param limit       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
-     @param page        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack`s and an `LFMSearchQuery` object if it succeeds.
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The track's artist.
+     - Parameter limit:       The number of search results available per page. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter page:        The page of results to be fetched. Must be between 1 and 10,000. Defaults to 1.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Track`s and an `SearchQuery` object if it succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)searchForTrackNamed:(NSString *)trackName
-                                    byArtistNamed:(nullable NSString *)artistName
-                                     itemsPerPage:(nullable NSNumber *)limit
-                                           onPage:(nullable NSNumber *)page
-                                         callback:(LFMTrackSearchCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func search(for track: String,
+                      by artist: String,
+                      limit: Int = 30,
+                      on page: Int = 1,
+                      callback:  @escaping (Result<([Track], SearchQuery), Error>) -> Void) -> LFMURLOperation {
+        return __search(forTrackNamed: track,
+                        byArtistNamed: artist,
+                        itemsPerPage: limit as NSNumber,
+                        onPage: page as NSNumber) { (tracks, query, error) in
+            let result: Result<([Track], SearchQuery), Error>
+            
+            if let query = query {
+                result = .success((tracks, query))
+            } else if let error = error {
+                result = .failure(error)
+            } else {
+                fatalError("Unhandled error occurred")
+            }
+            
+            callback(result)
+        }
+    }
 
     /**
      Retrieves tracks similar to a specified track.
      
-     @param trackName   The name of the track. Required, unless mbid is specified.
-     @param artistName  The name of the artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the track. Required unless both the trackName and artistName are specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
-     @param limit       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTrack` objects if the request succeeds.
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The name of the artist.
+     - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+     - Parameter limit:       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Track` objects if the request succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)getTracksSimilarToTrackNamed:(nullable NSString *)trackName
-                                             byArtistNamed:(nullable NSString *)artistName
-                                         withMusicBrainzId:(nullable NSString *)mbid
-                                               autoCorrect:(BOOL)autoCorrect
-                                                     limit:(nullable NSNumber *)limit
-                                                  callback:(LFMTracksCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func getSimilarTracks(to track: String,
+                                by artist: String,
+                                autoCorrect: Bool = true,
+                                limit: Int = 30,
+                                callback: @escaping (Result<[Track], Error>) -> Void) -> LFMURLOperation {
+        return __getTracksSimilar(toTrackNamed: track,
+                                  byArtistNamed: artist,
+                                   withMusicBrainzId: nil,
+                                   autoCorrect: autoCorrect,
+                                   limit: limit as NSNumber) { (tracks, error) in
+            let result: Result<[Track], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tracks)
+            }
+            
+            callback(result)
+        }
+    }
+    
+    /**
+     Retrieves tracks similar to a specified track.
+     
+     - Parameter mbid:        The MusicBrainzID for the track. Required unless both the trackName and artistName are specified.
+     - Parameter limit:       The maximum number of similar tracks to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Track` objects if the request succeeds.
+     
+     - Returns:   The `LFMURLOperation` object to be resumed.
+     */
+    @discardableResult
+    class func getSimilarTracks(to mbid: String,
+                                limit: Int = 30,
+                                callback: @escaping (Result<[Track], Error>) -> Void) -> LFMURLOperation {
+        return __getTracksSimilar(toTrackNamed: nil,
+                                  byArtistNamed: nil,
+                                   withMusicBrainzId: mbid,
+                                   autoCorrect: false,
+                                   limit: limit as NSNumber) { (tracks, error) in
+            let result: Result<[Track], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tracks)
+            }
+            
+            callback(result)
+        }
+    }
 
     /**
      Checks whether the supplied track has a correction to a canonical track.
      
-     @param trackName   The name of the track.
-     @param artistName  The name of the artist.
-     @param block       The callback block containing an optional `NSError` if the request fails and an `LFMTrack` object if the request succeeds.
+     - Parameter track:   The misspelt/misconcatinated name of a track.
+     - Parameter artist:  The misspelt/misconcatinated name of the track's artist.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an `Track` object if the request succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)getCorrectionForMisspelledTrackNamed:(NSString *)trackName
-                                         withMisspelledArtistNamed:(NSString *)artistName
-                                                          callback:(LFMTrackCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func getCorrection(forMisspelled track: String,
+                             byMisspelled artist: String,
+                             callback: @escaping (Result<Track, Error>) -> Void) -> LFMURLOperation {
+        return __getCorrectionForMisspelledTrackNamed(track,
+                                                      withMisspelledArtistNamed: artist) { (track, error) in
+            let result: Result<Track, Error>
+            
+            if let track = track {
+                result = .success(track)
+            } else if let error = error {
+                result = .failure(error)
+            } else {
+                fatalError("Unhandled error occurred")
+            }
+            
+            callback(result)
+        }
+    }
 
     /**
      Retrieves the tags applied by an individual user to a track on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
      
-     @note  🔒: Authentication Optional.
+     - Note:  🔒: Authentication Optional.
      
-     @param trackName   The name of the track. Required, unless mbid is specified.
-     @param artistName  The name of the track's artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the track. Required, unless both trackName and artistName are specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
-     @param username    The name of any Last.fm user from which to obtain track tags. If this method is called and the user has not been signed in, this parameter MUST be set otherwise an exception will be raised.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTag`s if it succeeds.
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The name of the track's artist.
+     - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+     - Parameter username:    The name of any Last.fm user from which to obtain track tags. If this method is called and the user has not been signed in, this parameter **MUST** be set otherwise an exception will be raised.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Tag`s if it succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)getTagsForTrackNamed:(nullable NSString *)trackName
-                                     byArtistNamed:(nullable NSString *)artistName
-                                 withMusicBrainzId:(nullable NSString *)mbid
-                                       autoCorrect:(BOOL)autoCorrect
-                                           forUser:(nullable NSString *)username
-                                          callback:(LFMTagsCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func getTags(for track: String,
+                       by artist: String,
+                       autoCorrect: Bool = true,
+                       username: String? = nil,
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
+        return __getTagsForTrackNamed(track,
+                                      byArtistNamed: artist,
+                                      withMusicBrainzId: nil,
+                                      autoCorrect: autoCorrect,
+                                      forUser: username) { (tags, error) in
+            let result: Result<[Tag], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tags)
+            }
+            
+            callback(result)
+        }
+    }
+    
+    /**
+     Retrieves the tags applied by an individual user to a track on Last.fm. If accessed as an authenticated service and a user parameter is not supplied then this service will return tags for the authenticated user.
+     
+     - Note:  🔒: Authentication Optional.
+     
+     - Parameter mbid:       The MusicBrainzID for the track.
+     - Parameter username:    The name of any Last.fm user from which to obtain track tags. If this method is called and the user has not been signed in, this parameter **MUST** be set otherwise an exception will be raised.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `Tag`s if it succeeds.
+     
+     - Returns:   The `LFMURLOperation` object to be resumed.
+     */
+    @discardableResult
+    class func getTags(for mbid: String,
+                       username: String? = nil,
+                       callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
+        return __getTagsForTrackNamed(nil,
+                                      byArtistNamed: nil,
+                                      withMusicBrainzId: mbid,
+                                      autoCorrect: false,
+                                      forUser: username) { (tags, error) in
+            let result: Result<[Tag], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tags)
+            }
+            
+            callback(result)
+        }
+    }
 
     /**
      Retrieves the top tags for a track on Last.fm, ordered by popularity.
      
-     @param trackName   The name of the track. Required, unless mbid is specified.
-     @param artistName  The name of the track's artist. Required, unless mbid is specified.
-     @param mbid        The MusicBrainzID for the track. Required, unless both trackName and artistName are specified.
-     @param autoCorrect A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
-     @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag`s if it succeeds.
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The name of the track's artist.
+     - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `TopTag`s if it succeeds.
      
-     @return   The `LFMURLOperation` object to be resumed.
+     - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    + (LFMURLOperation *)getTopTagsForTrackNamed:(nullable NSString *)trackName
-                                        byArtistNamed:(nullable NSString *)artistName
-                                    withMusicBrainzId:(nullable NSString *)mbid
-                                          autoCorrect:(BOOL)autoCorrect
-                                             callback:(LFMTopTagsCallback)block NS_REFINED_FOR_SWIFT;
+    @discardableResult
+    class func getTopTags(for track: String,
+                          by artist: String,
+                          autoCorrect: Bool = true,
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
+        return __getTopTags(forTrackNamed: track,
+                            byArtistNamed: artist,
+                            withMusicBrainzId: nil,
+                            autoCorrect: false) { (tags, error) in
+            let result: Result<[TopTag], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tags)
+            }
+            
+            callback(result)
+        }
+    }
 
+    /**
+     Retrieves the top tags for a track on Last.fm, ordered by popularity.
+     
+     - Parameter mbid:        The MusicBrainzID for the track.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and an array of `TopTag`s if it succeeds.
+     
+     - Returns:   The `LFMURLOperation` object to be resumed.
+     */
+    @discardableResult
+    class func getTopTags(for mbid: String,
+                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
+        return __getTopTags(forTrackNamed: nil,
+                            byArtistNamed: nil,
+                            withMusicBrainzId: mbid,
+                            autoCorrect: false) { (tags, error) in
+            let result: Result<[TopTag], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(tags)
+            }
+            
+            callback(result)
+        }
+    }
 }

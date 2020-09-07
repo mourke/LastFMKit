@@ -89,8 +89,8 @@
     if (self) {
         _name = tagName;
         _URL = nil;
-        _reach = 0;
-        _total = 0;
+        _monthlyReach = 0;
+        _totalReach = 0;
         _streamable = NO;
         _wiki = nil;
     }

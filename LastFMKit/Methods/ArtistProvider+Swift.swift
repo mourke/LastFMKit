@@ -36,9 +36,9 @@ public extension ArtistProvider {
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
     @discardableResult
-    class func getCorrection(forMisspelt artist: String,
+    class func getCorrection(forMisspelled artist: String,
                              callback: @escaping (Result<Artist, Error>) -> Void) -> LFMURLOperation {
-        return __getCorrectionForMisspeltArtistName(artist) { (artist, error) in
+        return __getCorrectionForMisspelledArtistName(artist) { (artist, error) in
             let result: Result<Artist, Error>
             
             if let artist = artist {

@@ -193,7 +193,7 @@ NS_SWIFT_NAME(UserProvider)
  
  @param username    The user for whom to fetch top tags.
  @param limit       The maximum number of items to be returned. Keep in mind the larger the limit, the longer the request will take to both process and fetch. Must be between 1 and 10,000. Defaults to 30.
- @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag` objects and an `LFMQuery` object if it succeeds.
+ @param block       The callback block containing an optional `NSError` if the request fails and an array of `LFMTopTag` objects if it succeeds.
  
  @return    The `LFMURLOperation` object to be resumed.
  */
