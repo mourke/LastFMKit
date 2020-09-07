@@ -58,7 +58,7 @@ NS_SWIFT_NAME(TrackProvider)
                                     withAlbumArtistNamed:(nullable NSString *)albumArtist
                                            trackDuration:(nullable NSNumber *)duration
                                            musicBrainzId:(nullable NSString *)mbid
-                                                callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(updateNowPlaying(track:by:on:position:albumArtist:duration:mbid:callback:));
+                                                callback:(nullable LFMErrorCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Adds a track-play to a user's profile.

@@ -42,7 +42,6 @@ public extension AlbumProvider {
     
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getInfo(on album: String,
                        by artist: String,
                        autoCorrectArtist autoCorrect: Bool = true,
@@ -85,7 +84,6 @@ public extension AlbumProvider {
     
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getInfo(on mid: String,
                        username: String? = nil,
                        language: String? = nil,
@@ -123,7 +121,6 @@ public extension AlbumProvider {
         
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTags(for album: String,
                        by artist: String,
                        autoCorrectArtist autoCorrect: Bool = true,
@@ -159,7 +156,6 @@ public extension AlbumProvider {
         
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
                        callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
@@ -190,7 +186,6 @@ public extension AlbumProvider {
     
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTopTags(for album: String,
                           by artist: String,
                           autoCorrectArtist autoCorrect: Bool = true,
@@ -221,7 +216,6 @@ public extension AlbumProvider {
     
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTopTags(for mbid: String,
                           callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forAlbumNamed: nil,
@@ -250,7 +244,6 @@ public extension AlbumProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func search(for query: String,
                       limit: Int = 30,
                       page: Int = 1,

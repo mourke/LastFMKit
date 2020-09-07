@@ -36,7 +36,6 @@ public extension ChartProvider {
      
      - Returns:  The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopArtists(on page: Int = 1,
                              limit: Int = 30,
                              callback:  @escaping (Result<([Artist], Query), Error>) -> Void) -> LFMURLOperation {
@@ -65,7 +64,6 @@ public extension ChartProvider {
      
      - Returns:  The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(on page: Int = 1,
                           limit: Int = 30,
                           callback:  @escaping (Result<([Tag], Query), Error>) -> Void) -> LFMURLOperation {
@@ -94,7 +92,6 @@ public extension ChartProvider {
      
      - Returns:  The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTracks(on page: Int = 1,
                             limit: Int = 30,
                             callback:  @escaping (Result<([Track], Query), Error>) -> Void) -> LFMURLOperation {

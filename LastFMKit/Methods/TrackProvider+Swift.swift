@@ -25,7 +25,41 @@
 
 import Foundation
 
-extension TrackProvider {
+public extension TrackProvider {
+    
+    /**
+     Notifies Last.fm that a user has started listening to a track.
+     
+     - Note:  🔒: Authentication Required.
+     
+     - Parameter track:   The name of the track.
+     - Parameter artist:  The name of the track's artist.
+     - Parameter album:   The name of the track's album, if any.
+     - Parameter position: The position of the track on said album, if any.
+     - Parameter albumArtist: The artist of the album, if different to that of the track.
+     - Parameter duration:    The duration of the track, in seconds.
+     - Parameter mbid:        The MusicBrainzID for the track.
+     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails. Regardless of the success of the operation, this block will be called.
+     
+     - Returns:   The `LFMURLOperation` object to be resumed.
+     */
+    class func updateNowPlaying(track: String,
+                                by artist: String,
+                                on album: String? = nil,
+                                position: Int? = nil,
+                                albumArtist: String? = nil,
+                                duration: TimeInterval? = nil,
+                                mbid: String? = nil,
+                                callback: LFMErrorCallback? = nil) -> LFMURLOperation {
+        return __updateNowPlaying(withTrackNamed: track,
+                                  byArtistNamed: artist,
+                                  onAlbumNamed: album,
+                                  positionInAlbum: position as NSNumber?,
+                                  withAlbumArtistNamed: albumArtist,
+                                  trackDuration: duration as NSNumber?,
+                                  musicBrainzId: mbid,
+                                  callback: callback)
+    }
     
     /**
      Retrieves detailed information on a track using its name and artist or MusicBrainzID.
@@ -38,7 +72,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getInfo(on track: String,
                        by artist: String,
                        autoCorrect: Bool = true,
@@ -72,7 +105,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getInfo(mbid: String,
                        username: String? = nil,
                        callback: @escaping (Result<Track, Error>) -> Void) -> LFMURLOperation {
@@ -106,7 +138,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func search(for track: String,
                       by artist: String,
                       limit: Int = 30,
@@ -141,7 +172,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getSimilarTracks(to track: String,
                                 by artist: String,
                                 autoCorrect: Bool = true,
@@ -173,7 +203,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getSimilarTracks(to mbid: String,
                                 limit: Int = 30,
                                 callback: @escaping (Result<[Track], Error>) -> Void) -> LFMURLOperation {
@@ -203,7 +232,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getCorrection(forMisspelled track: String,
                              byMisspelled artist: String,
                              callback: @escaping (Result<Track, Error>) -> Void) -> LFMURLOperation {
@@ -236,7 +264,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTags(for track: String,
                        by artist: String,
                        autoCorrect: Bool = true,
@@ -270,7 +297,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
                        callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
@@ -301,7 +327,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(for track: String,
                           by artist: String,
                           autoCorrect: Bool = true,
@@ -330,7 +355,6 @@ extension TrackProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(for mbid: String,
                           callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forTrackNamed: nil,

@@ -37,7 +37,6 @@ public extension GeoProvider {
      
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopArtists(in country: String,
                              limit: Int = 30,
                              page: Int = 1,
@@ -70,7 +69,6 @@ public extension GeoProvider {
      
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTracks(in country: String,
                             within province: String? = nil,
                             limit: Int = 30,

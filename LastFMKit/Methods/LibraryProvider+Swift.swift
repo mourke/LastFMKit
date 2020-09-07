@@ -36,7 +36,6 @@ public extension LibraryProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getArtists(for username: String,
                           limit: Int = 30,
                           on page: Int = 30,

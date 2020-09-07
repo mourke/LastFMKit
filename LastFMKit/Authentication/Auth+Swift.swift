@@ -36,7 +36,6 @@ public extension Auth {
      
      - Returns: The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     func getSession(username: String,
                     password: String,
                     callback: @escaping (Result<Session, Error>) -> Void) -> LFMURLOperation {

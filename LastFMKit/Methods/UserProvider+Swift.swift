@@ -36,7 +36,6 @@ public extension UserProvider {
 
      - Returns:  The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getInfo(on user: String, callback: @escaping (Result<User, Error>) -> Void) -> LFMURLOperation {
         return __getInfoOnUserNamed(user) { (user, error) in
             let result: Result<User, Error>
@@ -64,7 +63,6 @@ public extension UserProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getFriends(of username: String,
                           includeRecentScrobbles: Bool,
                           limit: Int = 30,
@@ -100,7 +98,6 @@ public extension UserProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTracks(scrobbledBy username: String,
                          byArtist artist: String,
                          on page: Int = 1,
@@ -136,7 +133,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTracks(lovedBy username: String,
                          limit: Int = 30,
                          on page: Int = 1,
@@ -222,7 +218,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getRecentTracks(for username: String,
                                limit: Int = 30,
                                on page: Int = 1,
@@ -259,7 +254,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopAlbums(for username: String,
                             limit: Int = 30,
                             on page: Int = 1,
@@ -294,7 +288,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopArtists(for username: String,
                              limit: Int = 30,
                              on page: Int = 1,
@@ -329,7 +322,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTracks(for username: String,
                             limit: Int = 30,
                             on page: Int = 1,
@@ -362,7 +354,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(for username: String,
                          limit: Int = 30,
                          callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
@@ -390,7 +381,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getWeeklyAlbumChart(for username: String,
                                    from startDate: Date? = nil,
                                    to endDate: Date? = nil,
@@ -420,7 +410,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getWeeklyArtistChart(for username: String,
                                     from startDate: Date? = nil,
                                     to endDate: Date? = nil,
@@ -450,7 +439,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getWeeklyTrackChart(for username: String,
                                    from startDate: Date? = nil,
                                    to endDate: Date? = nil,
@@ -478,7 +466,6 @@ public extension UserProvider {
 
      - Returns:    The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getWeeklyChartList(for username: String,
                                   callback: @escaping (Result<[Chart], Error>) -> Void) -> LFMURLOperation {
         return __getWeeklyChartList(forUsername: username) { (charts, error) in

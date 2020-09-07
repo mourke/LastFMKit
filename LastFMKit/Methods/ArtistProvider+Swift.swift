@@ -35,7 +35,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getCorrection(forMisspelled artist: String,
                              callback: @escaping (Result<Artist, Error>) -> Void) -> LFMURLOperation {
         return __getCorrectionForMisspelledArtistName(artist) { (artist, error) in
@@ -66,7 +65,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getInfo(on artist: String,
                        autoCorrect: Bool = true,
                        username: String? = nil,
@@ -103,7 +101,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getInfo(on mid: String,
                        username: String? = nil,
                        language: String? = nil,
@@ -137,7 +134,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getSimilarArtists(to artist: String,
                                  autoCorrect: Bool = true,
                                  limit: Int = 30,
@@ -167,7 +163,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getSimilarArtists(to mbid: String,
                                  limit: Int = 30,
                                  callback: @escaping (Result<[Artist], Error>) -> Void) -> LFMURLOperation {
@@ -199,7 +194,6 @@ public extension ArtistProvider {
 
     - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTags(for artist: String,
                        autoCorrect: Bool = true,
                        username: String? = nil,
@@ -231,7 +225,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTags(for mbid: String,
                        username: String? = nil,
                        callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
@@ -262,7 +255,6 @@ public extension ArtistProvider {
 
     - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTopAlbums(for artist: String,
                             autoCorrect: Bool = true,
                             limit: Int = 30,
@@ -297,7 +289,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopAlbums(for mbid: String,
                             limit: Int = 30,
                             page: Int = 1,
@@ -331,7 +322,6 @@ public extension ArtistProvider {
 
     - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTopTracks(for mbid: String,
                             limit: Int = 30,
                             page: Int = 1,
@@ -366,7 +356,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTracks(for artist: String,
                             autoCorrect: Bool = true,
                             limit: Int = 30,
@@ -400,7 +389,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
     */
-    @discardableResult
     class func getTopTags(for artist: String,
                           autoCorrect: Bool = true,
                           callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
@@ -427,7 +415,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(for mbid: String,
                           callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags(forArtistNamed: nil,
@@ -455,7 +442,6 @@ public extension ArtistProvider {
 
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func search(for query: String,
                       limit: Int = 30,
                       page: Int = 1,

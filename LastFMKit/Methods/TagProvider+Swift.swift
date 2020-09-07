@@ -36,7 +36,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getInfo(on tag: String,
                        language: String? = nil,
                        callback: @escaping (Result<Tag, Error>) -> Void) -> LFMURLOperation {
@@ -63,7 +62,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTags(_ callback: @escaping (Result<[TopTag], Error>) -> Void) -> LFMURLOperation {
         return __getTopTags { (tags, error) in
             let result: Result<[TopTag], Error>
@@ -86,7 +84,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getSimilarTags(to tag: String,
                               callback: @escaping (Result<[Tag], Error>) -> Void) -> LFMURLOperation {
         return __getTagsSimilar(toTagNamed: tag) { (tags, error) in
@@ -112,7 +109,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopAlbums(taggedBy tag: String,
                             limit: Int = 30,
                             on page: Int = 1,
@@ -144,7 +140,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopArtists(taggedBy tag: String,
                             limit: Int = 30,
                             on page: Int = 1,
@@ -176,7 +171,6 @@ public extension TagProvider {
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
-    @discardableResult
     class func getTopTracks(taggedBy tag: String,
                             limit: Int = 30,
                             on page: Int = 1,
