@@ -105,4 +105,67 @@
     XCTAssertTrue([user.realName isEqualToString:@"Mark Bourke"]);
 }
 
+- (void)testEncodeDecodeShouldSucceed {
+    NSString *json =
+    @"{ \
+      \"playlists\": \"0\", \
+      \"playcount\": \"5820\", \
+      \"gender\": \"m\", \
+      \"name\": \"markkbourke\", \
+      \"subscriber\": \"0\", \
+      \"url\": \"https://www.last.fm/user/markkbourke\", \
+      \"country\": \"Ireland\", \
+      \"image\": [ \
+        { \
+          \"size\": \"small\", \
+          \"#text\": \"https://lastfm.freetls.fastly.net/i/u/34s/2ffed912723fabeb959b1bcef30e702d.png\" \
+        }, \
+        { \
+          \"size\": \"medium\", \
+          \"#text\": \"https://lastfm.freetls.fastly.net/i/u/64s/2ffed912723fabeb959b1bcef30e702d.png\" \
+        }, \
+        { \
+          \"size\": \"large\", \
+          \"#text\": \"https://lastfm.freetls.fastly.net/i/u/174s/2ffed912723fabeb959b1bcef30e702d.png\" \
+        }, \
+        { \
+          \"size\": \"extralarge\", \
+          \"#text\": \"https://lastfm.freetls.fastly.net/i/u/300x300/2ffed912723fabeb959b1bcef30e702d.png\" \
+        } \
+      ], \
+      \"registered\": { \
+        \"unixtime\": \"1401905471\", \
+        \"#text\": 1401905471 \
+      }, \
+      \"type\": \"user\", \
+      \"age\": \"25\", \
+      \"bootstrap\": \"0\", \
+      \"realname\": \"Mark Bourke\" \
+    }";
+    NSError *error;
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+    
+    XCTAssertNotNil(dictionary);
+    XCTAssertNil(error);
+    
+    LFMUser *user = [[LFMUser alloc] initFromDictionary:dictionary];
+    
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:user];
+    XCTAssertNotNil(data);
+    
+    LFMUser *unarchived = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    XCTAssertNotNil(unarchived);
+    
+    XCTAssertEqual(user.playlistCount, unarchived.playlistCount);
+    XCTAssertEqual(user.playCount, unarchived.playCount);
+    XCTAssertEqual(user.gender, unarchived.gender);
+    XCTAssertTrue([user.username isEqualToString:unarchived.username]);
+    XCTAssertEqual(user.isSubscriber, unarchived.isSubscriber);
+    XCTAssertTrue([user.URL.absoluteString isEqualToString:unarchived.URL.absoluteString]);
+    XCTAssertTrue([user.country isEqualToString:unarchived.country]);
+    XCTAssertTrue([user.dateRegistered isEqualToDate:unarchived.dateRegistered]);
+    XCTAssertEqual(user.age, unarchived.age);
+    XCTAssertTrue([user.realName isEqualToString:unarchived.realName]);
+}
+
 @end

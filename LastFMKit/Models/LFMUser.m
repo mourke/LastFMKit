@@ -40,6 +40,16 @@
     NSDate *_dateRegistered;
 }
 
+static LFMUserGender genderFromString(NSString *gender) {
+    if ([gender isEqualToString:LFMUserGenderMale]) {
+        return LFMUserGenderMale;
+    } else if ([gender isEqualToString:LFMUserGenderFemale]) {
+        return LFMUserGenderFemale;
+    } else {
+        return LFMUserGenderOther;
+    }
+}
+
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [super init];
     
@@ -85,14 +95,7 @@
             _playlistCount = [playlistCount integerValue];
             _dateRegistered = [NSDate dateWithTimeIntervalSince1970:[registeredTime integerValue]];
             
-            if ([gender isEqualToString:LFMUserGenderMale]) {
-                _gender = LFMUserGenderMale;
-            } else if ([gender isEqualToString:LFMUserGenderFemale]) {
-                _gender = LFMUserGenderFemale;
-            } else {
-                _gender = LFMUserGenderOther;
-            }
-            
+            _gender = genderFromString(gender);
             
             return self;
         }
@@ -187,9 +190,9 @@
         _subscriber = [decoder decodeBoolForKey:NSStringFromSelector(@selector(isSubscriber))];
         _age = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(age))];
         _playCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playCount))];
-        _gender = [decoder decodeObjectForKey:NSStringFromSelector(@selector(gender))];
         _playlistCount = [decoder decodeIntegerForKey:NSStringFromSelector(@selector(playlistCount))];
         _dateRegistered = [decoder decodeObjectForKey:NSStringFromSelector(@selector(dateRegistered))];
+        _gender = genderFromString([decoder decodeObjectForKey:NSStringFromSelector(@selector(gender))]);
     }
     
     return self;
