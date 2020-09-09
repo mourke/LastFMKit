@@ -47,7 +47,7 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.updateNowPlaying"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.updateNowPlaying"],
                             [NSURLQueryItem queryItemWithName:@"album" value:albumName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
@@ -57,7 +57,9 @@
                             [NSURLQueryItem queryItemWithName:@"mbid" value:mbid],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
+    
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
     NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
@@ -81,12 +83,13 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.love"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.love"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
     NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
@@ -110,12 +113,13 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.unlove"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.unlove"],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
     NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
@@ -147,7 +151,7 @@
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -240,7 +244,7 @@
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"limit" value:[NSString stringWithFormat:@"%u", limit.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -283,7 +287,7 @@
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"username" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -306,7 +310,7 @@
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -344,13 +348,14 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.addTags"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.addTags"],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"tags" value:tagString],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
     NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
@@ -375,13 +380,14 @@
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.removeTag"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.removeTag"],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
                             [NSURLQueryItem queryItemWithName:@"tag" value:tag.name],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
     NSData *data = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
@@ -410,7 +416,7 @@
     NSAssert((trackName != nil && artistName != nil) || (mbid != nil), @"Either the trackName and the artistName or the mbid parameter must be set.");
     
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
-    NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"track.getTags"],
+    NSArray *queryItems = [@[[NSURLQueryItem queryItemWithName:@"method" value:@"track.getTags"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"track" value:trackName],
                             [NSURLQueryItem queryItemWithName:@"artist" value:artistName],
@@ -418,7 +424,8 @@
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"user" value:username],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey],
-                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]];
+                            [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]
+                           filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     components.queryItems = [LFMSession sharedSession].sessionKey == nil ? queryItems : [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
     
@@ -459,7 +466,7 @@
                             [NSURLQueryItem queryItemWithName:@"autocorrect" value:[NSString stringWithFormat:@"%d", autoCorrect]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     

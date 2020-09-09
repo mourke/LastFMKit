@@ -59,7 +59,7 @@
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     
@@ -117,7 +117,7 @@
                             [NSURLQueryItem queryItemWithName:@"page" value:[NSString stringWithFormat:@"%u", page.unsignedIntValue]],
                             [NSURLQueryItem queryItemWithName:@"api_key" value:[LFMAuth sharedInstance].apiKey]];
     
-    components.queryItems = queryItems;
+    components.queryItems = [queryItems filteredArrayUsingPredicate:LFMURLComponentsPredicate];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
     

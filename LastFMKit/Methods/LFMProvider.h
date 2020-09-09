@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const APIEndpoint;
 
+/// Remove all the query items from the url if there isn't a value because it breaks the last.fm api otherwise
+#define LFMURLComponentsPredicate [NSPredicate predicateWithFormat:@"value != nil"]
+
 @class NSError, LFMAlbum, LFMArtist, LFMTag, LFMUser, LFMTopTag, LFMTrack, LFMWiki, LFMChart, LFMSearchQuery, LFMQuery;
 
 @interface LFMProvider : NSObject
