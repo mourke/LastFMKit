@@ -67,11 +67,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id artistsDictionary = [responseDictionary objectForKey:@"artists"];
         if (artistsDictionary != nil &&
             [artistsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
             
             id artistArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
             if (artistArray != nil &&
@@ -81,11 +82,11 @@
                     if (artist) [artists addObject:artist];
                 }
             }
-            
-            block(artists, query, error);
-        } else {
-            block(artists, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(artists, query, error);
+        });
     }];
 }
 

@@ -65,11 +65,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id artistsDictionary = [responseDictionary objectForKey:@"artists"];
         if (artistsDictionary != nil &&
             [artistsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)artistsDictionary objectForKey:@"@attr"]];
             
             id artistArray = [(NSDictionary *)artistsDictionary objectForKey:@"artist"];
             if (artistArray != nil && [artistArray isKindOfClass:NSArray.class]) {
@@ -78,11 +79,11 @@
                     if (artist) [artists addObject:artist];
                 }
             }
-            
-            block(artists, query, error);
-        } else {
-            block(artists, nil, error);
         }
+                           
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(artists, query, error);
+        });
     }];
 }
 
@@ -118,11 +119,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMTag *> *tags = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id tagsDictionary = [responseDictionary objectForKey:@"tags"];
         if (tagsDictionary != nil &&
             [tagsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tagsDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tagsDictionary objectForKey:@"@attr"]];
             
             id tagArray = [(NSDictionary *)tagsDictionary objectForKey:@"tag"];
             if (tagArray != nil && [tagArray isKindOfClass:NSArray.class]) {
@@ -131,11 +133,11 @@
                     if (tag) [tags addObject:tag];
                 }
             }
-            
-            block(tags, query, error);
-        } else {
-            block(tags, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tags, query, error);
+        });
     }];
 }
 
@@ -171,11 +173,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id tracksDictionary = [responseDictionary objectForKey:@"tracks"];
         if (tracksDictionary != nil &&
             [tracksDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)tracksDictionary objectForKey:@"@attr"]];
             
             id trackArray = [(NSDictionary *)tracksDictionary objectForKey:@"track"];
             if (trackArray != nil && [trackArray isKindOfClass:NSArray.class]) {
@@ -184,11 +187,11 @@
                     if (track) [tracks addObject:track];
                 }
             }
-            
-            block(tracks, query, error);
-        } else {
-            block(tracks, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tracks, query, error);
+        });
     }];
 }
 

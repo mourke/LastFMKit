@@ -68,11 +68,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id topArtistsDictionary = [responseDictionary objectForKey:@"topartists"];
         if (topArtistsDictionary != nil &&
             [topArtistsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topArtistsDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topArtistsDictionary objectForKey:@"@attr"]];
             
             id artistArray = [(NSDictionary *)topArtistsDictionary objectForKey:@"artist"];
             if (artistArray != nil &&
@@ -82,11 +83,11 @@
                     if (artist) [artists addObject:artist];
                 }
             }
-            
-            block(artists, query, error);
-        } else {
-            block(artists, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(artists, query, error);
+        });
     }];
 }
 
@@ -126,11 +127,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id topTracksDictionary = [responseDictionary objectForKey:@"toptracks"];
         if (topTracksDictionary != nil &&
             [topTracksDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topTracksDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topTracksDictionary objectForKey:@"@attr"]];
             
             id tracksArray = [(NSDictionary *)topTracksDictionary objectForKey:@"track"];
             if (tracksArray != nil &&
@@ -140,11 +142,11 @@
                     if (track) [tracks addObject:track];
                 }
             }
-            
-            block(tracks, query, error);
-        } else {
-            block(tracks, nil, error);
         }
+                           
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tracks, query, error);
+        });
     }];
 }
 

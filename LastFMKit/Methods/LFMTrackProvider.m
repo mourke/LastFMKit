@@ -73,7 +73,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -103,7 +105,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -133,7 +137,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -160,11 +166,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        LFMSearchQuery *searchQuery = nil;
         
         id resultsDictionary = [responseDictionary objectForKey:@"results"];
         if (resultsDictionary != nil &&
             [resultsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
+            searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
             
             id trackMatchesDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"trackmatches"];
             if (trackMatchesDictionary != nil &&
@@ -177,11 +184,11 @@
                     }
                 }
             }
-            
-            block(tracks, searchQuery, error);
-        } else {
-            block(tracks, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tracks, searchQuery, error);
+        });
     }];
 }
 
@@ -223,7 +230,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -266,7 +275,9 @@
             }
         }
         
-        block(tracks, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tracks, error);
+        });
     }];
 }
 
@@ -297,7 +308,9 @@
                                                    NSError *error) {
         LFMTrack *track = [[LFMTrack alloc] initFromDictionary:[responseDictionary objectForKey:@"track"]];
         
-        block(track, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(track, error);
+        });
     }];
 }
 
@@ -318,19 +331,21 @@
                                          request:request
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
+        LFMTrack *track = nil;
+        
         id correctionsDictionary = [responseDictionary objectForKey:@"corrections"];
         if (correctionsDictionary != nil &&
             [correctionsDictionary isKindOfClass:NSDictionary.class]) {
             id correctionDictionary = [(NSDictionary *)correctionsDictionary objectForKey:@"correction"];
             if (correctionDictionary != nil &&
                 [correctionDictionary isKindOfClass:NSDictionary.class]) {
-                LFMTrack *track = [[LFMTrack alloc] initFromDictionary:[(NSDictionary *)correctionDictionary objectForKey:@"track"]];
-                block(track, error);
-                return;
+                track = [[LFMTrack alloc] initFromDictionary:[(NSDictionary *)correctionDictionary objectForKey:@"track"]];
             }
         }
         
-        block(nil, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(track, error);
+        });
     }];
 }
 
@@ -369,7 +384,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -401,7 +418,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -446,7 +465,9 @@
             }
         }
         
-        block(tags, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tags, error);
+        });
     }];
 }
 
@@ -489,7 +510,9 @@
             }
         }
         
-        block(tags, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tags, error);
+        });
     }];
 }
 

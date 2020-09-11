@@ -75,7 +75,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -112,7 +114,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -147,7 +151,9 @@
                                                    NSError *error) {
         LFMAlbum *album = [[LFMAlbum alloc] initFromDictionary:[responseDictionary objectForKey:@"album"]];
         
-        block(album, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(album, error);
+        });
     }];
 }
 
@@ -194,7 +200,9 @@
             }
         }
         
-        block(tags, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tags, error);
+        });
     }];
 }
 
@@ -237,7 +245,9 @@
             }
         }
         
-        block(tags, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tags, error);
+        });
     }];
 }
 
@@ -276,13 +286,13 @@
                                          request:request
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
+        LFMSearchQuery *searchQuery = nil;
+        NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
+        
         id resultsDictionary = [responseDictionary objectForKey:@"results"];
         if (resultsDictionary != nil &&
             [resultsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
-            
-            NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
-            
+            searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
             id albumMatchDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"albummatches"];
             if (albumMatchDictionary != nil &&
                 [albumMatchDictionary isKindOfClass:NSDictionary.class]) {
@@ -295,11 +305,11 @@
                     }
                 }
             }
-            
-            block(albums, searchQuery, error);
-        } else {
-            block(@[], nil, error);
         }
+                           
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(albums, searchQuery, error);
+        });
     }];
 }
 

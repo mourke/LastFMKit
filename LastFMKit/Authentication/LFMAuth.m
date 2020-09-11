@@ -109,7 +109,9 @@ NSString* md5(NSString *string);
             [self setSession:session];
         }
         
-        block(session, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(session, error);
+        });
     }];
 }
 

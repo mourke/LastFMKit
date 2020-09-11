@@ -72,7 +72,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -106,7 +108,9 @@
                                                    NSError *error) {
         if (block == nil) return;
         
-        block(error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(error);
+        });
     }];
 }
 
@@ -128,19 +132,21 @@
                                          request:request
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
+        LFMArtist *artist = nil;
+        
         id correctionsDictionary = [responseDictionary objectForKey:@"corrections"];
         if (correctionsDictionary != nil &&
             [correctionsDictionary isKindOfClass:NSDictionary.class]) {
             id correctionDictionary = [(NSDictionary *)correctionsDictionary objectForKey:@"correction"];
             if (correctionDictionary != nil &&
                 [correctionDictionary isKindOfClass:NSDictionary.class]) {
-                LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[(NSDictionary *)correctionDictionary objectForKey:@"artist"]];
-                block(artist, error);
-                return;
+                artist = [[LFMArtist alloc] initFromDictionary:[(NSDictionary *)correctionDictionary objectForKey:@"artist"]];
             }
         }
         
-        block(nil, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(artist, error);
+        });
     }];
 }
 
@@ -172,7 +178,9 @@
                                                    NSError *error) {
         LFMArtist *artist = [[LFMArtist alloc] initFromDictionary:[responseDictionary objectForKey:@"artist"]];
         
-        block(artist, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(artist, error);
+        });
     }];
 }
 
@@ -220,7 +228,9 @@
             }
         }
         
-        block(artists, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(artists, error);
+        });
     }];
 }
 
@@ -267,7 +277,9 @@
             }
         }
         
-        block(tags, error);
+        dispatch_async(dispatch_get_main_queue(), ^{
+           block(tags, error);
+        });
     }];
 }
 
@@ -309,11 +321,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMAlbum *> *albums = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id topAlbumsDictionary = [responseDictionary objectForKey:@"topalbums"];
         if (topAlbumsDictionary != nil &&
             [topAlbumsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topAlbumsDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topAlbumsDictionary objectForKey:@"@attr"]];
             
             id albumArray = [(NSDictionary *)topAlbumsDictionary objectForKey:@"album"];
             if (albumArray != nil && [albumArray isKindOfClass:NSArray.class]) {
@@ -322,11 +335,11 @@
                     if (album) [albums addObject:album];
                 }
             }
-            
-            block(albums, query, error);
-        } else {
-            block(albums, nil, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(albums, query, error);
+        });
     }];
 }
 
@@ -368,11 +381,12 @@
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
         NSMutableArray<LFMTrack *> *tracks = [NSMutableArray array];
+        LFMQuery *query = nil;
         
         id topTracksDictionary = [responseDictionary objectForKey:@"toptracks"];
         if (topTracksDictionary != nil &&
             [topTracksDictionary isKindOfClass:NSDictionary.class]) {
-            LFMQuery *query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topTracksDictionary objectForKey:@"@attr"]];
+            query = [[LFMQuery alloc] initFromDictionary:[(NSDictionary *)topTracksDictionary objectForKey:@"@attr"]];
             
             id trackArray = [(NSDictionary *)topTracksDictionary objectForKey:@"track"];
             if (trackArray != nil && [trackArray isKindOfClass:NSArray.class]) {
@@ -381,11 +395,11 @@
                     if (track) [tracks addObject:track];
                 }
             }
-            
-            block(tracks, query, error);
-        } else {
-            block(tracks, nil, error);
         }
+                           
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tracks, query, error);
+        });
     }];
 }
 
@@ -424,11 +438,11 @@
                     if (tag) [tags addObject:tag];
                 }
             }
-            
-            block(tags, error);
-        } else {
-            block(tags, error);
         }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(tags, error);
+        });
     }];
 }
 
@@ -466,13 +480,14 @@
                                          request:request
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
+        NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
+        LFMSearchQuery *searchQuery = nil;
+        
         id resultsDictionary = [responseDictionary objectForKey:@"results"];
         if (resultsDictionary != nil &&
             [resultsDictionary isKindOfClass:NSDictionary.class]) {
-            LFMSearchQuery *searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
-            
-            NSMutableArray<LFMArtist *> *artists = [NSMutableArray array];
-            
+            searchQuery = [[LFMSearchQuery alloc] initFromDictionary:resultsDictionary];
+
             id artistMatchesDictionary = [(NSDictionary *)resultsDictionary objectForKey:@"artistmatches"];
             if (artistMatchesDictionary != nil &&
                 [artistMatchesDictionary isKindOfClass:NSDictionary.class]) {
@@ -485,11 +500,11 @@
                     }
                 }
             }
-            
-            block(artists, searchQuery, error);
-        } else {
-            block(@[], nil, error);
         }
+                           
+        dispatch_async(dispatch_get_main_queue(), ^{
+            block(artists, searchQuery, error);
+        });
     }];
 }
 
