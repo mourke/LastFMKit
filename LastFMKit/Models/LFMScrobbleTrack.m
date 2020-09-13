@@ -46,8 +46,8 @@
                                                  images:@{}
                                              streamable:NO
                                                  onTour:NO
-                                              listeners:0
-                                              playCount:0
+                                              listeners:nil
+                                              playCount:nil
                                          similarArtists:@[]
                                                    tags:@[]
                                                    wiki:nil];
@@ -56,14 +56,14 @@
                                                  URL:URL
                                               images:@{}
                                        musicBrainzID:@""
-                                           listeners:0
-                                           playCount:0
+                                           listeners:nil
+                                           playCount:nil
                                               tracks:@[]
                                                 tags:@[]
                                                 wiki:nil];
     self = [super initWithName:trackName
                         artist:artist
-                 musicBrainzID:@""
+                 musicBrainzID:nil
                          album:album
                positionInAlbum:position
                            URL:URL
@@ -71,8 +71,8 @@
                     streamable:NO
                           tags:@[]
                           wiki:nil
-                     listeners:0
-                     playCount:0];
+                     listeners:nil
+                     playCount:nil];
     
     NSParameterAssert(timestamp);
     
@@ -81,7 +81,7 @@
         _chosenByUser = chosenByUser;
     }
     
-    return nil;
+    return self;
 }
 
 - (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser {

@@ -125,7 +125,17 @@ NSString* md5(NSString *string);
         parameters[item.name] = item.value;
     }
     
-    NSArray *alphebetisedKeys = [[parameters allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    // must be sorted according to the ASCII sort table: http://support.ecisolutions.com/doc-ddms/help/reportsmenu/ascii_sort_order_chart.htm
+    NSArray *alphebetisedKeys = [[parameters allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *lhs, NSString *rhs) {
+        NSUInteger length = MIN(lhs.length, rhs.length);
+        for (NSUInteger i = 0; i < length; ++i) {
+            unichar l = [lhs characterAtIndex:i];
+            unichar r = [rhs characterAtIndex:i];
+            if (l == r) continue;
+            return l < r ? NSOrderedAscending : NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
     
     for (NSString *key in alphebetisedKeys) {
         NSString *value = parameters[key];

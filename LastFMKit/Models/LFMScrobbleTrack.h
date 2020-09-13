@@ -73,7 +73,7 @@ NS_SWIFT_NAME(ScrobbleTrack)
  
  @return   An `LFMScrobbleTrack` object.
  */
-- (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser;
+- (instancetype)initFromTrack:(LFMTrack *)track withTimestamp:(NSDate *)timestamp chosenByUser:(BOOL)chosenByUser NS_SWIFT_NAME(init(track:timestamp:chosenByUser:));
 
 - (instancetype)initWithName:(NSString *)trackName artist:(nullable LFMArtist *)artist musicBrainzID:(nullable NSString *)mbid album:(nullable LFMAlbum *)album positionInAlbum:(nullable NSNumber *)position URL:(NSURL *)URL duration:(nullable NSNumber *)duration streamable:(BOOL)streamable tags:(NSArray<LFMTag *> *)tags wiki:(nullable LFMWiki *)wiki listeners:(nullable NSNumber *)listeners playCount:(nullable NSNumber *)playCount NS_UNAVAILABLE;
 

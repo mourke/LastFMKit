@@ -61,6 +61,19 @@ NS_SWIFT_NAME(TrackProvider)
                                                 callback:(nullable LFMErrorCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
+ Notifies Last.fm that a user has started listening to a track.
+ 
+ @note  🔒: Authentication Required.
+ 
+ @param track      The track that the user is currently listening to.
+ @param block       The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
+ 
+ @return   The `LFMURLOperation` object to be resumed.
+ */
++ (LFMURLOperation *)updateNowPlayingWithTrack:(LFMTrack *)track
+                                      callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(updateNowPlaying(track:callback:));
+
+/**
  Adds a track-play to a user's profile.
  
  A track should only be scrobbled when both of the following conditions have been met:

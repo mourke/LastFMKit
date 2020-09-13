@@ -79,6 +79,17 @@
     }];
 }
 
++ (LFMURLOperation *)updateNowPlayingWithTrack:(LFMTrack *)track callback:(LFMErrorCallback)block {
+    return [self updateNowPlayingWithTrackNamed:track.name
+                                  byArtistNamed:track.artist.name
+                                   onAlbumNamed:track.album.name
+                                positionInAlbum:track.positionInAlbum
+                           withAlbumArtistNamed:track.artist.name
+                                  trackDuration:track.duration
+                                  musicBrainzId:track.mbid
+                                       callback:block];
+}
+
 + (LFMURLOperation *)loveTrackNamed:(NSString *)trackName
                            byArtistNamed:(NSString *)artistName
                                 callback:(nullable LFMErrorCallback)block {
@@ -204,17 +215,31 @@
                             [NSURLQueryItem queryItemWithName:@"sk" value:[LFMSession sharedSession].sessionKey]]];
     
     [tracks enumerateObjectsUsingBlock:^(LFMScrobbleTrack * _Nonnull track, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSURLQueryItem *artistItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"artist[%tu]", idx] value:track.artist.name];
-        NSURLQueryItem *trackItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"track[%tu]", idx] value:track.name];
-        NSURLQueryItem *albumArtistItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"albumArtist[%tu", idx] value:track.album.artist];
-        NSURLQueryItem *timestampItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"timestamp[%tu]", idx] value: [NSString stringWithFormat:@"%f", track.timestamp.timeIntervalSinceReferenceDate]];
-        NSURLQueryItem *albumItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"album[%tu]", idx] value:track.album.name];
-        NSURLQueryItem *chosenByUserItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"chosenByUser[%tu]", idx] value:[NSString stringWithFormat:@"%d", track.wasChosenByUser]];
-        NSURLQueryItem *positionInAlbumItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"trackNumber[%tu]", idx] value:track.positionInAlbum.stringValue];
-        NSURLQueryItem *mbidItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"mbid[%tu]", idx] value:track.mbid];
-        NSURLQueryItem *durationItem = [NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"duration[%tu]", idx] value:track.duration.stringValue];
         
-        [queryItems addObjectsFromArray:@[artistItem, trackItem, albumArtistItem, timestampItem, albumItem, chosenByUserItem, positionInAlbumItem, mbidItem, durationItem]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"artist[%tu]", idx] value:track.artist.name]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"track[%tu]", idx] value:track.name]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"timestamp[%tu]", idx] value: [NSString stringWithFormat:@"%f", track.timestamp.timeIntervalSince1970]]];
+        [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"chosenByUser[%tu]", idx] value:[NSString stringWithFormat:@"%d", track.wasChosenByUser]]];
+        
+        if (track.album.artist) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"albumArtist[%tu]", idx] value:track.album.artist]];
+        }
+        
+        if (track.album.name) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"album[%tu]", idx] value:track.album.name]];
+        }
+        
+        if (track.positionInAlbum) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"trackNumber[%tu]", idx] value:track.positionInAlbum.stringValue]];
+        }
+        
+        if (track.mbid) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"mbid[%tu]", idx] value:track.mbid]];
+        }
+        
+        if (track.duration) {
+            [queryItems addObject:[NSURLQueryItem queryItemWithName:[NSString stringWithFormat:@"duration[%tu]", idx] value:track.duration.stringValue]];
+        }
     }];
     
     components.queryItems = [[LFMAuth sharedInstance] appendingSignatureItemToQueryItems:queryItems];
