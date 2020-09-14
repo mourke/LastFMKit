@@ -60,4 +60,16 @@
     [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
 
+- (void)testNowPlaying_ShouldPass_WithAllInfoPresent {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors when all values are present."];
+    
+    [[LFMTrackProvider updateNowPlayingWithTrack:_testScrobbleTracks.firstObject callback:^(NSError * _Nullable error) {
+        XCTAssertNil(error);
+        
+        [expectation fulfill];
+    }] resume];
+    
+    [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
+}
+
 @end

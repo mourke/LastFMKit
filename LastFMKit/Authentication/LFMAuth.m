@@ -134,7 +134,7 @@ NSString* md5(NSString *string);
             if (l == r) continue;
             return l < r ? NSOrderedAscending : NSOrderedDescending;
         }
-        return NSOrderedSame;
+        return lhs.length < rhs.length ? NSOrderedAscending : NSOrderedDescending;
     }];
     
     for (NSString *key in alphebetisedKeys) {
