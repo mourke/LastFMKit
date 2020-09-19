@@ -203,7 +203,7 @@
     }];
 }
 
-+ (LFMURLOperation *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks callback:(nullable LFMErrorCallback)block {
++ (LFMURLOperation *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks callback:(LFMScrobbleResultsCallback)block {
     NSAssert(tracks.count <= 50, @"There is a a maximum of 50 scrobbles per batch.");
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
@@ -253,10 +253,27 @@
                                          request:request
                                         callback:^(NSDictionary *responseDictionary,
                                                    NSError *error) {
-        if (block == nil) return;
+        NSMutableArray<LFMScrobbleResult *> *results = [NSMutableArray array];
+        
+        id scrobblesDictionary = [responseDictionary objectForKey:@"scrobbles"];
+        if (scrobblesDictionary != nil &&
+            [scrobblesDictionary isKindOfClass:NSDictionary.class]) {
+            id scrobble = [(NSDictionary *)scrobblesDictionary objectForKey:@"scrobble"];
+            if (scrobble != nil) {
+                if ([scrobble isKindOfClass:NSArray.class]) {
+                    for (NSDictionary *scrobbleResult in scrobble) {
+                        LFMScrobbleResult *result = [[LFMScrobbleResult alloc] initFromDictionary:scrobbleResult];
+                        if (result) [results addObject:result];
+                    }
+                } else if ([scrobble isKindOfClass:NSDictionary.class]) {
+                    LFMScrobbleResult *result = [[LFMScrobbleResult alloc] initFromDictionary:scrobble];
+                    if (result) [results addObject:result];
+                }
+            }
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           block(error);
+           block(results, error);
         });
     }];
 }

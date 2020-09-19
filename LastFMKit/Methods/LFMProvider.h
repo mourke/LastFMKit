@@ -32,7 +32,7 @@ extern NSString * const APIEndpoint;
 /// Remove all the query items from the url if there isn't a value because it breaks the last.fm api otherwise
 #define LFMURLComponentsPredicate [NSPredicate predicateWithFormat:@"value != nil"]
 
-@class NSError, LFMAlbum, LFMArtist, LFMTag, LFMUser, LFMTopTag, LFMTrack, LFMWiki, LFMChart, LFMSearchQuery, LFMQuery;
+@class NSError, LFMAlbum, LFMArtist, LFMTag, LFMUser, LFMTopTag, LFMTrack, LFMWiki, LFMChart, LFMSearchQuery, LFMQuery, LFMScrobbleResult;
 
 @interface LFMProvider : NSObject
 
@@ -188,6 +188,16 @@ typedef void (^LFMUsersCallback)(NSArray<LFMUser *> *users, NSError * _Nullable 
  @param error       An `NSError` object if an error occurred, is `nil` if there is no error.
  */
 typedef void (^LFMUserPaginatedCallback)(NSArray<LFMUser *> *users, LFMQuery * _Nullable query, NSError * _Nullable error);
+
+#pragma mark - Scrobble Result
+
+/**
+ A callback containing an array of scrobble results and an error.
+ 
+ @param results     An array of `LFMScrobbleResult`s.
+ @param error         An `NSError` object if an error occurred, is `nil` if there is no error.
+ */
+typedef void (^LFMScrobbleResultsCallback)(NSArray<LFMScrobbleResult *> *results, NSError * _Nullable error);
 
 #pragma mark - Tag
 

@@ -100,6 +100,10 @@
     return nil;
 }
 
+- (void)setTimestamp:(NSDate *)timestamp {
+    _timestamp = timestamp;
+}
+
 - (NSDate *)timestamp {
     return _timestamp;
 }

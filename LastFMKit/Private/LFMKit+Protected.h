@@ -33,6 +33,7 @@
 #import "LFMSession.h"
 #import "LFMQuery.h"
 #import "LFMChart.h"
+#import "LFMScrobbleResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -118,6 +119,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface LFMChart()
+
+- (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
+
+@end
+
+@interface LFMScrobbleResult()
 
 - (nullable instancetype)initFromDictionary:(NSDictionary *)dictionary;
 

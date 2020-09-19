@@ -25,6 +25,10 @@
 
 #import "LFMError.h"
 
+NSString * const LFMErrorDomain = @"fm.last.kit.error";
+NSString * const HTTPErrorDomain = @"http.error";
+NSString * const LFMScrobbleErrorDomain = @"fm.last.kit.scrobble.error";
+
 BOOL lfm_error_validate(NSData *responseData, NSError **error) {
     if (responseData == nil) {
         return NO;
@@ -38,7 +42,7 @@ BOOL lfm_error_validate(NSData *responseData, NSError **error) {
     
     if (errorMessage != nil && [errorMessage isKindOfClass:NSString.class] &&
         errorCode != nil && [errorCode isKindOfClass:NSNumber.class]) {
-        _error = [NSError errorWithDomain:@"fm.last.kit.error"
+        _error = [NSError errorWithDomain:LFMErrorDomain
                                      code:[errorCode integerValue]
                                  userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
     }
@@ -60,7 +64,7 @@ BOOL http_error_validate(NSURLResponse *response, NSError **error) {
     
     if (statusCode != 200) {
         NSString *errorMessage = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
-        _error = [NSError errorWithDomain:@"fm.last.kit.http.error"
+        _error = [NSError errorWithDomain:HTTPErrorDomain
                                      code:statusCode
                                  userInfo:@{NSLocalizedDescriptionKey: errorMessage}];
     }

@@ -39,6 +39,7 @@ FOUNDATION_EXPORT const unsigned char LastFMKitVersionString[];
 #import <LastFMKit/LFMUser.h>
 #import <LastFMKit/LFMTrack.h>
 #import <LastFMKit/LFMScrobbleTrack.h>
+#import <LastFMKit/LFMScrobbleResult.h>
 #import <LastFMKit/LFMTag.h>
 #import <LastFMKit/LFMTopTag.h>
 #import <LastFMKit/LFMWiki.h>

@@ -83,12 +83,12 @@ NS_SWIFT_NAME(TrackProvider)
  @note  🔒: Authentication Required.
  
  @param tracks  The array of tracks to be scrobbled. The maximum amount of tracks that can be scrobbled at a time is 50. An exception will be raised if this limit is passed.
- @param block   The callback block containing an optional `NSError` if the request fails. Regardless of the success of the operation, this block will be called.
+ @param block   The callback block containing an optional `NSError` if the request fails and an array of `LFMScrobbleResult` objects if the request succeeds.
  
  @return   The `LFMURLOperation` object to be resumed.
  */
 + (LFMURLOperation *)scrobbleTracks:(NSArray<LFMScrobbleTrack *> *)tracks
-                                callback:(nullable LFMErrorCallback)block NS_SWIFT_NAME(scrobble(tracks:callback:));
+                           callback:(LFMScrobbleResultsCallback)block NS_REFINED_FOR_SWIFT;
 
 /**
  Loves a track for a user profile.

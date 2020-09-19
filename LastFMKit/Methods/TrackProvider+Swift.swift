@@ -68,7 +68,7 @@ public extension TrackProvider {
      - Parameter artist:  The name of the artist.
      - Parameter autoCorrect: A boolean value indicating whether or not to transform misspelled artist and track names into correct artist and track names, returning the correct version instead. The corrected artist and track name will be returned in the response.
      - Parameter username:    The username for the context of the request. If supplied, the user's playcount for this track is included in the response.
-     - Parameter callback:       The callback block containing an optional `LFMError` if the request fails and a `Track` object if the request succeeds.
+     - Parameter callback:    The callback block containing an optional `LFMError` if the request fails and a `Track` object if the request succeeds.
      
      - Returns:   The `LFMURLOperation` object to be resumed.
      */
@@ -90,6 +90,35 @@ public extension TrackProvider {
                 result = .failure(error)
             } else {
                 fatalError("Unhandled error occurred")
+            }
+            
+            callback(result)
+        }
+    }
+    
+    /**
+     Adds a track-play to a user's profile.
+     
+     A track should only be scrobbled when both of the following conditions have been met:
+     * The track must be longer than 30 seconds in length.
+     * The track has been played for at least half its duration, or for 4 minutes (whichever occurs earlier).
+     
+     - Note: 🔒: Authentication Required.
+     
+     - Parameter tracks:  The array of tracks to be scrobbled. The maximum amount of tracks that can be scrobbled at a time is 50. An exception will be raised if this limit is passed.
+     - Parameter callback:  The callback block containing an optional `LFMError` if the request fails and an array of `ScrobbleResult` objects if the request succeeds.
+     
+     - Returns:   The `URLOperation` object to be resumed.
+     */
+    class func scrobble(tracks: [ScrobbleTrack],
+                        callback: @escaping (Result<[ScrobbleResult], Error>) -> Void) -> LFMURLOperation {
+        return __scrobbleTracks(tracks) { (results, error) in
+            let result: Result<[ScrobbleResult], Error>
+            
+            if let error = error {
+                result = .failure(error)
+            } else {
+                result = .success(results)
             }
             
             callback(result)

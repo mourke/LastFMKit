@@ -25,6 +25,10 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const LFMErrorDomain;
+extern NSString * const HTTPErrorDomain;
+extern NSString * const LFMScrobbleErrorDomain;
+
 /**
  Validates valid response JSON for any server-side last.fm errors.
  

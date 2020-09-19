@@ -36,12 +36,12 @@
 - (void)setUp {
     [super setUp];
     
-    _testScrobbleTracks = @[[[LFMScrobbleTrack alloc] initWithName:@"Old Me"
-                            artistName:@"Betty Who"
-                            albumName:@"Betty"
-                            albumArtist:@"Betty Who"
+    _testScrobbleTracks = @[[[LFMScrobbleTrack alloc] initWithName:@"Emotion"
+                            artistName:@"Ella Mai"
+                            albumName:@"Ella Mai"
+                            albumArtist:@"Ella Mai"
                             positionInAlbum:@1
-                            duration:@141
+                            duration:@12
                             timestamp:[NSDate new]
                             chosenByUser:YES]];
 }
@@ -51,8 +51,10 @@
 - (void)testScrobbleTrack_ShouldPass_WithAllInfoPresent {
     XCTestExpectation *expectation = [self expectationWithDescription:@"API should not return any errors when all values are present."];
     
-    [[LFMTrackProvider scrobbleTracks:_testScrobbleTracks callback:^(NSError * _Nullable error) {
+    [[LFMTrackProvider scrobbleTracks:_testScrobbleTracks callback:^(NSArray<LFMScrobbleResult *> *results,
+                                                                     NSError * _Nullable error) {
         XCTAssertNil(error);
+        XCTAssertEqual(results.count, self->_testScrobbleTracks.count);
         
         [expectation fulfill];
     }] resume];
