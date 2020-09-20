@@ -61,17 +61,17 @@ NSString* md5(NSString *string);
 
 - (BOOL)removeSession {
     if ([_session removeFromKeychain]) {
-        _session = nil;
+        [self setSession:nil];
         return YES;
     }
     return NO;
 }
 
-// TODO: Once xcode is updated do this shit
-
-- (void)setSession:(LFMSession *)session /*__attribute__((objc_direct))*/ {
+- (void)setSession:(LFMSession *)session {
+    [self willChangeValueForKey:NSStringFromSelector(@selector(userHasAuthenticated))];
     _session = session;
     [session saveInKeychain];
+    [self didChangeValueForKey:NSStringFromSelector(@selector(userHasAuthenticated))];
 }
 
 - (LFMSession *)session {

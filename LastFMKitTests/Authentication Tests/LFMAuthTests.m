@@ -47,16 +47,16 @@
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"Should not have any error."];
     
-    [[LFMAuth sharedInstance] getSessionWithUsername:@"test_lfmkit_ios"
-                                            password:@"Eethu3po5wia&!"
-                                            callback:^(LFMSession * _Nullable session, NSError * _Nullable error) {
+    [[[LFMAuth sharedInstance] getSessionWithUsername:@"test_lfmkit_ios"
+                                             password:@"Eethu3po5wia&!"
+                                             callback:^(LFMSession * _Nullable session, NSError * _Nullable error) {
         XCTAssertNil(error);
         XCTAssertNotNil(session);
         XCTAssertNotNil(session.sessionKey);
         XCTAssertNotNil(session.username);
         XCTAssertTrue([session.username isEqualToString:@"test_lfmkit_ios"]);
         [expectation fulfill];
-    }];
+    }] resume];
     
     [self waitForExpectationsWithTimeout:TestRequestTimeout handler:nil];
 }
