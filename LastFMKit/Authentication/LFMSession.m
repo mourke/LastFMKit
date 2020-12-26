@@ -105,7 +105,12 @@
     NSMutableDictionary *queryDictionary = [LFMKeychainQueryDictionary() mutableCopy];
     
     NSMutableDictionary *updateDictionary = [NSMutableDictionary dictionary];
-    updateDictionary[(__bridge id)kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:self];
+    
+    #if TARGET_OS_MACCATALYST
+        updateDictionary[(__bridge id)kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:nil];
+    #else
+        updateDictionary[(__bridge id)kSecValueData] = [NSKeyedArchiver archivedDataWithRootObject:self];
+    #endif
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wtautological-compare"
@@ -147,7 +152,11 @@
         return nil;
     }
     
-    return [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge_transfer NSData *)result];
+    #if TARGET_OS_MACCATALYST
+        return [NSKeyedUnarchiver unarchivedObjectOfClass:LFMSession.class fromData:(__bridge_transfer NSData *)result error:nil];
+    #else
+        return [NSKeyedUnarchiver unarchiveObjectWithData:(__bridge_transfer NSData *)result];
+    #endif
 }
 
 static NSDictionary* LFMKeychainQueryDictionary() {

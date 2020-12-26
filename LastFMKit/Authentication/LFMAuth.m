@@ -25,7 +25,7 @@
 
 #import "LFMAuth.h"
 #import "LFMURLOperation.h"
-#import <CommonCrypto/CommonDigest.h>
+#import "md5.h"
 #import "LFMSession.h"
 #import "LFMKit+Protected.h"
 #import "LFMError.h"
@@ -87,7 +87,7 @@ NSString* md5(NSString *string);
                                         callback:(LFMAuthCallback)block {
     NSURLComponents *components = [NSURLComponents componentsWithString:APIEndpoint];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:components.URL];
-    
+
     NSArray *queryItems = @[[NSURLQueryItem queryItemWithName:@"method" value:@"auth.getMobileSession"],
                             [NSURLQueryItem queryItemWithName:@"format" value:@"json"],
                             [NSURLQueryItem queryItemWithName:@"username" value:username],
@@ -164,8 +164,8 @@ NSString* md5(NSString *string);
 
 NSString* md5(NSString *string) {
     const char *cStr = [string UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5( cStr, (CC_LONG)strlen(cStr), result );
+    unsigned char result[MD5_DIGEST_LENGTH];
+    MD5(cStr, (LONG)strlen(cStr), result);
     
     return [NSString stringWithFormat:
             @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
